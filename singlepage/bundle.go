@@ -25,6 +25,13 @@ type Options struct {
 	MinifyCSS, MinifyJS, MinifyHTML bool
 }
 
+// Everything is an Options struct with everything enabled.
+var Everything = Options{
+	LocalCSS: true, LocalImg: true, LocalJS: true, MinifyCSS: true,
+	MinifyHTML: true, MinifyJS: true, RemoteCSS: true, RemoteImg: true,
+	RemoteJS: true,
+}
+
 // Bundle given external resources in a HTML document.
 func Bundle(html string, opts Options) (string, error) {
 	opts.Root = strings.TrimRight(opts.Root, "/") + "/"
