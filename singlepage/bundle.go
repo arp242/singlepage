@@ -29,7 +29,15 @@ type Options struct {
 var Everything = Options{
 	LocalCSS: true, LocalImg: true, LocalJS: true, MinifyCSS: true,
 	MinifyHTML: true, MinifyJS: true, RemoteCSS: true, RemoteImg: true,
-	RemoteJS: true,
+	RemoteJS: true}
+
+var minifier *minify.M
+
+func init() {
+	minifier = minify.New()
+	minifier.AddFunc("css", css.Minify)
+	minifier.AddFunc("html", html.Minify)
+	minifier.AddFunc("js", js.Minify)
 }
 
 // Bundle given external resources in a HTML document.
@@ -41,7 +49,10 @@ func Bundle(html string, opts Options) (string, error) {
 		return "", err
 	}
 
-	if err := replaceCSS(doc, opts); err != nil {
+	if err := replaceCSSLinks(doc, opts); err != nil {
+		return "", err
+	}
+	if err := replaceCSSImports(doc, opts); err != nil {
 		return "", err
 	}
 	if err := replaceJS(doc, opts); err != nil {
@@ -56,7 +67,7 @@ func Bundle(html string, opts Options) (string, error) {
 		return "", err
 	}
 	if opts.MinifyHTML {
-		return minifyHTML(h)
+		return minifier.String("html", h)
 	}
 	return h, nil
 }
@@ -89,46 +100,6 @@ func readFile(path string) ([]byte, error) {
 	return ioutil.ReadAll(resp.Body)
 }
 
-func replaceCSS(doc *goquery.Document, opts Options) (err error) {
-	if !opts.LocalCSS && !opts.RemoteCSS {
-		return nil
-	}
-
-	// <link rel="stylesheet" href="/_static/style.css">
-	doc.Find(`link[rel="stylesheet"]`).EachWithBreak(func(i int, s *goquery.Selection) bool {
-		path, ok := s.Attr("href")
-		if !ok {
-			return true
-		}
-		path = opts.Root + path
-
-		if isRemote(path) && !opts.RemoteCSS {
-			return true
-		}
-		if !isRemote(path) && !opts.LocalCSS {
-			return true
-		}
-
-		var f []byte
-		f, err = readFile(path)
-		if err != nil {
-			return false
-		}
-
-		if opts.MinifyCSS {
-			f, err = minifyCSS(f)
-			if err != nil {
-				return false
-			}
-		}
-
-		s.AfterHtml("<style>" + string(f) + "</style>")
-		s.Remove()
-		return true
-	})
-	return err
-}
-
 func replaceJS(doc *goquery.Document, opts Options) (err error) {
 	if !opts.LocalJS && !opts.RemoteJS {
 		return nil
@@ -156,7 +127,7 @@ func replaceJS(doc *goquery.Document, opts Options) (err error) {
 		}
 
 		if opts.MinifyJS {
-			f, err = minifyJS(f)
+			f, err = minifier.Bytes("js", f)
 			if err != nil {
 				return false
 			}
@@ -200,28 +171,11 @@ func replaceImg(doc *goquery.Document, opts Options) (err error) {
 			err = fmt.Errorf("could not find MIME type for %#v", path)
 			return false
 		}
+
 		s.SetAttr("src", fmt.Sprintf("data:%v;base64,%v",
 			m, base64.StdEncoding.EncodeToString(f)))
 		return true
 	})
 
 	return err
-}
-
-func minifyCSS(s []byte) ([]byte, error) {
-	m := minify.New()
-	m.AddFunc("text/css", css.Minify)
-	return m.Bytes("text/css", s)
-}
-
-func minifyJS(s []byte) ([]byte, error) {
-	m := minify.New()
-	m.AddFunc("application/javascript", js.Minify)
-	return m.Bytes("application/javascript", s)
-}
-
-func minifyHTML(s string) (string, error) {
-	m := minify.New()
-	m.AddFunc("text/html", html.Minify)
-	return m.String("text/html", s)
 }

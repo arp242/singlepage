@@ -24,10 +24,8 @@ For remote assets only "http://", "https://", and "//" are supported.
 
 Limitations:
 
-- Only <img src=".."> are bundled; not CSS images (e.g. background-image: url(..)).
-- Nested style sheets with @import are not bundled.
-- fonts are not bundled.
-- We should support 'minification' of images
+- Fonts are not bundled.
+- We should support 'minification' of images.
 
 Flags:
 
@@ -49,6 +47,29 @@ func main() {
 	flag.StringVar(&minify, "minify", "css,js,html", "")
 	flag.Parse()
 
+	setopts(&opts, local, remote, minify)
+
+	paths := flag.Args()
+	if len(paths) != 1 {
+		fmt.Fprintf(os.Stderr, "error: must specify the path to exactly one HTML file\n\n")
+		flag.Usage()
+	}
+
+	b, err := ioutil.ReadFile(paths[0])
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	h, err := singlepage.Bundle(string(b), opts)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	fmt.Println(h)
+}
+
+func setopts(opts *singlepage.Options, local, remote, minify string) {
 	for _, v := range strings.Split(local, ",") {
 		switch strings.ToLower(strings.TrimSpace(v)) {
 		case "css":
@@ -88,23 +109,4 @@ func main() {
 			flag.Usage()
 		}
 	}
-
-	paths := flag.Args()
-	if len(paths) != 1 {
-		fmt.Fprintf(os.Stderr, "error: must specify the path to exactly one HTML file\n\n")
-		flag.Usage()
-	}
-
-	b, err := ioutil.ReadFile(paths[0])
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-	h, err := singlepage.Bundle(string(b), opts)
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-
-	fmt.Println(h)
 }
