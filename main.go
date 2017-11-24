@@ -14,7 +14,8 @@ const help = `
 Bundle local and remote assets in a HTML file.
 
 The -local, -remote, and -minify accept a comma-separated list of asset types;
-the default is to include all the supported types.
+the default is to include all the supported types. Pass an empty string to
+disable the feature.
 
 Local assets are looked up relative to the path in -root. The -root may be a
 remote path (e.g. http://example.com), in which case all resources are fetched
@@ -72,6 +73,8 @@ func main() {
 func setopts(opts *singlepage.Options, local, remote, minify string) {
 	for _, v := range strings.Split(local, ",") {
 		switch strings.ToLower(strings.TrimSpace(v)) {
+		case "":
+			continue
 		case "css":
 			opts.LocalCSS = true
 		case "js":
@@ -85,6 +88,8 @@ func setopts(opts *singlepage.Options, local, remote, minify string) {
 	}
 	for _, v := range strings.Split(remote, ",") {
 		switch strings.ToLower(strings.TrimSpace(v)) {
+		case "":
+			continue
 		case "css":
 			opts.RemoteCSS = true
 		case "js":
@@ -98,6 +103,8 @@ func setopts(opts *singlepage.Options, local, remote, minify string) {
 	}
 	for _, v := range strings.Split(minify, ",") {
 		switch strings.ToLower(strings.TrimSpace(v)) {
+		case "":
+			continue
 		case "css":
 			opts.MinifyCSS = true
 		case "js":
