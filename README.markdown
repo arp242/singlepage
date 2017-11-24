@@ -17,4 +17,8 @@ Running it is as easy as `singlepage file.html > bundled.html`. There are a
 bunch of options; use `singlepage -help` to see the full documentation.
 
 Use the `arp242.net/singlepage/singlepage` package if you want to integrate this
-in a Go program.
+in a Go program; [`godocgen`](https://github.com/Teamwork/godocgen) does this
+for example.
+
+It uses [tdewolff/minify](https://github.com/tdewolff/minify) for minification,
+so please report bugs or other questions there.
