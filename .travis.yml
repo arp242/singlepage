@@ -1,0 +1,17 @@
+language: go
+go:
+  - 1.8.x
+  - 1.9.x
+go_import_path: arp242.net/singlepage
+notifications:
+  email: false
+cache:
+  directories:
+    - $HOME/gopath/pkg
+install:
+  - ./bin/setup-travis
+script:
+  - cd $HOME/gopath/src/arp242.net/singlepage
+  - ./bin/test
+  - ./bin/coverage
+  - ./bin/lint

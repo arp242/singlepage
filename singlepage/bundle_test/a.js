@@ -1,0 +1,3 @@
+var foo = {
+	t: true,
+};
