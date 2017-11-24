@@ -34,7 +34,7 @@ test_pkgs=$(find -name "*_test.go" |
 	sed -e "s#^\.#$pkgname#")
 
 # Cache
-go test -i -cover -covermode=set -tags="$test_tags"  $(go list ./... | grep -v /vendor/)
+go test -i -cover -covermode=count -tags="$test_tags"  $(go list ./... | grep -v /vendor/)
 
 $pre_test_func
 
@@ -42,7 +42,7 @@ for pkg in $test_pkgs; do
 	go test \
 		-tags="$test_tags" \
 		-coverprofile=profile.out \
-		-covermode=set \
+		-covermode=count \
 		-coverpkg=$(find_deps "$pkg") \
 		$pkg 2>&1 | grep -v 'warning: no packages being tested depend on '
 
