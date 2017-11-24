@@ -34,7 +34,7 @@ var Everything = Options{
 
 // Bundle given external resources in a HTML document.
 func Bundle(html string, opts Options) (string, error) {
-	opts.Root = strings.TrimRight(opts.Root, "/") + "/"
+	opts.Root = strings.TrimRight(opts.Root, "/")
 
 	doc, err := goquery.NewDocumentFromReader(strings.NewReader(html))
 	if err != nil {
@@ -70,6 +70,9 @@ func isRemote(path string) bool {
 
 func readFile(path string) ([]byte, error) {
 	if !isRemote(path) {
+		if strings.HasPrefix(path, "/") {
+			path = "." + path
+		}
 		return ioutil.ReadFile(path)
 	}
 
