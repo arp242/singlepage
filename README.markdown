@@ -1,7 +1,6 @@
 [![GoDoc](https://godoc.org/arp242.net/singlepage?status.svg)](https://godoc.org/arp242.net/singlepage)
 [![Build Status](https://travis-ci.org/Carpetsmoker/singlepage.svg?branch=master)](https://travis-ci.org/Carpetsmoker/singlepage)
 [![codecov](https://codecov.io/gh/Carpetsmoker/singlepage/branch/master/graph/badge.svg)](https://codecov.io/gh/Carpetsmoker/singlepage)
-[![Go Report Card](https://goreportcard.com/badge/arp242.net/singlepage)](https://goreportcard.com/report/arp242.net/singlepage)
 
 Bundle external assets in a HTML file to distribute a "stand-alone" HTML
 document.

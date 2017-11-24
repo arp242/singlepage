@@ -11,39 +11,32 @@ root="$(cd "$(dirname "$0")/.." && pwd)"
 # Run action
 ############
 
-# Find all packages that depend on this package. We can pass this to -coverpkg
-# so that lines in these packages are counted as well.
-find_deps() {
-	(
-		echo "$1"
-		go list -tags="$test_tags" -f $'{{range $f := .Deps}}{{$f}}\n{{end}}' "$1"
-		go list -tags="$test_tags" -f $'{{range $f := .TestImports}}{{$f}}\n{{end}}' "$1" |
-			while read imp; do
-				go list -tags="$test_tags" -f $'{{range $f := .Deps}}{{$f}}\n{{end}}' "$imp";
-			done
-	) | sort -u | grep ^$pkgname | grep -Ev "^$pkgname/(vendor|test)" |
-		tr '\n' ' ' | sed 's/ $//' | tr ' ' ','
-}
-
-echo 'mode: atomic' >| coverage.txt
-
+# Only test packages with actual test files.
 test_pkgs=$(find -name "*_test.go" |
 	grep -v /vendor/ |
 	xargs dirname |
 	sort -u |
 	sed -e "s#^\.#$pkgname#")
 
+# Pass all packages to -coverpkg to list coverage for all packages, even those
+# without tests.
+allpkg=$(go list -tags="$test_tags" ./... |
+	grep -v /vendor/ |
+	tr '\n' , |
+	sed -e 's/,$//')
+
 # Cache
-go test -i -cover -covermode=count -tags="$test_tags"  $(go list ./... | grep -v /vendor/)
+go test -i -covermode=count -tags="$test_tags" $(go list ./... | grep -v /vendor/)
 
 $pre_test_func
 
+echo 'mode: count' >| coverage.txt
 for pkg in $test_pkgs; do
 	go test \
 		-tags="$test_tags" \
-		-coverprofile=profile.out \
 		-covermode=count \
-		-coverpkg=$(find_deps "$pkg") \
+		-coverprofile=profile.out \
+		-coverpkg=$allpkg \
 		$pkg 2>&1 | grep -v 'warning: no packages being tested depend on '
 
 	if [ -f profile.out ]; then
