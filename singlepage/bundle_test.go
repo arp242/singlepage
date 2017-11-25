@@ -3,12 +3,39 @@ package singlepage
 import (
 	"bytes"
 	"fmt"
+	"reflect"
 	"strings"
 	"testing"
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/teamwork/test"
 )
+
+func TestNewOptions(t *testing.T) {
+	cases := []struct {
+		root, local, remote, minify string
+		want                        Options
+	}{
+		{"./", "css,", "", "CSS,jS", Options{
+			Root:      "./",
+			LocalCSS:  true,
+			MinifyCSS: true,
+			MinifyJS:  true,
+		}},
+	}
+
+	for i, tc := range cases {
+		t.Run(fmt.Sprintf("%v", i), func(t *testing.T) {
+			out, err := NewOptions(tc.root, tc.local, tc.remote, tc.minify)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if !reflect.DeepEqual(tc.want, out) {
+				t.Errorf("\nout:  %#v\nwant: %#v\n", out, tc.want)
+			}
+		})
+	}
+}
 
 func TestIsRemote(t *testing.T) {
 	cases := []struct {
@@ -169,7 +196,7 @@ func TestBundle(t *testing.T) {
 
 	for i, tc := range cases {
 		t.Run(fmt.Sprintf("%v", i), func(t *testing.T) {
-			o, err := Bundle(string(tc.in), tc.opts)
+			o, err := Bundle(tc.in, tc.opts)
 			if err != nil {
 				t.Fatal(err)
 			}

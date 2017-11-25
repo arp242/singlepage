@@ -20,7 +20,8 @@ func TestReplaceCSSLinks(t *testing.T) {
 		},
 		{
 			`<link rel="stylesheet" href="./bundle_test/a.css">`,
-			"<style>div {\n\tdisplay: none;\n}\n</style>",
+			//"<style>div {\n\tdisplay: none;\n}\n</style>",
+			"<style>div{display:none;}</style>",
 			Options{LocalCSS: true},
 		},
 		{

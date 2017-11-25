@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"strings"
 
 	"arp242.net/singlepage/singlepage"
 )
@@ -40,15 +39,18 @@ func main() {
 		os.Exit(2)
 	}
 
-	var opts singlepage.Options
-	var local, remote, minify string
-	flag.StringVar(&opts.Root, "root", "./", "")
+	var root, local, remote, minify string
+	flag.StringVar(&root, "root", "./", "")
 	flag.StringVar(&local, "local", "css,js,img", "")
 	flag.StringVar(&remote, "remote", "css,js,img", "")
 	flag.StringVar(&minify, "minify", "css,js,html", "")
 	flag.Parse()
 
-	setopts(&opts, local, remote, minify)
+	opts, err := singlepage.NewOptions(root, local, remote, minify)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "error: %v", err)
+		flag.Usage()
+	}
 
 	paths := flag.Args()
 	if len(paths) != 1 {
@@ -61,59 +63,11 @@ func main() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	h, err := singlepage.Bundle(string(b), opts)
+	h, err := singlepage.Bundle(b, opts)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 
 	fmt.Println(h)
-}
-
-func setopts(opts *singlepage.Options, local, remote, minify string) {
-	for _, v := range strings.Split(local, ",") {
-		switch strings.ToLower(strings.TrimSpace(v)) {
-		case "":
-			continue
-		case "css":
-			opts.LocalCSS = true
-		case "js":
-			opts.LocalJS = true
-		case "img":
-			opts.LocalImg = true
-		default:
-			fmt.Fprintf(os.Stderr, "error: unknown value for -local: %#v\n\n", v)
-			flag.Usage()
-		}
-	}
-	for _, v := range strings.Split(remote, ",") {
-		switch strings.ToLower(strings.TrimSpace(v)) {
-		case "":
-			continue
-		case "css":
-			opts.RemoteCSS = true
-		case "js":
-			opts.RemoteJS = true
-		case "img":
-			opts.RemoteImg = true
-		default:
-			fmt.Fprintf(os.Stderr, "error: unknown value for -remote: %#v\n\n", v)
-			flag.Usage()
-		}
-	}
-	for _, v := range strings.Split(minify, ",") {
-		switch strings.ToLower(strings.TrimSpace(v)) {
-		case "":
-			continue
-		case "css":
-			opts.MinifyCSS = true
-		case "js":
-			opts.MinifyJS = true
-		case "html":
-			opts.MinifyHTML = true
-		default:
-			fmt.Fprintf(os.Stderr, "error: unknown value for -minify: %#v\n\n", v)
-			flag.Usage()
-		}
-	}
 }

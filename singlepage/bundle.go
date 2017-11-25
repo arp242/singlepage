@@ -1,6 +1,7 @@
 package singlepage // import "arp242.net/singlepage/singlepage"
 
 import (
+	"bytes"
 	"encoding/base64"
 	"fmt"
 	"io/ioutil"
@@ -40,11 +41,61 @@ func init() {
 	minifier.AddFunc("js", js.Minify)
 }
 
+// NewOptions creates a new Options from the format accepted in the commandline
+// tool's flags.
+func NewOptions(root, local, remote, minify string) (Options, error) {
+	opts := Options{Root: root}
+
+	for _, v := range strings.Split(strings.ToLower(local), ",") {
+		switch strings.TrimSpace(v) {
+		case "":
+			continue
+		case "css":
+			opts.LocalCSS = true
+		case "js":
+			opts.LocalJS = true
+		case "img":
+			opts.LocalImg = true
+		default:
+			return opts, fmt.Errorf("unknown value for -local: %#v", v)
+		}
+	}
+	for _, v := range strings.Split(strings.ToLower(remote), ",") {
+		switch strings.TrimSpace(v) {
+		case "":
+			continue
+		case "css":
+			opts.RemoteCSS = true
+		case "js":
+			opts.RemoteJS = true
+		case "img":
+			opts.RemoteImg = true
+		default:
+			return opts, fmt.Errorf("unknown value for -remote: %#v", v)
+		}
+	}
+	for _, v := range strings.Split(strings.ToLower(minify), ",") {
+		switch strings.TrimSpace(v) {
+		case "":
+			continue
+		case "css":
+			opts.MinifyCSS = true
+		case "js":
+			opts.MinifyJS = true
+		case "html":
+			opts.MinifyHTML = true
+		default:
+			return opts, fmt.Errorf("unknown value for -minify: %#v", v)
+		}
+	}
+	return opts, nil
+}
+
 // Bundle given external resources in a HTML document.
-func Bundle(html string, opts Options) (string, error) {
+func Bundle(html []byte, opts Options) (string, error) {
 	opts.Root = strings.TrimRight(opts.Root, "/")
 
-	doc, err := goquery.NewDocumentFromReader(strings.NewReader(html))
+	doc, err := goquery.NewDocumentFromReader(bytes.NewReader(html))
 	if err != nil {
 		return "", err
 	}

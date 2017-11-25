@@ -13,7 +13,55 @@ import (
 	"github.com/tdewolff/parse/css"
 )
 
-// Replace @media
+// Replace <link rel="stylesheet" href="/_static/style.css"> with
+// <style>..</style>
+func replaceCSSLinks(doc *goquery.Document, opts Options) (err error) {
+	if !opts.LocalCSS && !opts.RemoteCSS {
+		return nil
+	}
+
+	doc.Find(`link[rel="stylesheet"]`).EachWithBreak(func(i int, s *goquery.Selection) bool {
+		path, ok := s.Attr("href")
+		if !ok {
+			return true
+		}
+		path = opts.Root + path
+
+		if isRemote(path) && !opts.RemoteCSS {
+			return true
+		}
+		if !isRemote(path) && !opts.LocalCSS {
+			return true
+		}
+
+		var f []byte
+		f, err = readFile(path)
+		if err != nil {
+			return false
+		}
+
+		// Replace @imports
+		var out string
+		out, err = replaceCSSURLs(string(f))
+		if err != nil {
+			return false
+		}
+
+		if opts.MinifyCSS {
+			out, err = minifier.String("css", out)
+			if err != nil {
+				return false
+			}
+		}
+
+		s.AfterHtml("<style>" + out + "</style>")
+		s.Remove()
+		return true
+	})
+	return err
+}
+
+// Replace @import "path"; and url("..")
 func replaceCSSImports(doc *goquery.Document, opts Options) (err error) {
 	if !opts.LocalCSS && !opts.RemoteCSS {
 		return nil
@@ -31,6 +79,7 @@ func replaceCSSImports(doc *goquery.Document, opts Options) (err error) {
 	return err
 }
 
+// TODO: don't make it strip all whitespace.
 func replaceCSSURLs(s string) (string, error) {
 	p := css.NewParser(bytes.NewBufferString(s), false)
 
@@ -126,45 +175,4 @@ func formatCSSGrammar(p *css.Parser, gt css.GrammarType) (out string) {
 		out += ";"
 	}
 	return out
-}
-
-// Replace <link rel="stylesheet" href="/_static/style.css"> with
-// <style>..</style>
-func replaceCSSLinks(doc *goquery.Document, opts Options) (err error) {
-	if !opts.LocalCSS && !opts.RemoteCSS {
-		return nil
-	}
-
-	doc.Find(`link[rel="stylesheet"]`).EachWithBreak(func(i int, s *goquery.Selection) bool {
-		path, ok := s.Attr("href")
-		if !ok {
-			return true
-		}
-		path = opts.Root + path
-
-		if isRemote(path) && !opts.RemoteCSS {
-			return true
-		}
-		if !isRemote(path) && !opts.LocalCSS {
-			return true
-		}
-
-		var f []byte
-		f, err = readFile(path)
-		if err != nil {
-			return false
-		}
-
-		if opts.MinifyCSS {
-			f, err = minifier.Bytes("css", f)
-			if err != nil {
-				return false
-			}
-		}
-
-		s.AfterHtml("<style>" + string(f) + "</style>")
-		s.Remove()
-		return true
-	})
-	return err
 }
