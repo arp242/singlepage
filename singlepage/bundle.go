@@ -4,12 +4,9 @@ import (
 	"bytes"
 	"encoding/base64"
 	"fmt"
-	"io/ioutil"
 	"mime"
-	"net/http"
 	"path/filepath"
 	"strings"
-	"time"
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/tdewolff/minify"
@@ -18,7 +15,7 @@ import (
 	"github.com/tdewolff/minify/js"
 )
 
-// Options for Bundle()
+// Options for Bundle().
 type Options struct {
 	Root                            string
 	LocalCSS, LocalJS, LocalImg     bool
@@ -91,7 +88,7 @@ func NewOptions(root, local, remote, minify string) (Options, error) {
 	return opts, nil
 }
 
-// Bundle given external resources in a HTML document.
+// Bundle the resources in a HTML document according to the given options.
 func Bundle(html []byte, opts Options) (string, error) {
 	opts.Root = strings.TrimRight(opts.Root, "/")
 
@@ -123,40 +120,11 @@ func Bundle(html []byte, opts Options) (string, error) {
 	return h, nil
 }
 
-// Report if a path is remote.
-func isRemote(path string) bool {
-	return strings.HasPrefix(path, "http://") ||
-		strings.HasPrefix(path, "https://") ||
-		strings.HasPrefix(path, "//")
-}
-
-func readFile(path string) ([]byte, error) {
-	if !isRemote(path) {
-		if strings.HasPrefix(path, "/") {
-			path = "." + path
-		}
-		return ioutil.ReadFile(path)
-	}
-
-	if strings.HasPrefix(path, "//") {
-		path = "https:" + path
-	}
-
-	c := http.Client{Timeout: 5 * time.Second}
-	resp, err := c.Get(path)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close() // nolint: errcheck
-	return ioutil.ReadAll(resp.Body)
-}
-
 func replaceJS(doc *goquery.Document, opts Options) (err error) {
 	if !opts.LocalJS && !opts.RemoteJS {
 		return nil
 	}
 
-	// <script src="/_static/godocs.js"></script>
 	doc.Find(`script`).EachWithBreak(func(i int, s *goquery.Selection) bool {
 		path, ok := s.Attr("src")
 		if !ok {
@@ -172,7 +140,7 @@ func replaceJS(doc *goquery.Document, opts Options) (err error) {
 		}
 
 		var f []byte
-		f, err = readFile(path)
+		f, err = readPath(path)
 		if err != nil {
 			return false
 		}
@@ -212,7 +180,7 @@ func replaceImg(doc *goquery.Document, opts Options) (err error) {
 		}
 
 		var f []byte
-		f, err = readFile(path)
+		f, err = readPath(path)
 		if err != nil {
 			return false
 		}

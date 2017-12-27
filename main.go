@@ -14,18 +14,22 @@ Bundle local and remote assets in a HTML file.
 
 The -local, -remote, and -minify accept a comma-separated list of asset types;
 the default is to include all the supported types. Pass an empty string to
-disable the feature.
+disable the feature (e.g. -remote '').
 
 Local assets are looked up relative to the path in -root. The -root may be a
 remote path (e.g. http://example.com), in which case all resources are fetched
 relative to that domain (and are treated as external).
 
-For remote assets only "http://", "https://", and "//" are supported.
+For remote assets only "http://", "https://", and "//" are supported; // is
+treated as https://.
 
 Limitations:
 
 - Fonts are not bundled.
-- We should support 'minification' of images.
+- We should support 'minification' of images (e.g. optipng).
+- Everything is read in memory; you probably don't want to create very large
+  documents with this (practically, this shouldn't be an issue for most sane
+  documents, since browsers will start having problems after a few MB).
 
 Flags:
 

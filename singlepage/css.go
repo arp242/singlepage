@@ -1,7 +1,6 @@
 package singlepage
 
 import (
-	"bytes"
 	"encoding/base64"
 	"fmt"
 	"io"
@@ -35,7 +34,7 @@ func replaceCSSLinks(doc *goquery.Document, opts Options) (err error) {
 		}
 
 		var f []byte
-		f, err = readFile(path)
+		f, err = readPath(path)
 		if err != nil {
 			return false
 		}
@@ -79,85 +78,71 @@ func replaceCSSImports(doc *goquery.Document, opts Options) (err error) {
 	return err
 }
 
-// TODO: don't make it strip all whitespace.
 func replaceCSSURLs(s string) (string, error) {
-	p := css.NewParser(bytes.NewBufferString(s), false)
-
-	out := ""
+	l := css.NewLexer(strings.NewReader(s))
+	var out []byte
 	for {
-		gt, _, data := p.Next()
-		switch gt {
-		case css.ErrorGrammar:
-			if p.Err() == io.EOF {
-				return out, nil
+		tt, text := l.Next()
+		switch {
+
+		case tt == css.ErrorToken:
+			if l.Err() == io.EOF {
+				return string(out), nil
 			}
-			return "", p.Err()
+			return string(out), l.Err()
 
 		// @import
-		case css.AtRuleGrammar:
-			if string(data) != "@import" {
-				out += string(data) + formatCSSGrammar(p, gt)
-			}
-
-			var path string
-			for _, val := range p.Values() {
-				if val.TokenType == css.StringToken {
-					path = strings.Trim(string(val.Data), `'"`)
-				} else if val.TokenType == css.URLToken {
-					d := string(val.Data)
-					path = strings.Trim(d[strings.Index(d, "("):], `'"()`)
+		case tt == css.AtKeywordToken && string(text) == "@import":
+			for {
+				tt2, text2 := l.Next()
+				if tt2 == css.SemicolonToken {
+					break
 				}
-			}
-
-			if path != "" {
-				b, err := readFile(path)
-				if err != nil {
-					return "", err
+				if tt2 == css.ErrorToken {
+					return "", l.Err()
 				}
 
-				nest, err := replaceCSSURLs(string(b))
-				if err != nil {
-					return "", err
+				var path string
+				if tt2 == css.StringToken {
+					path = strings.Trim(string(text2), `'"`)
+				} else if tt2 == css.URLToken {
+					path = string(text2)
+					path = path[strings.Index(path, "(")+1 : strings.Index(path, ")")]
+					path = strings.Trim(path, `'"`)
+				} else {
+					continue
 				}
-				out += nest
-			}
 
-		// decl: url(..)
-		case css.DeclarationGrammar:
-			d := string(data)
-			switch d {
-			// TODO: Support background shorthand.
-			// TODO: support cursor, list-style
-			case "background-image":
-				foundURL := false
-				for _, v := range p.Values() {
-					if v.TokenType == css.URLToken {
-						foundURL = true
-						d2 := string(v.Data)
-						path := strings.Trim(d2[strings.Index(d2, "("):], `'"()`)
-						f, err := readFile(path)
-						if err != nil {
-							return "", err
-						}
-						m := mime.TypeByExtension(filepath.Ext(path))
-						out += fmt.Sprintf("%v:url(data:%v;base64,%v);",
-							d, m, base64.StdEncoding.EncodeToString(f))
-						break
+				if path != "" {
+					b, err := readPath(path)
+					if err != nil {
+						return "", err
 					}
-				}
 
-				if !foundURL {
-					out += d + formatCSSGrammar(p, gt)
+					nest, err := replaceCSSURLs(string(b))
+					if err != nil {
+						return "", err
+					}
+					out = append(out, []byte(nest)...)
 				}
-			default:
-				out += d + formatCSSGrammar(p, gt)
 			}
 
-		case css.BeginAtRuleGrammar, css.BeginRulesetGrammar:
-			out += string(data) + formatCSSGrammar(p, gt)
+		// Images
+		case tt == css.URLToken:
+			path := string(text)
+			path = path[strings.Index(path, "(")+1 : strings.Index(path, ")")]
+			path = strings.Trim(path, `'"`)
+
+			f, err := readPath(path)
+			if err != nil {
+				return "", err
+			}
+			m := mime.TypeByExtension(filepath.Ext(path))
+			out = append(out, []byte(fmt.Sprintf("url(data:%v;base64,%v)",
+				m, base64.StdEncoding.EncodeToString(f)))...)
 
 		default:
-			out += string(data)
+			out = append(out, text...)
 		}
 	}
 }
