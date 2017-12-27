@@ -146,18 +146,3 @@ func replaceCSSURLs(s string) (string, error) {
 		}
 	}
 }
-
-func formatCSSGrammar(p *css.Parser, gt css.GrammarType) (out string) {
-	if gt == css.DeclarationGrammar {
-		out += ":"
-	}
-	for _, val := range p.Values() {
-		out += string(val.Data)
-	}
-	if gt == css.BeginAtRuleGrammar || gt == css.BeginRulesetGrammar {
-		out += "{"
-	} else if gt == css.AtRuleGrammar || gt == css.DeclarationGrammar {
-		out += ";"
-	}
-	return out
-}
