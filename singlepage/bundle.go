@@ -90,7 +90,9 @@ func NewOptions(root, local, remote, minify string) (Options, error) {
 
 // Bundle the resources in a HTML document according to the given options.
 func Bundle(html []byte, opts Options) (string, error) {
-	opts.Root = strings.TrimRight(opts.Root, "/")
+	if opts.Root != "./" {
+		opts.Root = strings.TrimRight(opts.Root, "/")
+	}
 
 	doc, err := goquery.NewDocumentFromReader(bytes.NewReader(html))
 	if err != nil {
