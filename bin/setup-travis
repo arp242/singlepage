@@ -16,4 +16,7 @@ root="$(cd "$(dirname "$0")/.." && pwd)"
 if [ -f Gopkg.toml -a ! -d vendor ]; then
 	go get -u github.com/golang/dep/cmd/dep
 	dep ensure
+elif [ -f go.sum ]; then
+       export GO111MODULE=on
+       go mod vendor
 fi
