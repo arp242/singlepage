@@ -1,6 +1,7 @@
 #!/bin/sh
-
-usage="Run Go linter tools"
+#
+# Generated from https://github.com/Teamwork/skel-go
+# DO NOT EDIT DIRECTLY!
 
 # Setup
 #######
@@ -11,26 +12,12 @@ root="$(cd "$(dirname "$0")/.." && pwd)"
 # Run action
 ############
 
-tmpfile="$(mktemp)"
-
-ignore_grep() {
-	local IFS="$(printf '\n\b')"
-	for d in $lint_ignore; do printf "|$d"; done
-}
-
 ignore_metalinter() {
 	local IFS="$(printf '\n\b')"
 	for d in $lint_ignore; do printf " -s $d"; done
 }
 
-paths=$(go list ./... | grep -Ev "/(vendor$(ignore_grep))" | sed -e "s#^$pkgname#.#")
-
-cleanup() {
-	rm -f "$tmpfile"
-}
-trap cleanup EXIT
-
-# Skip the linter if we're on master or beta
+# Skip the linter on Travis if we're on master or beta.
 if [ -n "$TRAVIS" ]; then
 	branch=${TRAVIS_PULL_REQUEST_BRANCH:-${TRAVIS_BRANCH:-}}
 	branch=${branch:-$(git rev-parse --abbrev-ref HEAD)}
@@ -43,27 +30,43 @@ if [ -n "$TRAVIS" ]; then
 	esac
 fi
 
-if [ -n "$TRAVIS" ]; then
-	# Set up git for Travis here
-	git fetch -q origin master:refs/remotes/origin/master
+# Ensure generated files are up to date; only run on Travis to prevent
+# clobbering people's working directories.
+# TODO: Ideally this would never change the contents in the directory.
+if [ -n "${TRAVIS:-}" -a ${lint_skip_generate:-0} = 0 ]; then
+	go generate ./...
+	changes="$(git diff)"
+	if [ -n "$changes" ]; then
+		echo
+		echo "*****************************************************"
+		echo "***                                               ***"
+		echo "*** Changes in generated files:                   ***"
+		echo "***                                               ***"
+		echo "*****************************************************"
+		echo
+		echo "$changes"
+	fi
 fi
 
-# Get the metalinter
-metalinter() {
-	go get \
-		gopkg.in/alecthomas/gometalinter.v1 \
-		github.com/golang/lint/golint \
-		github.com/gordonklaus/ineffassign \
-		github.com/kisielk/errcheck \
-		github.com/walle/lll/...
-	which gometalinter || which gometalinter.v1
-}
+if [ -n "$TRAVIS" ]; then
+	# Install gometalinter if not found.
+	command -v gometalinter >/dev/null || go get -u github.com/alecthomas/gometalinter
+	gometalinter --install > /dev/null
+fi
 
-$(metalinter) --deadline=120s --vendor --tests --disable-all \
+gometalinter --deadline=240s --vendor --sort=path --tests --disable-all \
+	-s testdata \
 	$(ignore_metalinter) \
 	--enable=vet \
 	--enable=golint \
-	--enable=ineffassign \
+	--enable=varcheck \
+	--enable=structcheck \
 	--enable=errcheck \
+	--enable=megacheck \
+	--enable=ineffassign \
+	--enable=unconvert \
+	--enable=goconst \
+	--enable=goimports \
+	--enable=misspell \
 	--enable=lll --line-length=120 \
-	./...
+	"$@"

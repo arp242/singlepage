@@ -1,0 +1,10 @@
+# Mark as generated so it won't show up in diffs etc.
+/bin/* linguist-generated=true
+
+# Mark files as modified so skel-go won't overwrite them on update.
+/README.md skel-go-modified
+/LICENSE   skel-go-modified
+/db/**     skel-go-modified
+
+# Git should not replace line breaks from generated snapshots from abide library.
+*.snapshot binary

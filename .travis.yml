@@ -1,17 +1,17 @@
 language: go
 go:
-  - 1.8.x
-  - 1.9.x
+  - 1.10.x
+  - 1.11.x
 go_import_path: arp242.net/singlepage
 notifications:
   email: false
 cache:
   directories:
-    - $HOME/gopath/pkg
+    - $HOME/.cache/go-build
 install:
   - ./bin/setup-travis
 script:
-  - cd $HOME/gopath/src/arp242.net/singlepage
-  - ./bin/test
-  - ./bin/coverage
-  - ./bin/lint
+  - cd $HOME/gopath/src/github.com/teamwork/singlepage
+  - ./bin/test -race ./...
+  - ./bin/coverage ./...
+  - ./bin/lint ./...

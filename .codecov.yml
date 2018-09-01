@@ -1,0 +1,8 @@
+# Don't post huge reports.
+# https://docs.codecov.io/docs/pull-request-comments
+comment:
+  layout: "files"
+
+# We don't care about anything that is not a Go file or generated files.
+# https://docs.codecov.io/docs/ignoring-paths
+ignore: ["!*.go", "**/generated_*.go"]

@@ -1,6 +1,7 @@
 #!/bin/bash
-
-usage="Run coverage analyses and send it to Codecov."
+#
+# Generated from https://github.com/Teamwork/skel-go
+# DO NOT EDIT DIRECTLY!
 
 # Setup
 #######
@@ -11,48 +12,16 @@ root="$(cd "$(dirname "$0")/.." && pwd)"
 # Run action
 ############
 
-# Only test packages with actual test files.
-test_pkgs=$(find -name "*_test.go" |
-	grep -v /vendor/ |
-	xargs dirname |
-	sort -u |
-	sed -e "s#^\.#$pkgname#")
-
-# Pass all packages to -coverpkg to list coverage for all packages, even those
-# without tests.
-allpkg=$(go list -tags="$test_tags" ./... |
-	grep -v /vendor/ |
-	tr '\n' , |
-	sed -e 's/,$//')
-
-# Cache
-go test -i -covermode=count -tags="$test_tags" $(go list ./... | grep -v /vendor/)
-
-$pre_test_func
-
-echo 'mode: count' >| coverage.txt
-for pkg in $test_pkgs; do
-	go test \
-		-tags="$test_tags" \
-		-covermode=count \
-		-coverprofile=profile.out \
-		-coverpkg=$allpkg \
-		$pkg 2>&1 | grep -v 'warning: no packages being tested depend on '
-
-	if [ -f profile.out ]; then
-		tail -n+2 profile.out >> coverage.txt
-		rm profile.out
-	fi
-done
+"$root/bin/test" \
+	-coverprofile=coverage.txt \
+	-coverpkg=./... \
+	"$@"
 
 # The token is optional for public repos.
-[ -n "${codecov_token:-}" ] && codecov_token="-t $codecov_token"
+[ -n "${codecov_token:-}" ] && export CODECOV_TOKEN="$codecov_token"
 
-if [ -n ${TRAVIS} ]; then
-	bash <(curl -s https://codecov.io/bash) $codecov_token
-else
-	bash <(curl -s https://codecov.io/bash) \
-		$codecov_token \
-		-B $(git rev-parse --abbrev-ref HEAD) \
-		-C $(git rev-parse HEAD)
-fi
+# Submit reports only on Travis.
+[ -n "${TRAVIS:-}" ] && \
+	./bin/.codecov -X gcov -X coveragepy -X search -K -f coverage.txt
+
+exit 0
