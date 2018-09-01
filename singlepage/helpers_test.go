@@ -3,7 +3,7 @@ package singlepage
 import "testing"
 
 func TestIsRemote(t *testing.T) {
-	cases := []struct {
+	tests := []struct {
 		in   string
 		want bool
 	}{
@@ -13,11 +13,11 @@ func TestIsRemote(t *testing.T) {
 		{"://./asd", false},
 	}
 
-	for _, tc := range cases {
-		t.Run(tc.in, func(t *testing.T) {
-			out := isRemote(tc.in)
-			if out != tc.want {
-				t.Errorf("\nout:  %#v\nwant: %#v\n", out, tc.want)
+	for _, tt := range tests {
+		t.Run(tt.in, func(t *testing.T) {
+			out := isRemote(tt.in)
+			if out != tt.want {
+				t.Errorf("\nout:  %#v\nwant: %#v\n", out, tt.want)
 			}
 		})
 	}

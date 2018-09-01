@@ -12,7 +12,7 @@ import (
 )
 
 func TestNewOptions(t *testing.T) {
-	cases := []struct {
+	tests := []struct {
 		root, local, remote, minify string
 		want                        Options
 	}{
@@ -24,77 +24,96 @@ func TestNewOptions(t *testing.T) {
 		}},
 	}
 
-	for i, tc := range cases {
+	for i, tt := range tests {
 		t.Run(fmt.Sprintf("%v", i), func(t *testing.T) {
-			out, err := NewOptions(tc.root, tc.local, tc.remote, tc.minify)
+			out := NewOptions(tt.root, false)
+			err := out.Commandline(tt.local, tt.remote, tt.minify)
 			if err != nil {
 				t.Fatal(err)
 			}
-			if !reflect.DeepEqual(tc.want, out) {
-				t.Errorf("\nout:  %#v\nwant: %#v\n", out, tc.want)
+
+			if !reflect.DeepEqual(tt.want, out) {
+				t.Errorf("\nout:  %#v\nwant: %#v\n", out, tt.want)
 			}
 		})
 	}
 }
 
 func TestReadFile(t *testing.T) {
-	cases := []struct {
+	tests := []struct {
 		in, want string
 	}{
 		{"./bundle_test.go", "package singlepage"},
 		{"//example.com", "<!doctype html>"},
 	}
 
-	for _, tc := range cases {
-		t.Run(tc.in, func(t *testing.T) {
-			out, err := readPath(tc.in)
+	for _, tt := range tests {
+		t.Run(tt.in, func(t *testing.T) {
+			out, err := readPath(tt.in)
 			if err != nil {
 				t.Fatal(err)
 			}
 
 			o := string(bytes.Split(out, []byte("\n"))[0])
-			if o != tc.want {
-				t.Errorf("\nout:  %#v\nwant: %#v\n", o, tc.want)
+			if o != tt.want {
+				t.Errorf("\nout:  %#v\nwant: %#v\n", o, tt.want)
 			}
 		})
 	}
 }
 
 func TestReplaceJS(t *testing.T) {
-	cases := []struct {
+	tests := []struct {
 		in, want string
 		opts     Options
+		wantErr  string
 	}{
 		{
-			`<script src="./bundle_test/a.js"></script>`,
+			`<script src="./testdata/a.js"></script>`,
 			`<script>var foo={t:true,};</script>`,
 			Options{LocalJS: true, MinifyJS: true},
+			"",
 		},
 		{
-			`<script src="./bundle_test/a.js"></script>`,
+			`<script src="./testdata/a.js"></script>`,
 			"<script>var foo = {\n\tt: true,\n};\n</script>",
 			Options{LocalJS: true},
+			"",
 		},
 		{
-			`<script src="./bundle_test/a.js"></script>`,
-			`<script src="./bundle_test/a.js"></script>`,
+			`<script src="./testdata/a.js"></script>`,
+			`<script src="./testdata/a.js"></script>`,
 			Options{},
+			"",
+		},
+		{
+			`<script src="./testdata/nonexist.js"></script>`,
+			`<script src="./testdata/nonexist.js"></script>`,
+			Options{LocalJS: true},
+			"",
+		},
+		{
+			`<script src="./testdata/nonexist.js"></script>`,
+			`<script src="./testdata/nonexist.js"></script>`,
+			Options{LocalJS: true, Strict: true},
+			"no such file or directory",
 		},
 	}
 
-	for _, tc := range cases {
-		t.Run(tc.in, func(t *testing.T) {
-			tc.in = `<html><head>` + tc.in + `</head><body></body></html>`
-			tc.want = `<html><head>` + tc.want + `</head><body></body></html>`
+	for _, tt := range tests {
+		t.Run(tt.in, func(t *testing.T) {
+			tt.in = `<html><head>` + tt.in + `</head><body></body></html>`
+			tt.want = `<html><head>` + tt.want + `</head><body></body></html>`
 
-			doc, err := goquery.NewDocumentFromReader(strings.NewReader(tc.in))
+			doc, err := goquery.NewDocumentFromReader(strings.NewReader(tt.in))
 			if err != nil {
 				t.Fatal(err)
 			}
 
-			err = replaceJS(doc, tc.opts)
-			if err != nil {
-				t.Fatal(err)
+			strictMode = tt.opts.Strict
+			err = replaceJS(doc, tt.opts)
+			if !test.ErrorContains(err, tt.wantErr) {
+				t.Fatalf("wrong error\nout:  %v\nwant: %v\n", err, tt.wantErr)
 			}
 
 			h, err := doc.Html()
@@ -103,8 +122,8 @@ func TestReplaceJS(t *testing.T) {
 			}
 
 			o := string(h)
-			if o != tc.want {
-				t.Errorf("\nout:  %#v\nwant: %#v\n", o, tc.want)
+			if o != tt.want {
+				t.Errorf("\nout:  %#v\nwant: %#v\n", o, tt.want)
 			}
 		})
 	}
@@ -112,35 +131,39 @@ func TestReplaceJS(t *testing.T) {
 
 // nolint: lll
 func TestReplaceImg(t *testing.T) {
-	cases := []struct {
+	tests := []struct {
 		in, want string
 		opts     Options
+		wantErr  string
 	}{
 		{
-			`<img src="./bundle_test/a.png"/>`,
+			`<img src="./testdata/a.png"/>`,
 			`<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4QsYBTofXds9gQAAAAZiS0dEAP8A/wD/oL2nkwAAAAxJREFUCB1jkPvPAAACXAEebXgQcwAAAABJRU5ErkJggg=="/>`,
 			Options{LocalImg: true},
+			"",
 		},
 		{
-			`<img src="./bundle_test/a.png"/>`,
-			`<img src="./bundle_test/a.png"/>`,
+			`<img src="./testdata/a.png"/>`,
+			`<img src="./testdata/a.png"/>`,
 			Options{},
+			"",
 		},
 	}
 
-	for _, tc := range cases {
-		t.Run(tc.in, func(t *testing.T) {
-			tc.in = `<html><head></head><body>` + tc.in + `</body></html>`
-			tc.want = `<html><head></head><body>` + tc.want + `</body></html>`
+	for _, tt := range tests {
+		t.Run(tt.in, func(t *testing.T) {
+			tt.in = `<html><head></head><body>` + tt.in + `</body></html>`
+			tt.want = `<html><head></head><body>` + tt.want + `</body></html>`
 
-			doc, err := goquery.NewDocumentFromReader(strings.NewReader(tc.in))
+			doc, err := goquery.NewDocumentFromReader(strings.NewReader(tt.in))
 			if err != nil {
 				t.Fatal(err)
 			}
 
-			err = replaceImg(doc, tc.opts)
-			if err != nil {
-				t.Fatal(err)
+			strictMode = tt.opts.Strict
+			err = replaceImg(doc, tt.opts)
+			if !test.ErrorContains(err, tt.wantErr) {
+				t.Fatalf("wrong error\nout:  %v\nwant: %v\n", err, tt.wantErr)
 			}
 
 			h, err := doc.Html()
@@ -149,38 +172,41 @@ func TestReplaceImg(t *testing.T) {
 			}
 
 			o := string(h)
-			if o != tc.want {
-				t.Errorf("\nout:  %#v\nwant: %#v\n", o, tc.want)
+			if o != tt.want {
+				t.Errorf("\nout:  %#v\nwant: %#v\n", o, tt.want)
 			}
 		})
 	}
 }
 
 func TestBundle(t *testing.T) {
-	cases := []struct {
+	tests := []struct {
 		in, want []byte
 		opts     Options
+		wantErr  string
 	}{
 		{
-			test.Read(t, "./bundle_test/a.html"),
-			test.Read(t, "./bundle_test/a.min.html"),
+			test.Read(t, "./testdata/a.html"),
+			test.Read(t, "./testdata/a.min.html"),
 			Options{MinifyHTML: true},
+			"",
 		},
 		//{
-		//	test.Read(t, "./bundle_test/a.html"),
-		//	test.Read(t, "./bundle_test/a.html"),
+		//	test.Read(t, "./testdata/a.html"),
+		//	test.Read(t, "./testdata/a.html"),
 		//	Options{},
 		//},
 	}
 
-	for i, tc := range cases {
+	for i, tt := range tests {
 		t.Run(fmt.Sprintf("%v", i), func(t *testing.T) {
-			o, err := Bundle(tc.in, tc.opts)
-			if err != nil {
-				t.Fatal(err)
+			strictMode = tt.opts.Strict
+			o, err := Bundle(tt.in, tt.opts)
+			if !test.ErrorContains(err, tt.wantErr) {
+				t.Fatalf("wrong error\nout:  %v\nwant: %v\n", err, tt.wantErr)
 			}
 
-			want := strings.TrimSpace(string(tc.want))
+			want := strings.TrimSpace(string(tt.want))
 			o = strings.TrimSpace(o)
 			if o != want {
 				t.Errorf("\nout:  %#v\nwant: %#v\n", o, want)

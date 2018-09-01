@@ -9,38 +9,38 @@ import (
 )
 
 func TestReplaceCSSLinks(t *testing.T) {
-	cases := []struct {
+	tests := []struct {
 		in, want string
 		opts     Options
 	}{
 		{
-			`<link rel="stylesheet" href="./bundle_test/a.css">`,
+			`<link rel="stylesheet" href="./testdata/a.css">`,
 			`<style>div{display:none}</style>`,
 			Options{LocalCSS: true, MinifyCSS: true},
 		},
 		{
-			`<link rel="stylesheet" href="./bundle_test/a.css">`,
+			`<link rel="stylesheet" href="./testdata/a.css">`,
 			"<style>div {\n\tdisplay: none;\n}\n</style>",
 			Options{LocalCSS: true},
 		},
 		{
-			`<link rel="stylesheet" href="./bundle_test/a.css">`,
-			`<link rel="stylesheet" href="./bundle_test/a.css"/>`,
+			`<link rel="stylesheet" href="./testdata/a.css">`,
+			`<link rel="stylesheet" href="./testdata/a.css"/>`,
 			Options{},
 		},
 	}
 
-	for _, tc := range cases {
-		t.Run(tc.in, func(t *testing.T) {
-			tc.in = `<html><head>` + tc.in + `</head><body></body></html>`
-			tc.want = `<html><head>` + tc.want + `</head><body></body></html>`
+	for _, tt := range tests {
+		t.Run(tt.in, func(t *testing.T) {
+			tt.in = `<html><head>` + tt.in + `</head><body></body></html>`
+			tt.want = `<html><head>` + tt.want + `</head><body></body></html>`
 
-			doc, err := goquery.NewDocumentFromReader(strings.NewReader(tc.in))
+			doc, err := goquery.NewDocumentFromReader(strings.NewReader(tt.in))
 			if err != nil {
 				t.Fatal(err)
 			}
 
-			err = replaceCSSLinks(doc, tc.opts)
+			err = replaceCSSLinks(doc, tt.opts)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -51,32 +51,32 @@ func TestReplaceCSSLinks(t *testing.T) {
 			}
 
 			o := string(h)
-			if o != tc.want {
-				t.Errorf("\nout:  %#v\nwant: %#v\n", o, tc.want)
+			if o != tt.want {
+				t.Errorf("\nout:  %#v\nwant: %#v\n", o, tt.want)
 			}
 		})
 	}
 }
 
 func TestReplaceCSSImports(t *testing.T) {
-	cases := []struct {
+	tests := []struct {
 		in, want string
 	}{
 		{
 			`<style>
-				@import './bundle_test/a.css';
+				@import './testdata/a.css';
 				span { display: block; }
 			</style>`,
 			"<style>\n\t\t\t\tdiv {\n\tdisplay: none;\n}\n\n\t\t\t\tspan { display: block; }\n\t\t\t</style>",
 		},
 	}
 
-	for i, tc := range cases {
+	for i, tt := range tests {
 		t.Run(fmt.Sprintf("%v", i), func(t *testing.T) {
-			tc.in = `<html><head>` + tc.in + `</head><body></body></html>`
-			tc.want = `<html><head>` + tc.want + `</head><body></body></html>`
+			tt.in = `<html><head>` + tt.in + `</head><body></body></html>`
+			tt.want = `<html><head>` + tt.want + `</head><body></body></html>`
 
-			doc, err := goquery.NewDocumentFromReader(strings.NewReader(tc.in))
+			doc, err := goquery.NewDocumentFromReader(strings.NewReader(tt.in))
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -91,8 +91,8 @@ func TestReplaceCSSImports(t *testing.T) {
 			}
 
 			o := string(h)
-			if o != tc.want {
-				t.Errorf("\nout:  %#v\nwant: %#v\n", o, tc.want)
+			if o != tt.want {
+				t.Errorf("\nout:  %#v\nwant: %#v\n", o, tt.want)
 			}
 		})
 	}
@@ -100,15 +100,15 @@ func TestReplaceCSSImports(t *testing.T) {
 
 // nolint: lll
 func TestReplaceCSSURLs(t *testing.T) {
-	cases := []struct {
+	tests := []struct {
 		in, want string
 	}{
 		{`span { display: block; }`, `span { display: block; }`},
-		{`@import './bundle_test/a.css';`, "div {\n\tdisplay: none;\n}\n"},
-		{`@import url("./bundle_test/a.css");`, "div {\n\tdisplay: none;\n}\n"},
-		{`@import url("./bundle_test/a.css") print;`, "div {\n\tdisplay: none;\n}\n"},
+		{`@import './testdata/a.css';`, "div {\n\tdisplay: none;\n}\n"},
+		{`@import url("./testdata/a.css");`, "div {\n\tdisplay: none;\n}\n"},
+		{`@import url("./testdata/a.css") print;`, "div {\n\tdisplay: none;\n}\n"},
 		{
-			`span { background-image: url('bundle_test/a.png'); }`,
+			`span { background-image: url('testdata/a.png'); }`,
 			`span { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4QsYBTofXds9gQAAAAZiS0dEAP8A/wD/oL2nkwAAAAxJREFUCB1jkPvPAAACXAEebXgQcwAAAABJRU5ErkJggg==); }`,
 		},
 		{
@@ -117,14 +117,14 @@ func TestReplaceCSSURLs(t *testing.T) {
 		},
 	}
 
-	for i, tc := range cases {
+	for i, tt := range tests {
 		t.Run(fmt.Sprintf("%v", i), func(t *testing.T) {
-			out, err := replaceCSSURLs(tc.in)
+			out, err := replaceCSSURLs(tt.in)
 			if err != nil {
 				t.Fatal(err)
 			}
-			if out != tc.want {
-				t.Errorf("\nout:  %#v\nwant: %#v\n", out, tc.want)
+			if out != tt.want {
+				t.Errorf("\nout:  %#v\nwant: %#v\n", out, tt.want)
 			}
 		})
 	}

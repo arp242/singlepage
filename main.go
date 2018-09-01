@@ -16,9 +16,9 @@ The -local, -remote, and -minify accept a comma-separated list of asset types;
 the default is to include all the supported types. Pass an empty string to
 disable the feature (e.g. -remote '').
 
-Local assets are looked up relative to the path in -root. The -root may be a
-remote path (e.g. http://example.com), in which case all resources are fetched
-relative to that domain (and are treated as external).
+Assets are looked up relative to the path in -root which may be a remote path
+(e.g. http://example.com), in which case all resources are fetched relative to
+that domain (and are treated as external).
 
 For remote assets only "http://", "https://", and "//" are supported; // is
 treated as https://.
@@ -38,7 +38,7 @@ Flags:
 func main() {
 	html, err := start()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "%v", err)
+		_, _ = fmt.Fprintf(os.Stderr, "singlepage: error: "+err.Error()+"\n")
 		os.Exit(1)
 	}
 
@@ -47,29 +47,31 @@ func main() {
 
 func start() (string, error) {
 	flag.Usage = func() {
-		fmt.Fprintf(os.Stderr, "usage: singlepage [flags] file.html\n")
-		fmt.Fprintf(os.Stderr, help)
+		_, _ = fmt.Fprintf(os.Stderr, "usage: singlepage [flags] file.html\n")
+		_, _ = fmt.Fprintf(os.Stderr, help)
 		flag.PrintDefaults()
-		os.Exit(2)
+		_, _ = fmt.Fprintf(os.Stderr, "\n")
 	}
 
-	var root, local, remote, minify string
-	flag.StringVar(&root, "root", "", "")
-	flag.StringVar(&local, "local", "css,js,img", "")
-	flag.StringVar(&remote, "remote", "css,js,img", "")
-	flag.StringVar(&minify, "minify", "css,js,html", "")
+	root := flag.String("root", "", "look up assets relative to this path")
+	local := flag.String("local", "css,js,img", "")
+	remote := flag.String("remote", "css,js,img", "")
+	minify := flag.String("minify", "css,js,html", "")
+	strict := flag.Bool("strict", false,
+		"fail on lookup or parse errors instead of leaving the content alone")
 	flag.Parse()
 
-	opts, err := singlepage.NewOptions(root, local, remote, minify)
+	opts := singlepage.NewOptions(*root, *strict)
+	err := opts.Commandline(*local, *remote, *minify)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "error: %v", err)
 		flag.Usage()
+		return "", err
 	}
 
 	paths := flag.Args()
 	if len(paths) != 1 {
-		fmt.Fprintf(os.Stderr, "error: must specify the path to exactly one HTML file\n\n")
 		flag.Usage()
+		return "", fmt.Errorf("must specify the path to exactly one HTML file")
 	}
 
 	b, err := ioutil.ReadFile(paths[0])

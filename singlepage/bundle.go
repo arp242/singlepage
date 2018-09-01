@@ -3,6 +3,7 @@ package singlepage // import "arp242.net/singlepage/singlepage"
 import (
 	"bytes"
 	"encoding/base64"
+	"errors"
 	"fmt"
 	"mime"
 	"path/filepath"
@@ -18,6 +19,7 @@ import (
 // Options for Bundle().
 type Options struct {
 	Root                            string
+	Strict                          bool
 	LocalCSS, LocalJS, LocalImg     bool
 	RemoteCSS, RemoteJS, RemoteImg  bool
 	MinifyCSS, MinifyJS, MinifyHTML bool
@@ -31,61 +33,72 @@ var Everything = Options{
 
 var minifier *minify.M
 
+const (
+	optHTML = "html"
+	optCSS  = "css"
+	optJS   = "js"
+	optImg  = "img"
+)
+
 func init() {
 	minifier = minify.New()
-	minifier.AddFunc("css", css.Minify)
+	minifier.AddFunc(optCSS, css.Minify)
 	minifier.AddFunc("html", html.Minify)
 	minifier.AddFunc("js", js.Minify)
 }
 
-// NewOptions creates a new Options from the format accepted in the commandline
-// tool's flags.
-func NewOptions(root, local, remote, minify string) (Options, error) {
-	opts := Options{Root: root}
+// NewOptions creates a new Options instance.
+func NewOptions(root string, strict bool) Options {
+	strictMode = strict
+	return Options{Root: root, Strict: strict}
+}
 
+// Commandline modifies the Options from the format accepted in the commandline
+// tool's flags.
+func (opts *Options) Commandline(local, remote, minify string) error {
 	for _, v := range strings.Split(strings.ToLower(local), ",") {
 		switch strings.TrimSpace(v) {
 		case "":
 			continue
-		case "css":
+		case optCSS:
 			opts.LocalCSS = true
-		case "js":
+		case optJS:
 			opts.LocalJS = true
-		case "img":
+		case optImg:
 			opts.LocalImg = true
 		default:
-			return opts, fmt.Errorf("unknown value for -local: %#v", v)
+			return fmt.Errorf("unknown value for -local: %#v", v)
 		}
 	}
 	for _, v := range strings.Split(strings.ToLower(remote), ",") {
 		switch strings.TrimSpace(v) {
 		case "":
 			continue
-		case "css":
+		case optCSS:
 			opts.RemoteCSS = true
-		case "js":
+		case optJS:
 			opts.RemoteJS = true
-		case "img":
+		case optImg:
 			opts.RemoteImg = true
 		default:
-			return opts, fmt.Errorf("unknown value for -remote: %#v", v)
+			return fmt.Errorf("unknown value for -remote: %#v", v)
 		}
 	}
 	for _, v := range strings.Split(strings.ToLower(minify), ",") {
 		switch strings.TrimSpace(v) {
 		case "":
 			continue
-		case "css":
+		case optCSS:
 			opts.MinifyCSS = true
-		case "js":
+		case optJS:
 			opts.MinifyJS = true
-		case "html":
+		case optHTML:
 			opts.MinifyHTML = true
 		default:
-			return opts, fmt.Errorf("unknown value for -minify: %#v", v)
+			return fmt.Errorf("unknown value for -minify: %#v", v)
 		}
 	}
-	return opts, nil
+	return nil
 }
 
 // Bundle the resources in a HTML document according to the given options.
@@ -127,6 +140,7 @@ func replaceJS(doc *goquery.Document, opts Options) (err error) {
 		return nil
 	}
 
+	var cont bool
 	doc.Find(`script`).EachWithBreak(func(i int, s *goquery.Selection) bool {
 		path, ok := s.Attr("src")
 		if !ok {
@@ -143,8 +157,12 @@ func replaceJS(doc *goquery.Document, opts Options) (err error) {
 
 		var f []byte
 		f, err = readPath(path)
+		cont, err = warn(err)
 		if err != nil {
 			return false
+		}
+		if !cont {
+			return true
 		}
 
 		if opts.MinifyJS {
@@ -167,6 +185,7 @@ func replaceImg(doc *goquery.Document, opts Options) (err error) {
 		return nil
 	}
 
+	var cont bool
 	doc.Find(`img`).EachWithBreak(func(i int, s *goquery.Selection) bool {
 		path, ok := s.Attr("src")
 		if !ok {
@@ -183,14 +202,23 @@ func replaceImg(doc *goquery.Document, opts Options) (err error) {
 
 		var f []byte
 		f, err = readPath(path)
+		cont, err = warn(err)
 		if err != nil {
 			return false
+		}
+		if !cont {
+			return true
 		}
 
 		m := mime.TypeByExtension(filepath.Ext(path))
 		if m == "" {
-			err = fmt.Errorf("could not find MIME type for %#v", path)
-			return false
+			cont, err = warn(&ParseError{Path: path, Err: errors.New("could not find MIME type")})
+			if err != nil {
+				return false
+			}
+			if !cont {
+				return true
+			}
 		}
 
 		s.SetAttr("src", fmt.Sprintf("data:%v;base64,%v",

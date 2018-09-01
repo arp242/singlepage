@@ -43,6 +43,7 @@ tt() {
 		local f="$root/bin/test-tag-$t"
 		[ -f "$f" ] && . "$f"
 	done
+	:
 }
 tt "$@"
 
