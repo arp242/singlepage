@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html dir='ltr' lang='en'>
+<head>
+<meta charset='utf-8'>
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","errorBeacon":"bam.nr-data.net","licenseKey":"e79083cdd8","applicationID":"71306850","transactionName":"e15bR0tdXVtUSh9cUF1QRhxKWl5A","queueTime":1,"applicationTime":110,"agent":""}</script>
+<script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={xpid:"VQYOV1NUCxAHVVJSAQkCVg=="};window.NREUM||(NREUM={}),__nr_require=function(t,n,e){function r(e){if(!n[e]){var o=n[e]={exports:{}};t[e][0].call(o.exports,function(n){var o=t[e][1][n];return r(o||n)},o,o.exports)}return n[e].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<e.length;o++)r(e[o]);return r}({1:[function(t,n,e){function r(t){try{s.console&&console.log(t)}catch(n){}}var o,i=t("ee"),a=t(15),s={};try{o=localStorage.getItem("__nr_flags").split(","),console&&"function"==typeof console.log&&(s.console=!0,o.indexOf("dev")!==-1&&(s.dev=!0),o.indexOf("nr_dev")!==-1&&(s.nrDev=!0))}catch(c){}s.nrDev&&i.on("internal-error",function(t){r(t.stack)}),s.dev&&i.on("fn-err",function(t,n,e){r(e.stack)}),s.dev&&(r("NR AGENT IN DEVELOPMENT MODE"),r("flags: "+a(s,function(t,n){return t}).join(", ")))},{}],2:[function(t,n,e){function r(t,n,e,r,s){try{p?p-=1:o(s||new UncaughtException(t,n,e),!0)}catch(f){try{i("ierr",[f,c.now(),!0])}catch(d){}}return"function"==typeof u&&u.apply(this,a(arguments))}function UncaughtException(t,n,e){this.message=t||"Uncaught error with no additional information",this.sourceURL=n,this.line=e}function o(t,n){var e=n?null:c.now();i("err",[t,e])}var i=t("handle"),a=t(16),s=t("ee"),c=t("loader"),f=t("gos"),u=window.onerror,d=!1,l="nr@seenError",p=0;c.features.err=!0,t(1),window.onerror=r;try{throw new Error}catch(h){"stack"in h&&(t(8),t(7),"addEventListener"in window&&t(5),c.xhrWrappable&&t(9),d=!0)}s.on("fn-start",function(t,n,e){d&&(p+=1)}),s.on("fn-err",function(t,n,e){d&&!e[l]&&(f(e,l,function(){return!0}),this.thrown=!0,o(e))}),s.on("fn-end",function(){d&&!this.thrown&&p>0&&(p-=1)}),s.on("internal-error",function(t){i("ierr",[t,c.now(),!0])})},{}],3:[function(t,n,e){t("loader").features.ins=!0},{}],4:[function(t,n,e){function r(t){}if(window.performance&&window.performance.timing&&window.performance.getEntriesByType){var o=t("ee"),i=t("handle"),a=t(8),s=t(7),c="learResourceTimings",f="addEventListener",u="resourcetimingbufferfull",d="bstResource",l="resource",p="-start",h="-end",m="fn"+p,w="fn"+h,v="bstTimer",y="pushState",g=t("loader");g.features.stn=!0,t(6);var b=NREUM.o.EV;o.on(m,function(t,n){var e=t[0];e instanceof b&&(this.bstStart=g.now())}),o.on(w,function(t,n){var e=t[0];e instanceof b&&i("bst",[e,n,this.bstStart,g.now()])}),a.on(m,function(t,n,e){this.bstStart=g.now(),this.bstType=e}),a.on(w,function(t,n){i(v,[n,this.bstStart,g.now(),this.bstType])}),s.on(m,function(){this.bstStart=g.now()}),s.on(w,function(t,n){i(v,[n,this.bstStart,g.now(),"requestAnimationFrame"])}),o.on(y+p,function(t){this.time=g.now(),this.startPath=location.pathname+location.hash}),o.on(y+h,function(t){i("bstHist",[location.pathname+location.hash,this.startPath,this.time])}),f in window.performance&&(window.performance["c"+c]?window.performance[f](u,function(t){i(d,[window.performance.getEntriesByType(l)]),window.performance["c"+c]()},!1):window.performance[f]("webkit"+u,function(t){i(d,[window.performance.getEntriesByType(l)]),window.performance["webkitC"+c]()},!1)),document[f]("scroll",r,{passive:!0}),document[f]("keypress",r,!1),document[f]("click",r,!1)}},{}],5:[function(t,n,e){function r(t){for(var n=t;n&&!n.hasOwnProperty(u);)n=Object.getPrototypeOf(n);n&&o(n)}function o(t){s.inPlace(t,[u,d],"-",i)}function i(t,n){return t[1]}var a=t("ee").get("events"),s=t(18)(a,!0),c=t("gos"),f=XMLHttpRequest,u="addEventListener",d="removeEventListener";n.exports=a,"getPrototypeOf"in Object?(r(document),r(window),r(f.prototype)):f.prototype.hasOwnProperty(u)&&(o(window),o(f.prototype)),a.on(u+"-start",function(t,n){var e=t[1],r=c(e,"nr@wrapped",function(){function t(){if("function"==typeof e.handleEvent)return e.handleEvent.apply(e,arguments)}var n={object:t,"function":e}[typeof e];return n?s(n,"fn-",null,n.name||"anonymous"):e});this.wrapped=t[1]=r}),a.on(d+"-start",function(t){t[1]=this.wrapped||t[1]})},{}],6:[function(t,n,e){var r=t("ee").get("history"),o=t(18)(r);n.exports=r,o.inPlace(window.history,["pushState","replaceState"],"-")},{}],7:[function(t,n,e){var r=t("ee").get("raf"),o=t(18)(r),i="equestAnimationFrame";n.exports=r,o.inPlace(window,["r"+i,"mozR"+i,"webkitR"+i,"msR"+i],"raf-"),r.on("raf-start",function(t){t[0]=o(t[0],"fn-")})},{}],8:[function(t,n,e){function r(t,n,e){t[0]=a(t[0],"fn-",null,e)}function o(t,n,e){this.method=e,this.timerDuration=isNaN(t[1])?0:+t[1],t[0]=a(t[0],"fn-",this,e)}var i=t("ee").get("timer"),a=t(18)(i),s="setTimeout",c="setInterval",f="clearTimeout",u="-start",d="-";n.exports=i,a.inPlace(window,[s,"setImmediate"],s+d),a.inPlace(window,[c],c+d),a.inPlace(window,[f,"clearImmediate"],f+d),i.on(c+u,r),i.on(s+u,o)},{}],9:[function(t,n,e){function r(t,n){d.inPlace(n,["onreadystatechange"],"fn-",s)}function o(){var t=this,n=u.context(t);t.readyState>3&&!n.resolved&&(n.resolved=!0,u.emit("xhr-resolved",[],t)),d.inPlace(t,y,"fn-",s)}function i(t){g.push(t),h&&(x?x.then(a):w?w(a):(E=-E,O.data=E))}function a(){for(var t=0;t<g.length;t++)r([],g[t]);g.length&&(g=[])}function s(t,n){return n}function c(t,n){for(var e in t)n[e]=t[e];return n}t(5);var f=t("ee"),u=f.get("xhr"),d=t(18)(u),l=NREUM.o,p=l.XHR,h=l.MO,m=l.PR,w=l.SI,v="readystatechange",y=["onload","onerror","onabort","onloadstart","onloadend","onprogress","ontimeout"],g=[];n.exports=u;var b=window.XMLHttpRequest=function(t){var n=new p(t);try{u.emit("new-xhr",[n],n),n.addEventListener(v,o,!1)}catch(e){try{u.emit("internal-error",[e])}catch(r){}}return n};if(c(p,b),b.prototype=p.prototype,d.inPlace(b.prototype,["open","send"],"-xhr-",s),u.on("send-xhr-start",function(t,n){r(t,n),i(n)}),u.on("open-xhr-start",r),h){var x=m&&m.resolve();if(!w&&!m){var E=1,O=document.createTextNode(E);new h(a).observe(O,{characterData:!0})}}else f.on("fn-end",function(t){t[0]&&t[0].type===v||a()})},{}],10:[function(t,n,e){function r(t){var n=this.params,e=this.metrics;if(!this.ended){this.ended=!0;for(var r=0;r<d;r++)t.removeEventListener(u[r],this.listener,!1);if(!n.aborted){if(e.duration=a.now()-this.startTime,4===t.readyState){n.status=t.status;var i=o(t,this.lastSize);if(i&&(e.rxSize=i),this.sameOrigin){var c=t.getResponseHeader("X-NewRelic-App-Data");c&&(n.cat=c.split(", ").pop())}}else n.status=0;e.cbTime=this.cbTime,f.emit("xhr-done",[t],t),s("xhr",[n,e,this.startTime])}}}function o(t,n){var e=t.responseType;if("json"===e&&null!==n)return n;var r="arraybuffer"===e||"blob"===e||"json"===e?t.response:t.responseText;return h(r)}function i(t,n){var e=c(n),r=t.params;r.host=e.hostname+":"+e.port,r.pathname=e.pathname,t.sameOrigin=e.sameOrigin}var a=t("loader");if(a.xhrWrappable){var s=t("handle"),c=t(11),f=t("ee"),u=["load","error","abort","timeout"],d=u.length,l=t("id"),p=t(14),h=t(13),m=window.XMLHttpRequest;a.features.xhr=!0,t(9),f.on("new-xhr",function(t){var n=this;n.totalCbs=0,n.called=0,n.cbTime=0,n.end=r,n.ended=!1,n.xhrGuids={},n.lastSize=null,p&&(p>34||p<10)||window.opera||t.addEventListener("progress",function(t){n.lastSize=t.loaded},!1)}),f.on("open-xhr-start",function(t){this.params={method:t[0]},i(this,t[1]),this.metrics={}}),f.on("open-xhr-end",function(t,n){"loader_config"in NREUM&&"xpid"in NREUM.loader_config&&this.sameOrigin&&n.setRequestHeader("X-NewRelic-ID",NREUM.loader_config.xpid)}),f.on("send-xhr-start",function(t,n){var e=this.metrics,r=t[0],o=this;if(e&&r){var i=h(r);i&&(e.txSize=i)}this.startTime=a.now(),this.listener=function(t){try{"abort"===t.type&&(o.params.aborted=!0),("load"!==t.type||o.called===o.totalCbs&&(o.onloadCalled||"function"!=typeof n.onload))&&o.end(n)}catch(e){try{f.emit("internal-error",[e])}catch(r){}}};for(var s=0;s<d;s++)n.addEventListener(u[s],this.listener,!1)}),f.on("xhr-cb-time",function(t,n,e){this.cbTime+=t,n?this.onloadCalled=!0:this.called+=1,this.called!==this.totalCbs||!this.onloadCalled&&"function"==typeof e.onload||this.end(e)}),f.on("xhr-load-added",function(t,n){var e=""+l(t)+!!n;this.xhrGuids&&!this.xhrGuids[e]&&(this.xhrGuids[e]=!0,this.totalCbs+=1)}),f.on("xhr-load-removed",function(t,n){var e=""+l(t)+!!n;this.xhrGuids&&this.xhrGuids[e]&&(delete this.xhrGuids[e],this.totalCbs-=1)}),f.on("addEventListener-end",function(t,n){n instanceof m&&"load"===t[0]&&f.emit("xhr-load-added",[t[1],t[2]],n)}),f.on("removeEventListener-end",function(t,n){n instanceof m&&"load"===t[0]&&f.emit("xhr-load-removed",[t[1],t[2]],n)}),f.on("fn-start",function(t,n,e){n instanceof m&&("onload"===e&&(this.onload=!0),("load"===(t[0]&&t[0].type)||this.onload)&&(this.xhrCbStart=a.now()))}),f.on("fn-end",function(t,n){this.xhrCbStart&&f.emit("xhr-cb-time",[a.now()-this.xhrCbStart,this.onload,n],n)})}},{}],11:[function(t,n,e){n.exports=function(t){var n=document.createElement("a"),e=window.location,r={};n.href=t,r.port=n.port;var o=n.href.split("://");!r.port&&o[1]&&(r.port=o[1].split("/")[0].split("@").pop().split(":")[1]),r.port&&"0"!==r.port||(r.port="https"===o[0]?"443":"80"),r.hostname=n.hostname||e.hostname,r.pathname=n.pathname,r.protocol=o[0],"/"!==r.pathname.charAt(0)&&(r.pathname="/"+r.pathname);var i=!n.protocol||":"===n.protocol||n.protocol===e.protocol,a=n.hostname===document.domain&&n.port===e.port;return r.sameOrigin=i&&(!n.hostname||a),r}},{}],12:[function(t,n,e){function r(){}function o(t,n,e){return function(){return i(t,[f.now()].concat(s(arguments)),n?null:this,e),n?void 0:this}}var i=t("handle"),a=t(15),s=t(16),c=t("ee").get("tracer"),f=t("loader"),u=NREUM;"undefined"==typeof window.newrelic&&(newrelic=u);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],l="api-",p=l+"ixn-";a(d,function(t,n){u[n]=o(l+n,!0,"api")}),u.addPageAction=o(l+"addPageAction",!0),u.setCurrentRouteName=o(l+"routeName",!0),n.exports=newrelic,u.interaction=function(){return(new r).get()};var h=r.prototype={createTracer:function(t,n){var e={},r=this,o="function"==typeof n;return i(p+"tracer",[f.now(),t,e],r),function(){if(c.emit((o?"":"no-")+"fn-start",[f.now(),r,o],e),o)try{return n.apply(this,arguments)}catch(t){throw c.emit("fn-err",[arguments,this,t],e),t}finally{c.emit("fn-end",[f.now()],e)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,n){h[n]=o(p+n)}),newrelic.noticeError=function(t){"string"==typeof t&&(t=new Error(t)),i("err",[t,f.now()])}},{}],13:[function(t,n,e){n.exports=function(t){if("string"==typeof t&&t.length)return t.length;if("object"==typeof t){if("undefined"!=typeof ArrayBuffer&&t instanceof ArrayBuffer&&t.byteLength)return t.byteLength;if("undefined"!=typeof Blob&&t instanceof Blob&&t.size)return t.size;if(!("undefined"!=typeof FormData&&t instanceof FormData))try{return JSON.stringify(t).length}catch(n){return}}}},{}],14:[function(t,n,e){var r=0,o=navigator.userAgent.match(/Firefox[\/\s](\d+\.\d+)/);o&&(r=+o[1]),n.exports=r},{}],15:[function(t,n,e){function r(t,n){var e=[],r="",i=0;for(r in t)o.call(t,r)&&(e[i]=n(r,t[r]),i+=1);return e}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],16:[function(t,n,e){function r(t,n,e){n||(n=0),"undefined"==typeof e&&(e=t?t.length:0);for(var r=-1,o=e-n||0,i=Array(o<0?0:o);++r<o;)i[r]=t[n+r];return i}n.exports=r},{}],17:[function(t,n,e){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],18:[function(t,n,e){function r(t){return!(t&&t instanceof Function&&t.apply&&!t[a])}var o=t("ee"),i=t(16),a="nr@original",s=Object.prototype.hasOwnProperty,c=!1;n.exports=function(t,n){function e(t,n,e,o){function nrWrapper(){var r,a,s,c;try{a=this,r=i(arguments),s="function"==typeof e?e(r,a):e||{}}catch(f){l([f,"",[r,a,o],s])}u(n+"start",[r,a,o],s);try{return c=t.apply(a,r)}catch(d){throw u(n+"err",[r,a,d],s),d}finally{u(n+"end",[r,a,c],s)}}return r(t)?t:(n||(n=""),nrWrapper[a]=t,d(t,nrWrapper),nrWrapper)}function f(t,n,o,i){o||(o="");var a,s,c,f="-"===o.charAt(0);for(c=0;c<n.length;c++)s=n[c],a=t[s],r(a)||(t[s]=e(a,f?s+o:o,i,s))}function u(e,r,o){if(!c||n){var i=c;c=!0;try{t.emit(e,r,o,n)}catch(a){l([a,e,r,o])}c=i}}function d(t,n){if(Object.defineProperty&&Object.keys)try{var e=Object.keys(t);return e.forEach(function(e){Object.defineProperty(n,e,{get:function(){return t[e]},set:function(n){return t[e]=n,n}})}),n}catch(r){l([r])}for(var o in t)s.call(t,o)&&(n[o]=t[o]);return n}function l(n){try{t.emit("internal-error",n)}catch(e){}}return t||(t=o),e.inPlace=f,e.flag=a,e}},{}],ee:[function(t,n,e){function r(){}function o(t){function n(t){return t&&t instanceof r?t:t?c(t,s,i):i()}function e(e,r,o,i){if(!l.aborted||i){t&&t(e,r,o);for(var a=n(o),s=h(e),c=s.length,f=0;f<c;f++)s[f].apply(a,r);var d=u[y[e]];return d&&d.push([g,e,r,a]),a}}function p(t,n){v[t]=h(t).concat(n)}function h(t){return v[t]||[]}function m(t){return d[t]=d[t]||o(e)}function w(t,n){f(t,function(t,e){n=n||"feature",y[e]=n,n in u||(u[n]=[])})}var v={},y={},g={on:p,emit:e,get:m,listeners:h,context:n,buffer:w,abort:a,aborted:!1};return g}function i(){return new r}function a(){(u.api||u.feature)&&(l.aborted=!0,u=l.backlog={})}var s="nr@context",c=t("gos"),f=t(15),u={},d={},l=n.exports=o();l.backlog=u},{}],gos:[function(t,n,e){function r(t,n,e){if(o.call(t,n))return t[n];var r=e();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,n,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return t[n]=r,r}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(t,n,e){function r(t,n,e,r){o.buffer([t],r),o.emit(t,n,e)}var o=t("ee").get("handle");n.exports=r,r.ee=o},{}],id:[function(t,n,e){function r(t){var n=typeof t;return!t||"object"!==n&&"function"!==n?-1:t===window?0:a(t,i,function(){return o++})}var o=1,i="nr@id",a=t("gos");n.exports=r},{}],loader:[function(t,n,e){function r(){if(!x++){var t=b.info=NREUM.info,n=l.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&n))return u.abort();f(y,function(n,e){t[n]||(t[n]=e)}),c("mark",["onload",a()+b.offset],null,"api");var e=l.createElement("script");e.src="https://"+t.agent,n.parentNode.insertBefore(e,n)}}function o(){"complete"===l.readyState&&i()}function i(){c("mark",["domContent",a()+b.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(s=Math.max((new Date).getTime(),s))-b.offset}var s=(new Date).getTime(),c=t("handle"),f=t(15),u=t("ee"),d=window,l=d.document,p="addEventListener",h="attachEvent",m=d.XMLHttpRequest,w=m&&m.prototype;NREUM.o={ST:setTimeout,SI:d.setImmediate,CT:clearTimeout,XHR:m,REQ:d.Request,EV:d.Event,PR:d.Promise,MO:d.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1071.min.js"},g=m&&w&&w[p]&&!/CriOS/.test(navigator.userAgent),b=n.exports={offset:s,now:a,origin:v,features:{},xhrWrappable:g};t(12),l[p]?(l[p]("DOMContentLoaded",i,!1),d[p]("load",r,!1)):(l[h]("onreadystatechange",o),d[h]("onload",r)),c("mark",["firstbyte",s],null,"api");var x=0,E=t(17)},{}]},{},["loader",2,10,4,3]);</script>
+<meta content='width=device-width, minimum-scale=1, initial-scale=1' name='viewport'>
+<meta content='yes' name='apple-mobile-web-app-capable'>
+<meta content='black' name='apple-mobile-web-app-status-bar-style'>
+<meta content='430086400490662' property='fb:app_id'>
+<meta content='Aeon' property='og:site_name'>
+<meta content='@aeonmag' property='twitter:site'>
+<meta content='index, follow' name='robots'>
+<link href='https://aeon.co/ideas/if-work-dominated-your-every-moment-would-life-be-worth-living' rel='canonical'>
+<meta content='Imagine that work had taken over the world. It would be the centre around which the rest of life turned. Then all else would come to be subservient to work. Then slowly, almost imperceptibly, anything else – the games once played, the songs hither...' name='description'>
+<meta content='If work dominated your every moment would life be worth living? – Andrew Taggart | Aeon Ideas' property='og:title'>
+<meta content='article' property='og:type'>
+<meta content='https://epsilon.aeon.co/images/c1620b95-b107-485b-b934-91a5cbf5a63e/idea_sized-steinlen-2319102115580098.jpg' property='og:image'>
+<meta content='Imagine that work had taken over the world. It would be the centre around which the rest of life turned. Then all else would come to be subservient to work. Then slowly, almost imperceptibly, anything else – the games once played, the songs hither...' property='og:description'>
+<meta content='https://aeon.co/ideas/if-work-dominated-your-every-moment-would-life-be-worth-living' property='og:url'>
+<link href='https://aeon.co/amp/ideas/if-work-dominated-your-every-moment-would-life-be-worth-living' rel='amphtml'>
+<meta content='https://www.facebook.com/AeonMagazine' property='article:author'>
+<meta content='https://www.facebook.com/AeonMagazine' property='article:publisher'>
+<meta content='Philosophy' property='article:section'>
+<meta content='summary_large_image' property='twitter:card'>
+<meta content='If work dominated your every moment would life be worth living? – Andrew Taggart | Aeon Ideas' property='twitter:title'>
+<meta content='Imagine that work had taken over the world. It would be the centre around which the rest of life turned. Then all else would come to be subservient to work. Then slowly, almost imperceptibly, anything else – the games once played, the songs hither...' property='twitter:description'>
+<meta content='https://epsilon.aeon.co/images/c1620b95-b107-485b-b934-91a5cbf5a63e/idea_sized-steinlen-2319102115580098.jpg' property='twitter:image:src'>
+
+
+<title>If work dominated your every moment would life be worth living? | Aeon Ideas</title>
+<link rel="stylesheet" media="all" href="https://alpha.aeon.co/assets/application-3a80aff2e9d55265fc5f9ec5a863c00ca3ba4363306d7215a3ce81253b06a845.css" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="z9SNQNfJer3l1AJY7B/XnexbU9ukNlhnuRLmvl/zujXGK9kwIfFeUBg5EWCWrHuViclFOuU921YLxssN2nzDIg==" />
+<script>
+  window.Aeon = {}
+  window.Aeon.Data = {"CurrentUser":{"type":"User","id":49556,"first_name":"Martin","last_name":"Tournoij","name":"Martin Tournoij","slug":"martin-tournoij","role":"member","responses_count":0,"replies_count":0,"avatar_url":"https://nu.aeon.co/avatars/45514141-b955-47ba-ba49-d76bf897e75c/thumb_1f16de410ea6f3c12b2896f02157161d.jpeg","profile_url":"https://aeon.co/users/martin-tournoij","job":null},"QuestionLikes":[],"ResponseLikes":[],"EssayLikes":[],"ReplyLikes":[],"ArticleSaves":[]}
+  window.Aeon.Environment = "production"
+  window.Aeon.Friend = true
+</script>
+
+<script>
+!function(o){function n(e){if(t[e])return t[e].exports;var r=t[e]={i:e,l:!1,exports:{}};return o[e].call(r.exports,r,r.exports,n),r.l=!0,r.exports}var t={};n.m=o,n.c=t,n.d=function(o,t,e){n.o(o,t)||Object.defineProperty(o,t,{configurable:!1,enumerable:!0,get:e})},n.n=function(o){var t=o&&o.__esModule?function(){return o["default"]}:function(){return o};return n.d(t,"a",t),t},n.o=function(o,n){return Object.prototype.hasOwnProperty.call(o,n)},n.p="",n(n.s=843)}({843:function(o,n,t){o.exports=t(844)},844:function(o,n,t){"use strict";function e(o){if(o&&o.__esModule)return o;var n={};if(null!=o)for(var t in o)Object.prototype.hasOwnProperty.call(o,t)&&(n[t]=o[t]);return n["default"]=o,n}var r=t(845),i=e(r);i.redirectProxies(),i.redirectIframe()},845:function(o){"use strict";function n(){"production"===window.Aeon.Environment&&"aeon.co"!==window.location.host?window.location.href="https://aeon.co":"staging"===window.Aeon.Environment&&"staging.aeon.co"!==window.location.host&&(window.location.href="https://staging.aeon.co")}function t(){window.top!==window.self&&(window.top.onbeforeunload=function(){},window.top.location.href=window.self.location.href)}o.exports={redirectProxies:n,redirectIframe:t}}});
+</script>
+
+</head>
+
+<body class='ideas show friend page-type--philosophy'>
+
+<div class='menu'>
+<div class='container menu__close__container'>
+<a class='menu__close' href='#' onclick='document.body.classList.remove(&#39;menu--open&#39;); return false;'>
+Close
+<span class='close__icon'><svg width="18" height="18" viewBox="0 0 24 24">
+  <g fill="currentColor">
+    <path d="M16.95 5.636l1.414 1.414L7.05 18.364 5.636 16.95z"></path>
+    <path d="M16.95 18.364l1.414-1.414L7.05 5.636 5.636 7.05z"></path>
+  </g>
+</svg>
+</span>
+</a>
+</div>
+<div class='container menu__navigation'>
+<div class='col'>
+<div class='gutter'>
+<nav class='menu__navigation__group'>
+<a class='section--philosophy' href='https://aeon.co/philosophy'>Philosophy</a>
+<a class='section--science' href='https://aeon.co/science'>Science</a>
+<a class='section--psychology' href='https://aeon.co/psychology'>Psychology</a>
+<a class='section--health' href='https://aeon.co/health'>Health</a>
+<a class='section--society' href='https://aeon.co/society'>Society</a>
+<a class='section--technology' href='https://aeon.co/technology'>Technology</a>
+<a class='section--culture' href='https://aeon.co/culture'>Culture</a>
+</nav>
+</div>
+</div>
+<div class='col'>
+<div class='gutter'>
+<nav class='menu__navigation__group'>
+<a class='menu--mobile-toggle' href='https://aeon.co/about'>About</a>
+<a class='menu--mobile-toggle menu--mobile-break' href='https://aeon.co/donate?utm_campaign=donation-drive-end-of-year-2017&amp;utm_medium=web&amp;utm_source=menu-mobile'>Donate</a>
+<a href='https://aeon.co/essays'>Essays</a>
+<a href='https://aeon.co/ideas'>Ideas</a>
+<a href='https://aeon.co/classics'>Classics</a>
+<a href='https://aeon.co/videos'>Videos</a>
+<a href='https://aeon.co/partners'>Partners</a>
+<a class='menu--mobile-toggle menu--mobile-bottom' href='#' onclick='document.body.classList.toggle(&#39;modal-newsletter--open&#39;); return false;'>Newsletter</a>
+</nav>
+</div>
+</div>
+<div class='col'>
+<div class='gutter'>
+<nav class='menu__navigation__group'>
+<a class='menu--mobile-toggle' href='https://aeon.co/about'>About</a>
+<a class='menu--mobile-toggle' href='https://aeon.co/donate?utm_campaign=donation-drive-end-of-year-2017&amp;utm_medium=web&amp;utm_source=menu'>Donate</a>
+<a class='menu--mobile-toggle' href='#' onclick='document.body.classList.toggle(&#39;modal-newsletter--open&#39;); return false;'>Newsletter</a>
+<div class='menu__social-wrapper'>
+<a href='https://www.facebook.com/AeonMagazine' target='_blank'>
+<span class='menu__navigation__group__icon'><svg viewBox="0 0 16 16" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414">
+  <path d="M15.117 0H.883C.395 0 0 .395 0 .883v14.234c0 .488.395.883.883.883h7.663V9.804H6.46V7.39h2.086V5.607c0-2.066 1.262-3.19 3.106-3.19.883 0 1.642.064 1.863.094v2.16h-1.28c-1 0-1.195.48-1.195 1.18v1.54h2.39l-.31 2.42h-2.08V16h4.077c.488 0 .883-.395.883-.883V.883C16 .395 15.605 0 15.117 0" fill-rule="nonzero"></path>
+</svg>
+</span>
+<span class='menu__navigation__group__text'>Facebook</span>
+</a>
+<span class='fb-like' data-action='like' data-href='https://facebook.com/AeonMagazine' data-layout='button_count' data-share='false' data-show-faces='false'></span>
+</div>
+<div class='menu__social-wrapper'>
+<a href='https://twitter.com/aeonmag' target='_blank'>
+<span class='menu__navigation__group__icon'><svg viewBox="0 0 16 16" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414">
+  <path d="M16 3.038c-.59.26-1.22.437-1.885.517.677-.407 1.198-1.05 1.443-1.816-.634.37-1.337.64-2.085.79-.598-.64-1.45-1.04-2.396-1.04-1.812 0-3.282 1.47-3.282 3.28 0 .26.03.51.085.75-2.728-.13-5.147-1.44-6.766-3.42C.83 2.58.67 3.14.67 3.75c0 1.14.58 2.143 1.46 2.732-.538-.017-1.045-.165-1.487-.41v.04c0 1.59 1.13 2.918 2.633 3.22-.276.074-.566.114-.865.114-.21 0-.41-.02-.61-.058.42 1.304 1.63 2.253 3.07 2.28-1.12.88-2.54 1.404-4.07 1.404-.26 0-.52-.015-.78-.045 1.46.93 3.18 1.474 5.04 1.474 6.04 0 9.34-5 9.34-9.33 0-.14 0-.28-.01-.42.64-.46 1.2-1.04 1.64-1.7z" fill-rule="nonzero"></path>
+</svg>
+</span>
+<span class='menu__navigation__group__text'>Twitter</span>
+</a>
+<a class='twitter-follow-button' data-show-count='false' data-show-screen-name='false' href='https://twitter.com/aeonmag'>Follow</a>
+</div>
+</nav>
+</div>
+</div>
+</div>
+<div class='container'>
+<div class='gutter'>
+<div class='menu__search'>
+<form class="menu__search__form" action="https://aeon.co/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+<span class='search__icon'><svg xmlns="http://www.w3.org/2000/svg" width="15.44" height="15.441" viewBox="-0.449 -0.658 15.44 15.441"><circle fill="none" stroke="currentColor" stroke-width="1.2" stroke-miterlimit="10" cx="5.974" cy="5.765" r="3.482"></circle><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-miterlimit="10" d="M8.436 8.228l3.446 3.5"></path></svg>
+</span>
+<input class='menu__search__input' id='menu__search__input' name='q' placeholder='Search' type='search'>
+</form>
+
+</div>
+</div>
+</div>
+</div>
+<a class='menu__close-cover' href='#' onclick='document.body.classList.remove(&#39;menu--open&#39;); return false;'></a>
+
+<header class='header header--top'>
+<div class='container header__container'>
+<a class="header__logo__link" href="https://aeon.co/"><svg xmlns="http://www.w3.org/2000/svg" width="174.65" height="61.413" viewBox="-14.554 -5.118 174.65 61.413" class="header__logo"><g fill="#9D1D20"><path d="M70.93 25.275c0 11.705 8.43 21.268 18.755 21.268 10.57 0 19.002-9.438 19.002-21.268 0-11.45-8.432-20.642-18.877-20.642-10.45 0-18.88 9.19-18.88 20.642m48.05.252c0 16.504-13.052 29.81-29.17 29.81-16.12 0-29.17-13.306-29.17-29.81 0-16.377 13.05-29.683 29.17-29.683 16.247 0 29.17 13.177 29.17 29.683M45.39 19.563c0-6.435-.266-10.854-.795-13.252-.525-2.398-1.35-4.217-2.47-5.456-.635-.72-1.48-1.08-2.535-1.08-1.575 0-2.856 1.02-3.853 3.06-1.782 3.56-2.674 8.435-2.674 14.63v2.1H45.39m11.146 4.017H33.29c.272 7.435 1.77 13.31 4.487 17.63 2.083 3.32 4.59 4.976 7.52 4.976 1.81 0 3.458-.673 4.936-2.01 1.485-1.34 3.07-3.75 4.76-7.225l1.544 1.322c-2.296 6.2-4.837 10.582-7.613 13.163-2.778 2.575-5.994 3.87-9.653 3.87-6.284 0-11.04-3.197-14.273-9.594C22.4 40.554 21.1 34.157 21.1 26.526c0-9.354 1.912-16.8 5.734-22.338 3.82-5.538 8.3-8.305 13.436-8.305 4.288 0 8.01 2.327 11.168 6.986 3.156 4.653 4.854 11.56 5.098 20.713M4.668 26.974c-6.007 2.037-9.014 5.404-9.014 9.97v4.566c0 2.88 1.323 5.046 3.967 5.046 2.883 0 5.048-2.524 5.048-5.648V26.974M14.876 55.32c-3.724 0-6.605-1.923-7.807-6.243C4.903 53.16 1.18 55.32-3.265 55.32c-6.725 0-11.29-5.165-11.29-14.05V38.5c0-10.572 8.168-15.615 19.223-19.7v-8.89c0-2.882-1.203-4.564-3.967-4.564-2.884 0-3.846 1.682-3.846 4.806V15.2h-9.73v-4.564c0-8.53 4.686-14.776 14.055-14.776 9.37 0 13.816 6.486 13.816 15.618V44.39c0 1.805.724 2.766 2.4 2.886v8.046h-2.522zM156.496 52.825v-39.79c0-7.597-.514-10.944-2.31-13.522-1.163-2.058-2.833-2.96-5.022-2.96-1.928 0-3.863 1.03-6.176 3.605-2.24 2.243-5.352 6.04-7.246 8.842.742-4.152.684-14.118.684-14.118-6.56 3.86-9.902 4.893-16.207 5.15V1.19c1.925.515 2.57.643 4.243 1.415.127 4.25.127 7.34.127 8.11v10.946l-.127 10.944V45.23c0 2.958 0 4.12-.127 7.596-1.416 1.283-1.93 1.413-3.73 2.184v1.285h18.78V55.01c-1.67-.774-2.187-1.028-3.474-2.184V10.973l.64-.64c2.063-1.933 3.99-3.092 5.28-3.092 2.697 0 3.47 2.06 3.47 8.5v37.085c-1.54 1.155-2.058 1.413-3.856 2.182v1.287h18.65v-1.542c-1.8-.643-2.315-.9-3.6-1.927"></path></g></svg>
+
+</a><nav class='header__left'>
+<a class='header__left__menu-trigger' href='#' onclick='document.body.classList.toggle(&#39;menu--open&#39;); return false;'>Menu</a>
+<span class='header__separator separator'>&nbsp;/&nbsp;</span>
+<span class='header__search'>
+<a class='header__search-trigger' href='#' onclick='document.body.classList.toggle(&#39;menu--open&#39;); document.querySelector(&#39;.menu__search__input&#39;).focus(); return false;'>
+<span class='header__search-icon'><svg xmlns="http://www.w3.org/2000/svg" width="15.44" height="15.441" viewBox="-0.449 -0.658 15.44 15.441"><circle fill="none" stroke="currentColor" stroke-width="1.2" stroke-miterlimit="10" cx="5.974" cy="5.765" r="3.482"></circle><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-miterlimit="10" d="M8.436 8.228l3.446 3.5"></path></svg>
+</span>
+</a>
+</span>
+</nav>
+<nav class='header__right'>
+<div class='header__donate'>
+<a href="https://aeon.co/donate?utm_campaign=donation-drive-end-of-year-2017&amp;utm_medium=web&amp;utm_source=top-bar">Donate</a>
+<span class='header__separator separator'>/&nbsp;</span>
+</div>
+<div class='header__social-icons social-hovers'>
+<div class='social-hovers__item'>
+<span class='fb-like-mobile'></span>
+<a target="_blank" class="header__social-icon--facebook" href="https://www.facebook.com/AeonMagazine"><span><svg viewBox="0 0 512 512" fill="currentColor">
+  <path d="M211.9 197.4h-36.7v59.9h36.7V433.1h70.5V256.5h49.2l5.2-59.1h-54.4c0 0 0-22.1 0-33.7 0-13.9 2.8-19.5 16.3-19.5 10.9 0 38.2 0 38.2 0V82.9c0 0-40.2 0-48.8 0 -52.5 0-76.1 23.1-76.1 67.3C211.9 188.8 211.9 197.4 211.9 197.4z"></path>
+</svg>
+</span>
+</a></div>
+<div class='social-hovers__item'>
+<span class='fb-like' data-action='like' data-href='https://facebook.com/AeonMagazine' data-layout='button_count' data-share='false' data-show-faces='false'></span>
+<a target="_blank" class="header__social-icon--facebook" href="https://www.facebook.com/AeonMagazine"><span><svg viewBox="0 0 512 512" fill="currentColor">
+  <path d="M211.9 197.4h-36.7v59.9h36.7V433.1h70.5V256.5h49.2l5.2-59.1h-54.4c0 0 0-22.1 0-33.7 0-13.9 2.8-19.5 16.3-19.5 10.9 0 38.2 0 38.2 0V82.9c0 0-40.2 0-48.8 0 -52.5 0-76.1 23.1-76.1 67.3C211.9 188.8 211.9 197.4 211.9 197.4z"></path>
+</svg>
+</span>
+</a></div>
+<div class='social-hovers__item'>
+<a class='twitter-follow-button' data-show-count='false' data-show-screen-name='false' href='https://twitter.com/aeonmag'></a>
+<a target="_blank" class="header__social-icon--twitter" href="https://twitter.com/aeonmag"><span><svg viewBox="0 0 16 16" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414">
+  <path d="M16 3.038c-.59.26-1.22.437-1.885.517.677-.407 1.198-1.05 1.443-1.816-.634.37-1.337.64-2.085.79-.598-.64-1.45-1.04-2.396-1.04-1.812 0-3.282 1.47-3.282 3.28 0 .26.03.51.085.75-2.728-.13-5.147-1.44-6.766-3.42C.83 2.58.67 3.14.67 3.75c0 1.14.58 2.143 1.46 2.732-.538-.017-1.045-.165-1.487-.41v.04c0 1.59 1.13 2.918 2.633 3.22-.276.074-.566.114-.865.114-.21 0-.41-.02-.61-.058.42 1.304 1.63 2.253 3.07 2.28-1.12.88-2.54 1.404-4.07 1.404-.26 0-.52-.015-.78-.045 1.46.93 3.18 1.474 5.04 1.474 6.04 0 9.34-5 9.34-9.33 0-.14 0-.28-.01-.42.64-.46 1.2-1.04 1.64-1.7z" fill-rule="nonzero"></path>
+</svg>
+</span>
+</a></div>
+</div>
+<div class='header__newsletter'>
+<a href='#' onclick='document.body.classList.toggle(&#39;modal-newsletter--open&#39;); return false;'>
+Newsletter
+</a>
+</div>
+<span class='header__separator separator'>&nbsp;/</span>
+<div class='header__user header__user--signed-in'>
+<span class='user-nav'>
+<div id="js-react-on-rails-context" style="display:none" data-rails-context="{&quot;inMailer&quot;:false,&quot;i18nLocale&quot;:&quot;en&quot;,&quot;i18nDefaultLocale&quot;:&quot;en&quot;,&quot;href&quot;:&quot;https://aeon.co/&quot;,&quot;location&quot;:&quot;/&quot;,&quot;scheme&quot;:&quot;https&quot;,&quot;host&quot;:&quot;aeon.co&quot;,&quot;port&quot;:null,&quot;pathname&quot;:&quot;/&quot;,&quot;search&quot;:null,&quot;httpAcceptLanguage&quot;:&quot;en-US,en;q=0.5&quot;,&quot;serverSide&quot;:false}"></div>
+<div class="js-react-on-rails-component" style="display:none" data-component-name="Dropdown" data-props="{&quot;notifications_alert&quot;:null,&quot;notifications_dropdown&quot;:null,&quot;notifications_dropdown_library&quot;:null,&quot;library_url&quot;:&quot;https://aeon.co/library&quot;,&quot;user_url&quot;:&quot;https://aeon.co/users/martin-tournoij&quot;,&quot;editorial_essays_url&quot;:null,&quot;destroy_user_session_url&quot;:&quot;https://aeon.co/sign-out&quot;,&quot;avatar&quot;:{&quot;type&quot;:&quot;User&quot;,&quot;id&quot;:49556,&quot;avatar_id&quot;:5368,&quot;avatar_url&quot;:&quot;https://nu.aeon.co/avatars/45514141-b955-47ba-ba49-d76bf897e75c/thumb_1f16de410ea6f3c12b2896f02157161d.jpeg&quot;,&quot;name&quot;:&quot;Martin Tournoij&quot;,&quot;friend&quot;:true},&quot;notifications_url&quot;:&quot;https://aeon.co/notifications&quot;}" data-trace="false" data-dom-id="Dropdown-react-component-8492dd30-a102-4afe-8ac9-193d9c59a601"></div>
+    <div id="Dropdown-react-component-8492dd30-a102-4afe-8ac9-193d9c59a601"></div>
+    
+
+</span>
+
+</div>
+</nav>
+</div>
+</header>
+
+<header class='header header--fixed'>
+<div class='container header__container'>
+<a class="header__logo__link" href="https://aeon.co/"><svg xmlns="http://www.w3.org/2000/svg" width="174.65" height="61.413" viewBox="-14.554 -5.118 174.65 61.413" class="header__logo"><g fill="#9D1D20"><path d="M70.93 25.275c0 11.705 8.43 21.268 18.755 21.268 10.57 0 19.002-9.438 19.002-21.268 0-11.45-8.432-20.642-18.877-20.642-10.45 0-18.88 9.19-18.88 20.642m48.05.252c0 16.504-13.052 29.81-29.17 29.81-16.12 0-29.17-13.306-29.17-29.81 0-16.377 13.05-29.683 29.17-29.683 16.247 0 29.17 13.177 29.17 29.683M45.39 19.563c0-6.435-.266-10.854-.795-13.252-.525-2.398-1.35-4.217-2.47-5.456-.635-.72-1.48-1.08-2.535-1.08-1.575 0-2.856 1.02-3.853 3.06-1.782 3.56-2.674 8.435-2.674 14.63v2.1H45.39m11.146 4.017H33.29c.272 7.435 1.77 13.31 4.487 17.63 2.083 3.32 4.59 4.976 7.52 4.976 1.81 0 3.458-.673 4.936-2.01 1.485-1.34 3.07-3.75 4.76-7.225l1.544 1.322c-2.296 6.2-4.837 10.582-7.613 13.163-2.778 2.575-5.994 3.87-9.653 3.87-6.284 0-11.04-3.197-14.273-9.594C22.4 40.554 21.1 34.157 21.1 26.526c0-9.354 1.912-16.8 5.734-22.338 3.82-5.538 8.3-8.305 13.436-8.305 4.288 0 8.01 2.327 11.168 6.986 3.156 4.653 4.854 11.56 5.098 20.713M4.668 26.974c-6.007 2.037-9.014 5.404-9.014 9.97v4.566c0 2.88 1.323 5.046 3.967 5.046 2.883 0 5.048-2.524 5.048-5.648V26.974M14.876 55.32c-3.724 0-6.605-1.923-7.807-6.243C4.903 53.16 1.18 55.32-3.265 55.32c-6.725 0-11.29-5.165-11.29-14.05V38.5c0-10.572 8.168-15.615 19.223-19.7v-8.89c0-2.882-1.203-4.564-3.967-4.564-2.884 0-3.846 1.682-3.846 4.806V15.2h-9.73v-4.564c0-8.53 4.686-14.776 14.055-14.776 9.37 0 13.816 6.486 13.816 15.618V44.39c0 1.805.724 2.766 2.4 2.886v8.046h-2.522zM156.496 52.825v-39.79c0-7.597-.514-10.944-2.31-13.522-1.163-2.058-2.833-2.96-5.022-2.96-1.928 0-3.863 1.03-6.176 3.605-2.24 2.243-5.352 6.04-7.246 8.842.742-4.152.684-14.118.684-14.118-6.56 3.86-9.902 4.893-16.207 5.15V1.19c1.925.515 2.57.643 4.243 1.415.127 4.25.127 7.34.127 8.11v10.946l-.127 10.944V45.23c0 2.958 0 4.12-.127 7.596-1.416 1.283-1.93 1.413-3.73 2.184v1.285h18.78V55.01c-1.67-.774-2.187-1.028-3.474-2.184V10.973l.64-.64c2.063-1.933 3.99-3.092 5.28-3.092 2.697 0 3.47 2.06 3.47 8.5v37.085c-1.54 1.155-2.058 1.413-3.856 2.182v1.287h18.65v-1.542c-1.8-.643-2.315-.9-3.6-1.927"></path></g></svg>
+
+</a><nav class='header__left'>
+<a class='header__left__menu-trigger' href='#' onclick='document.body.classList.toggle(&#39;menu--open&#39;); return false;'>Menu</a>
+<span class='header__separator separator'>&nbsp;/&nbsp;</span>
+<span class='header__search'>
+<a class='header__search-trigger' href='#' onclick='document.body.classList.toggle(&#39;menu--open&#39;); document.querySelector(&#39;.menu__search__input&#39;).focus(); return false;'>
+<span class='header__search-icon'><svg xmlns="http://www.w3.org/2000/svg" width="15.44" height="15.441" viewBox="-0.449 -0.658 15.44 15.441"><circle fill="none" stroke="currentColor" stroke-width="1.2" stroke-miterlimit="10" cx="5.974" cy="5.765" r="3.482"></circle><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-miterlimit="10" d="M8.436 8.228l3.446 3.5"></path></svg>
+</span>
+</a>
+</span>
+</nav>
+<nav class='header__right'>
+<div class='header__donate'>
+<a href="https://aeon.co/donate?utm_campaign=donation-drive-end-of-year-2017&amp;utm_medium=web&amp;utm_source=top-bar">Donate</a>
+<span class='header__separator separator'>/&nbsp;</span>
+</div>
+<div class='header__social-icons social-hovers'>
+<div class='social-hovers__item'>
+<span class='fb-like-mobile'></span>
+<a target="_blank" class="header__social-icon--facebook" href="https://www.facebook.com/AeonMagazine"><span><svg viewBox="0 0 512 512" fill="currentColor">
+  <path d="M211.9 197.4h-36.7v59.9h36.7V433.1h70.5V256.5h49.2l5.2-59.1h-54.4c0 0 0-22.1 0-33.7 0-13.9 2.8-19.5 16.3-19.5 10.9 0 38.2 0 38.2 0V82.9c0 0-40.2 0-48.8 0 -52.5 0-76.1 23.1-76.1 67.3C211.9 188.8 211.9 197.4 211.9 197.4z"></path>
+</svg>
+</span>
+</a></div>
+<div class='social-hovers__item'>
+<span class='fb-like' data-action='like' data-href='https://facebook.com/AeonMagazine' data-layout='button_count' data-share='false' data-show-faces='false'></span>
+<a target="_blank" class="header__social-icon--facebook" href="https://www.facebook.com/AeonMagazine"><span><svg viewBox="0 0 512 512" fill="currentColor">
+  <path d="M211.9 197.4h-36.7v59.9h36.7V433.1h70.5V256.5h49.2l5.2-59.1h-54.4c0 0 0-22.1 0-33.7 0-13.9 2.8-19.5 16.3-19.5 10.9 0 38.2 0 38.2 0V82.9c0 0-40.2 0-48.8 0 -52.5 0-76.1 23.1-76.1 67.3C211.9 188.8 211.9 197.4 211.9 197.4z"></path>
+</svg>
+</span>
+</a></div>
+<div class='social-hovers__item'>
+<a class='twitter-follow-button' data-show-count='false' data-show-screen-name='false' href='https://twitter.com/aeonmag'></a>
+<a target="_blank" class="header__social-icon--twitter" href="https://twitter.com/aeonmag"><span><svg viewBox="0 0 16 16" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414">
+  <path d="M16 3.038c-.59.26-1.22.437-1.885.517.677-.407 1.198-1.05 1.443-1.816-.634.37-1.337.64-2.085.79-.598-.64-1.45-1.04-2.396-1.04-1.812 0-3.282 1.47-3.282 3.28 0 .26.03.51.085.75-2.728-.13-5.147-1.44-6.766-3.42C.83 2.58.67 3.14.67 3.75c0 1.14.58 2.143 1.46 2.732-.538-.017-1.045-.165-1.487-.41v.04c0 1.59 1.13 2.918 2.633 3.22-.276.074-.566.114-.865.114-.21 0-.41-.02-.61-.058.42 1.304 1.63 2.253 3.07 2.28-1.12.88-2.54 1.404-4.07 1.404-.26 0-.52-.015-.78-.045 1.46.93 3.18 1.474 5.04 1.474 6.04 0 9.34-5 9.34-9.33 0-.14 0-.28-.01-.42.64-.46 1.2-1.04 1.64-1.7z" fill-rule="nonzero"></path>
+</svg>
+</span>
+</a></div>
+</div>
+<div class='header__newsletter'>
+<a href='#' onclick='document.body.classList.toggle(&#39;modal-newsletter--open&#39;); return false;'>
+Newsletter
+</a>
+</div>
+<span class='header__separator separator'>&nbsp;/</span>
+<div class='header__user header__user--signed-in'>
+<span class='user-nav'>
+<div class="js-react-on-rails-component" style="display:none" data-component-name="Dropdown" data-props="{&quot;notifications_alert&quot;:null,&quot;notifications_dropdown&quot;:null,&quot;notifications_dropdown_library&quot;:null,&quot;library_url&quot;:&quot;https://aeon.co/library&quot;,&quot;user_url&quot;:&quot;https://aeon.co/users/martin-tournoij&quot;,&quot;editorial_essays_url&quot;:null,&quot;destroy_user_session_url&quot;:&quot;https://aeon.co/sign-out&quot;,&quot;avatar&quot;:{&quot;type&quot;:&quot;User&quot;,&quot;id&quot;:49556,&quot;avatar_id&quot;:5368,&quot;avatar_url&quot;:&quot;https://nu.aeon.co/avatars/45514141-b955-47ba-ba49-d76bf897e75c/thumb_1f16de410ea6f3c12b2896f02157161d.jpeg&quot;,&quot;name&quot;:&quot;Martin Tournoij&quot;,&quot;friend&quot;:true},&quot;notifications_url&quot;:&quot;https://aeon.co/notifications&quot;}" data-trace="false" data-dom-id="Dropdown-react-component-52d1fd08-cdb9-4a95-9f3a-698eec9febbe"></div>
+    <div id="Dropdown-react-component-52d1fd08-cdb9-4a95-9f3a-698eec9febbe"></div>
+    
+
+</span>
+
+</div>
+</nav>
+</div>
+</header>
+
+<div class='modal-newsletter'>
+<div class='shortcode-inline-newsletter'>
+<div class='shortcode-inline-newsletter__title'>Subscribe to Aeon’s Newsletter</div>
+<form action='https://aeonmagazine.us5.list-manage.com/subscribe/post?u=89c6e02ebaf75bbc918731474&amp;id=411a82e59d' method='post' name='mc-embedded-subscribe-form' target='_blank'>
+<div class='fieldset email'>
+<input name='EMAIL' placeholder='Email address' type='email'>
+</div>
+<div class='fieldset frequency'>
+<label>
+<input checked='checked' name='group[10469][1]' type='checkbox' value='1'>
+Daily
+</label>
+<label>
+<input name='group[10469][2]' type='checkbox' value='2'>
+Weekly
+</label>
+</div>
+<div class='fieldset submit'>
+<input class='button' type='submit' value='Subscribe'>
+</div>
+</form>
+</div>
+
+<a class='close-cover' href='#' onclick='document.body.classList.remove(&#39;modal-newsletter--open&#39;); return false;'></a>
+</div>
+<div class='content_top'></div>
+<div id="js-react-on-rails-context" style="display:none" data-rails-context="{&quot;inMailer&quot;:false,&quot;i18nLocale&quot;:&quot;en&quot;,&quot;i18nDefaultLocale&quot;:&quot;en&quot;,&quot;href&quot;:&quot;https://aeon.co/ideas/if-work-dominated-your-every-moment-would-life-be-worth-living&quot;,&quot;location&quot;:&quot;/ideas/if-work-dominated-your-every-moment-would-life-be-worth-living&quot;,&quot;scheme&quot;:&quot;https&quot;,&quot;host&quot;:&quot;aeon.co&quot;,&quot;port&quot;:null,&quot;pathname&quot;:&quot;/ideas/if-work-dominated-your-every-moment-would-life-be-worth-living&quot;,&quot;search&quot;:null,&quot;httpAcceptLanguage&quot;:&quot;en-US,en;q=0.5&quot;,&quot;serverSide&quot;:false}"></div>
+<div class="js-react-on-rails-component" style="display:none" data-component-name="Flash" data-props="{&quot;type&quot;:null,&quot;message&quot;:null}" data-trace="false" data-dom-id="Flash-react-component-30e0bec4-6338-41f5-bce5-ea18afb5584b"></div>
+    <div id="Flash-react-component-30e0bec4-6338-41f5-bce5-ea18afb5584b"></div>
+    
+
+
+
+<script src='https://w.soundcloud.com/player/api.js'></script>
+<header class='article__header container'>
+<h1 class='article__header__title article__header__title--idea'>
+If work dominated your every moment would life be worth living?
+</h1>
+<p class='article-card__authors'>
+<span class='article-card__authors__inner'>Andrew Taggart</span>
+</p>
+<div class='annotations__inline-sidebar'>
+<div class='article article__body__meta'>
+<div class='gutter'>
+<div class='article__body__author-details'>
+<p class='article__body__author-name vcard'>
+<a href='https://aeon.co/users/andrew-taggart'>Andrew Taggart</a>
+</p>
+<p>is a practical philosopher and entrepreneur. He is a faculty member at the Banff Centre in Canada, where he trains creative leaders, and at Kaospilot in Denmark, where he trains social entrepreneurs. His latest book is <em>The Good Life and Sustaining Life </em>(2014). He lives in Santa Fe, New Mexico.</p>
+</div>
+<div class='article__body__partner-bio audio-player__wrapper'>
+<a class='audio-player__avatar'>
+<figure class='responsive-image' style='background-image: url(&#39;https://alpha.aeon.co/partneravatars/fadd3546-0b3f-466b-b9aa-21bf283c20f7/curio_io.jpg&#39;)'>
+<div class='sizer__wrapper'>
+<div class='sizer'></div>
+</div>
+</figure>
+
+</a>
+<div class='audio audio-player__main' data-playing='false'>
+<span class='audio-corner audio-corner__bottom audio-corner--hidden'>
+<div class='audio-corner__button audio-corner__button--audio'>
+<div class='audio-corner__icon'><svg fill="#000000" height="24" viewBox="0 0 24 24" width="24">
+  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path>
+  <path d="M0 0h24v24H0z" fill="none"></path>
+</svg>
+</div>
+</div>
+<div class='audio-corner__button audio-corner__button--play'>
+<div class='audio-corner__icon'><svg fill="currentColor" height="24" viewBox="0 0 24 24" width="24">
+  <path d="M8 5v14l11-7z"></path>
+  <path d="M0 0h24v24H0z" fill="none"></path>
+</svg>
+</div>
+</div>
+<div class='audio-corner__button audio-corner__button--pause'>
+<div class='audio-corner__icon'><svg fill="currentColor" height="24" viewBox="0 0 24 24" width="24">
+  <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+  <path d="M0 0h24v24H0z" fill="none"></path>
+</svg>
+</div>
+</div>
+</span>
+
+<div id="js-react-on-rails-context" style="display:none" data-rails-context="{&quot;inMailer&quot;:false,&quot;i18nLocale&quot;:&quot;en&quot;,&quot;i18nDefaultLocale&quot;:&quot;en&quot;,&quot;href&quot;:&quot;https://aeon.co/ideas/if-work-dominated-your-every-moment-would-life-be-worth-living?utm_source=Blog+Newsletter\u0026utm_campaign=e3d2185faf-EMAIL_CAMPAIGN_2017_12_27\u0026utm_medium=email\u0026utm_term=0_6e017e2559-e3d2185faf-47992643&quot;,&quot;location&quot;:&quot;/ideas/if-work-dominated-your-every-moment-would-life-be-worth-living?utm_source=Blog+Newsletter\u0026utm_campaign=e3d2185faf-EMAIL_CAMPAIGN_2017_12_27\u0026utm_medium=email\u0026utm_term=0_6e017e2559-e3d2185faf-47992643&quot;,&quot;scheme&quot;:&quot;https&quot;,&quot;host&quot;:&quot;aeon.co&quot;,&quot;port&quot;:null,&quot;pathname&quot;:&quot;/ideas/if-work-dominated-your-every-moment-would-life-be-worth-living&quot;,&quot;search&quot;:&quot;utm_source=Blog+Newsletter\u0026utm_campaign=e3d2185faf-EMAIL_CAMPAIGN_2017_12_27\u0026utm_medium=email\u0026utm_term=0_6e017e2559-e3d2185faf-47992643&quot;,&quot;httpAcceptLanguage&quot;:&quot;en-US,en;q=0.9,ru;q=0.8&quot;,&quot;serverSide&quot;:false}"></div>
+<div class="js-react-on-rails-component" style="display:none" data-component-name="AudioEmbedPlayer" data-props="{&quot;soundcloud_id&quot;:&quot;371742476&quot;,&quot;soundcloud_secret_token&quot;:&quot;s-LoYkG&quot;,&quot;soundcloud_client_id&quot;:&quot;fba382dd16fff276623c38d3e3b0a709&quot;,&quot;title&quot;:&quot;If work dominated your every moment would life be worth living?&quot;,&quot;background_image&quot;:false}" data-trace="false" data-dom-id="AudioEmbedPlayer-react-component-77ba39d9-b62d-472b-bfb1-ca57c227f619"></div>
+    <div id="AudioEmbedPlayer-react-component-77ba39d9-b62d-472b-bfb1-ca57c227f619"></div>
+    
+
+<p class='audio-player__partner'>
+Brought to you by <a href="https://www.curio.io/">curio.io</a>, an <a href="/partners/curio-io">Aeon partner</a>
+</p>
+<iframe data-src='https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/371742476%3Fsecret_token%3Ds-LoYkG&amp;amp;auto_play=false&amp;amp;hide_related=true&amp;amp;show_comments=false&amp;amp;show_user=false&amp;amp;show_reposts=false&amp;amp;visual=false&amp;amp;default_width=0&amp;amp;default_height=0&amp;amp;show_artwork=false&amp;amp;show_playcount=false' id='sc-widget' src=''></iframe>
+</div>
+</div>
+
+<p class='article__word-count'>1,200 words</p>
+<p class='article__body__editor'>
+Edited by
+<a href="https://aeon.co/users/nigel-warburton">Nigel Warburton</a>
+</p>
+<a class='republish-button' href='#' onclick='document.body.classList.add(&#39;show-republish-modal&#39;); return false;'>
+<div class='republish-button__icons'>
+<div class='republish-button__icons__icon'>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><circle cx="32.3" cy="32" r="28.8" fill="#fff"></circle><path d="M31.9,0A31.088,31.088,0,0,1,54.8,9.4a31.1,31.1,0,0,1,6.9,10.3A32.012,32.012,0,0,1,64,32a33.221,33.221,0,0,1-2.3,12.3,28.615,28.615,0,0,1-6.8,10.1,34.034,34.034,0,0,1-10.6,7.1A32.962,32.962,0,0,1,32,64a31.1,31.1,0,0,1-12.1-2.4,32.876,32.876,0,0,1-10.4-7A31.591,31.591,0,0,1,2.4,44.2,31.233,31.233,0,0,1,0,32,31.571,31.571,0,0,1,9.5,9.3,30.268,30.268,0,0,1,31.9,0Zm0.2,5.8a24.982,24.982,0,0,0-18.5,7.7A27.329,27.329,0,0,0,7.8,22a24.483,24.483,0,0,0-2,10,26.126,26.126,0,0,0,2,9.9,27.329,27.329,0,0,0,5.8,8.5,26.48,26.48,0,0,0,8.5,5.7,26.126,26.126,0,0,0,9.9,2,26.629,26.629,0,0,0,10-2,27.62,27.62,0,0,0,8.7-5.8A24.583,24.583,0,0,0,58.2,32a26.66,26.66,0,0,0-1.9-10.1,25.44,25.44,0,0,0-5.7-8.5A25.209,25.209,0,0,0,32.1,5.8ZM31.7,26.7l-4.3,2.2a4.311,4.311,0,0,0-1.7-2,3.809,3.809,0,0,0-1.9-.6c-2.9,0-4.3,1.9-4.3,5.7a7.115,7.115,0,0,0,1.1,4.1,3.682,3.682,0,0,0,3.2,1.5,3.873,3.873,0,0,0,3.9-2.7l3.9,2a8.923,8.923,0,0,1-3.5,3.7,9.225,9.225,0,0,1-4.9,1.3,9.353,9.353,0,0,1-6.9-2.6c-1.8-1.8-2.6-4.2-2.6-7.3a9.969,9.969,0,0,1,2.7-7.3A9.045,9.045,0,0,1,23.1,22C27.1,22.1,29.9,23.6,31.7,26.7Zm18.4,0-4.2,2.2a4.311,4.311,0,0,0-1.7-2,3.809,3.809,0,0,0-1.9-.6c-2.9,0-4.3,1.9-4.3,5.7a7.115,7.115,0,0,0,1.1,4.1,3.682,3.682,0,0,0,3.2,1.5,3.873,3.873,0,0,0,3.9-2.7l4,2a10.394,10.394,0,0,1-3.5,3.7,9.225,9.225,0,0,1-4.9,1.3,9.353,9.353,0,0,1-6.9-2.6A10.169,10.169,0,0,1,32.3,32,9.969,9.969,0,0,1,35,24.7,9.045,9.045,0,0,1,41.7,22C45.6,22.1,48.4,23.6,50.1,26.7Z"></path></svg>
+
+</div>
+<div class='republish-button__icons__icon'>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><circle cx="32.1" cy="32.3" r="28.3" fill="#fff"></circle><path d="M31.9,0A30.62,30.62,0,0,1,54.6,9.3,30.487,30.487,0,0,1,64,32c0,9-3,16.5-9.1,22.5a32.059,32.059,0,0,1-23,9.5A30.838,30.838,0,0,1,9.4,54.6,30.739,30.739,0,0,1,0,32,31.122,31.122,0,0,1,9.4,9.3,30.649,30.649,0,0,1,31.9,0Zm0.2,5.8a25.141,25.141,0,0,0-18.5,7.7A25.661,25.661,0,0,0,5.8,32a25.113,25.113,0,0,0,7.8,18.4,25.333,25.333,0,0,0,18.5,7.8,25.718,25.718,0,0,0,18.6-7.8,24.428,24.428,0,0,0,7.5-18.3,25.364,25.364,0,0,0-7.7-18.6A24.546,24.546,0,0,0,32.1,5.8Zm8.5,18.3V37.2H37V52.7H27V37.1H23.3v-13A2.051,2.051,0,0,1,25.4,22H38.5a1.974,1.974,0,0,1,1.4.6A1.8,1.8,0,0,1,40.6,24.1ZM27.5,15.8q0-4.5,4.5-4.5t4.5,4.5q0,4.5-4.5,4.5T27.5,15.8Z"></path></svg>
+
+</div>
+<div class='republish-button__icons__icon'>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><circle cx="32.1" cy="31.8" r="29" fill="#fff"></circle><path d="M31.9,0A30.778,30.778,0,0,1,54.6,9.3,30.487,30.487,0,0,1,64,32c0,9-3,16.5-9.1,22.5a31.893,31.893,0,0,1-23,9.5A30.838,30.838,0,0,1,9.4,54.6,30.739,30.739,0,0,1,0,32,31.284,31.284,0,0,1,9.4,9.3,30.649,30.649,0,0,1,31.9,0Zm0.2,5.8a25.141,25.141,0,0,0-18.5,7.7A25.661,25.661,0,0,0,5.8,32a24.953,24.953,0,0,0,7.8,18.4,25.333,25.333,0,0,0,18.5,7.8,25.718,25.718,0,0,0,18.6-7.8,24.583,24.583,0,0,0,7.5-18.3,24.982,24.982,0,0,0-7.7-18.5A24.277,24.277,0,0,0,32.1,5.8Zm12,18.7V30H20.9V24.5H44.1Zm0,10.2v5.5H20.9V34.7H44.1Z"></path></svg>
+
+</div>
+</div>
+<div class='republish-button__text'>
+<span>Republish</span>
+</div>
+</a>
+
+<div class='republish-modal'>
+<div class="js-react-on-rails-component" style="display:none" data-component-name="RepublishModal" data-props="{&quot;metrics_url&quot;:&quot;https://metrics.aeon.co&quot;,&quot;title&quot;:&quot;If work dominated your every moment would life be worth living?&quot;,&quot;authors&quot;:&quot;Andrew Taggart&quot;,&quot;republish_token&quot;:&quot;798f066c-81fb-4cfd-939b-e80707003780&quot;,&quot;content&quot;:&quot;\u003cp\u003eImagine that work had taken over the world. It would be the centre around which the rest of life turned. Then all else would come to be subservient to work. Then slowly, almost imperceptibly, anything else – the games once played, the songs hitherto sung, the loves fulfilled, the festivals celebrated – would come to resemble, and ultimately become, work. And then there would come a time, itself largely unobserved, when the many worlds that had once existed before work took over the world would vanish completely from the cultural record, having fallen into oblivion.\u003c/p\u003e\u003cp\u003eAnd how, in this world of total work, would people think and sound and act? Everywhere they looked, they would see the pre-employed, employed, post-employed, underemployed and unemployed, and there would be no one uncounted in this census. Everywhere they would laud and love work, wishing each other the very best for a productive day, opening their eyes to tasks and closing them only to sleep. Everywhere an ethos of hard work would be championed as the means by which success is to be achieved, laziness being deemed the gravest sin. Everywhere among content-providers, knowledge-brokers, collaboration architects and heads of new divisions would be heard ceaseless chatter about workflows and deltas, about plans and benchmarks, about scaling up, monetisation and growth.\u003c/p\u003e\u003cp\u003eIn this world, eating, excreting, resting, having sex, exercising, meditating and commuting – closely monitored and ever-optimised – would all be conducive to good health, which would, in turn, be put in the service of being more and more productive. No one would drink too much, some would microdose on psychedelics to enhance their work performance, and everyone would live indefinitely long. Off in corners, rumours would occasionally circulate about death or suicide from overwork, but such faintly sweet susurrus would rightly be regarded as no more than local manifestations of the spirit of total work, for some even as a praiseworthy way of taking work to its logical limit in ultimate sacrifice. In all corners of the world, therefore, people would act in order to complete total work’s deepest longing: to see itself fully manifest.\u003c/p\u003e\u003cp\u003eThis world, it turns out, is not a work of science fiction; it is unmistakably close to our own.\u003c/p\u003e\u003cp\u003e‘Total work’, a term coined by the German philosopher Josef Pieper just after the Second World War in his book \u003cem\u003eLeisure: The Basis of Culture\u003c/em\u003e (1948), is the process by which human beings are transformed into workers and nothing else. By this means, work will ultimately become \u003cem\u003etotal,\u003c/em\u003e I argue, when it is the centre around which all of human life turns; when everything else is put in its service; when leisure, festivity and play come to resemble and then become work; when there remains no further dimension to life beyond work; when humans fully believe that we were \u003ca href=\&quot;https://www.linkedin.com/pulse/kindergartener-borntowork-hegemony-total-work-andrew-taggart\&quot; target=\&quot;_blank\&quot;\u003eborn only to work\u003c/a\u003e; and when other ways of life, existing before total work won out, disappear completely from cultural memory.\u003c/p\u003e\u003cp\u003eWe are on the verge of total work’s realisation. Each day I speak with people for whom work has come to control their lives, making their world into \u003cem\u003ea task\u003c/em\u003e, their thoughts an unspoken \u003cem\u003eburden\u003c/em\u003e.\u003c/p\u003e\u003cp\u003eFor unlike someone devoted to the life of contemplation, a total worker takes herself to be \u003cem\u003eprimordially\u003c/em\u003e an agent standing before the world, which is construed as an endless set of tasks extending into the indeterminate future. Following this taskification of the world, she sees time as a scarce resource to be used prudently, is always concerned with what is to be done, and is often anxious both about whether this is the right thing to do now and about there always being more to do. Crucially, the attitude of the total worker is not grasped best in cases of overwork, but rather in the everyday way in which he is single-mindedly focused on tasks to be completed, with productivity, effectiveness and efficiency to be enhanced. How? Through the modes of effective planning, skilful prioritising and timely delegation. The total worker, in brief, is a figure of ceaseless, tensed, busied activity: a figure, whose main affliction is a deep existential restlessness fixated on producing the \u003cem\u003euseful\u003c/em\u003e.\u003c/p\u003e\u003cp\u003e\u003cspan class=\&quot;ld-dropcap\&quot;\u003eW\u003c/span\u003ehat is so disturbing about total work is not just that it causes needless human suffering but also that it eradicates the forms of playful contemplation concerned with our asking, pondering and answering the most basic questions of existence. To see how it causes needless human suffering, consider the illuminating phenomenology of total work as it shows up in the daily awareness of two imaginary conversation partners. There is, to begin with, \u003cem\u003econstant tension\u003c/em\u003e, an \u003cem\u003eoverarching sense of pressure\u003c/em\u003e associated with the thought that \u003cem\u003ethere’s something that needs to be done\u003c/em\u003e, always \u003cem\u003esomething I’m supposed to be doing\u003c/em\u003e right now. As the second conversation partner puts it, there is concomitantly the looming question: \u003cem\u003eIs this the best use of my time?\u003c/em\u003e Time, an enemy, a scarcity, reveals the agent’s limited powers of action, the pain of harrying, unanswerable opportunity costs.\u003c/p\u003e\u003cp\u003eTogether, thoughts of the \u003cem\u003enot yet but supposed to be done\u003c/em\u003e, the \u003cem\u003eshould have been done already\u003c/em\u003e, the \u003cem\u003ecould be something more productive I should be doing\u003c/em\u003e, and the \u003cem\u003eever-awaiting next thing to do\u003c/em\u003e conspire as enemies to harass the agent who is, by default, always behind in the incomplete \u003cem\u003enow\u003c/em\u003e. Secondly, one feels guilt whenever he is \u003cem\u003enot as productive as possible\u003c/em\u003e. Guilt, in this case, is an expression of a failure to \u003cem\u003ekeep up\u003c/em\u003e or \u003cem\u003ekeep on top\u003c/em\u003e of things, with tasks overflowing \u003cem\u003ebecause of\u003c/em\u003e presumed neglect or relative idleness. Finally, the constant, haranguing impulse to get things done implies that it’s empirically impossible, from within this mode of being, to \u003cem\u003eexperience things completely\u003c/em\u003e. ‘My being,’ the first man concludes, ‘is an onus,’ which is to say an endless cycle of unsatisfactoriness.\u003c/p\u003e\u003cp\u003eThe burden character of total work, then, is defined by ceaseless, restless, agitated activity, anxiety about the future, a sense of life being overwhelming, nagging thoughts about missed opportunities, and guilt connected to the possibility of laziness. Hence, the taskification of the world is correlated with the burden character of total work. In short, total work \u003cem\u003enecessarily\u003c/em\u003e causes \u003cem\u003edukkha\u003c/em\u003e, a Buddhist term referring to the unsatisfactory nature of a life filled with suffering.\u003c/p\u003e\u003cp\u003eIn addition to causing \u003cem\u003edukkha\u003c/em\u003e, total work bars access to higher levels of reality. For what is lost in the world of total work is art’s revelation of the beautiful, religion’s glimpse of eternity, love’s unalloyed joy, and philosophy’s sense of wonderment. All of these require silence, stillness, a wholehearted willingness to simply apprehend. If meaning, understood as the ludic interaction of finitude and infinity, is precisely what transcends, here and now, the ken of our preoccupations and mundane tasks, enabling us to have a direct experience with what is greater than ourselves, then what is lost in a world of total work is the very possibility of our experiencing meaning. What is lost is seeking why we’re here.\u003c/p\u003e&quot;,&quot;licence&quot;:{&quot;id&quot;:4,&quot;name&quot;:&quot;Creative Commons Attribution-No Derivatives&quot;,&quot;short&quot;:&quot;CC BY-ND&quot;,&quot;url&quot;:&quot;http://creativecommons.org/licenses/by-nd/4.0/&quot;,&quot;attribution_required&quot;:true,&quot;name_of_license_required&quot;:true,&quot;link_to_license_required&quot;:true,&quot;commercial_use_allowed&quot;:true,&quot;republication_allowed&quot;:true,&quot;derivative_works_allowed&quot;:false,&quot;created_at&quot;:&quot;2016-05-27T05:50:10.780Z&quot;,&quot;updated_at&quot;:&quot;2016-05-27T05:50:10.780Z&quot;},&quot;type&quot;:&quot;Idea&quot;,&quot;creative_commons&quot;:true}" data-trace="false" data-dom-id="RepublishModal-react-component-98dc3904-5d9b-452a-a021-288c56c198c9"></div>
+    <div id="RepublishModal-react-component-98dc3904-5d9b-452a-a021-288c56c198c9"></div>
+    
+
+</div>
+
+
+</div>
+</div>
+<div class='article__image'>
+<div class='gutter'>
+<div class='article__image__wrapper'>
+<img alt="<em>Workers Leaving the Factory</em> Lithograph, 1903 by Théophile Alexandre Steinlen. <em>Image courtesy www.famsf.org </em>" src="https://epsilon.aeon.co/images/c1620b95-b107-485b-b934-91a5cbf5a63e/idea_sized-steinlen-2319102115580098.jpg" />
+</div>
+<div class='article__image__caption article__image__caption--inline'>
+<em>Workers Leaving the Factory</em> Lithograph, 1903 by Théophile Alexandre Steinlen. <em>Image courtesy www.famsf.org </em>
+</div>
+</div>
+</div>
+<p class='article-card__authors'>
+<span class='article-card__authors__inner'>
+<span class='article-card__authors__author'>Andrew Taggart</span>
+</span>
+</p>
+</div>
+</header>
+<div class='article__wrapper'>
+<div class='article container idea' id='idea_2306'>
+<div class='article__body'>
+<div class='article__inline-sidebar article__body__meta'>
+<div class='gutter'>
+<div class='article__body__author-details'>
+<p class='article__body__author-name vcard'>
+<a href='https://aeon.co/users/andrew-taggart'>Andrew Taggart</a>
+</p>
+<p>is a practical philosopher and entrepreneur. He is a faculty member at the Banff Centre in Canada, where he trains creative leaders, and at Kaospilot in Denmark, where he trains social entrepreneurs. His latest book is <em>The Good Life and Sustaining Life </em>(2014). He lives in Santa Fe, New Mexico.</p>
+</div>
+<div class='article__body__partner-bio audio-player__wrapper'>
+<a class='audio-player__avatar'>
+<figure class='responsive-image' style='background-image: url(&#39;https://alpha.aeon.co/partneravatars/fadd3546-0b3f-466b-b9aa-21bf283c20f7/curio_io.jpg&#39;)'>
+<div class='sizer__wrapper'>
+<div class='sizer'></div>
+</div>
+</figure>
+
+</a>
+<div class='audio audio-player__main' data-playing='false'>
+<span class='audio-corner audio-corner__bottom audio-corner--hidden'>
+<div class='audio-corner__button audio-corner__button--audio'>
+<div class='audio-corner__icon'><svg fill="#000000" height="24" viewBox="0 0 24 24" width="24">
+  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path>
+  <path d="M0 0h24v24H0z" fill="none"></path>
+</svg>
+</div>
+</div>
+<div class='audio-corner__button audio-corner__button--play'>
+<div class='audio-corner__icon'><svg fill="currentColor" height="24" viewBox="0 0 24 24" width="24">
+  <path d="M8 5v14l11-7z"></path>
+  <path d="M0 0h24v24H0z" fill="none"></path>
+</svg>
+</div>
+</div>
+<div class='audio-corner__button audio-corner__button--pause'>
+<div class='audio-corner__icon'><svg fill="currentColor" height="24" viewBox="0 0 24 24" width="24">
+  <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+  <path d="M0 0h24v24H0z" fill="none"></path>
+</svg>
+</div>
+</div>
+</span>
+
+<div class="js-react-on-rails-component" style="display:none" data-component-name="AudioEmbedPlayer" data-props="{&quot;soundcloud_id&quot;:&quot;371742476&quot;,&quot;soundcloud_secret_token&quot;:&quot;s-LoYkG&quot;,&quot;soundcloud_client_id&quot;:&quot;fba382dd16fff276623c38d3e3b0a709&quot;,&quot;title&quot;:&quot;If work dominated your every moment would life be worth living?&quot;,&quot;background_image&quot;:false}" data-trace="false" data-dom-id="AudioEmbedPlayer-react-component-10b49e76-2743-4946-bd19-40ff15f828e0"></div>
+    <div id="AudioEmbedPlayer-react-component-10b49e76-2743-4946-bd19-40ff15f828e0"></div>
+    
+
+<p class='audio-player__partner'>
+Brought to you by <a href="https://www.curio.io/">curio.io</a>, an <a href="/partners/curio-io">Aeon partner</a>
+</p>
+<iframe data-src='https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/371742476%3Fsecret_token%3Ds-LoYkG&amp;amp;auto_play=false&amp;amp;hide_related=true&amp;amp;show_comments=false&amp;amp;show_user=false&amp;amp;show_reposts=false&amp;amp;visual=false&amp;amp;default_width=0&amp;amp;default_height=0&amp;amp;show_artwork=false&amp;amp;show_playcount=false' id='sc-widget' src=''></iframe>
+</div>
+</div>
+
+<p class='article__word-count'>1,200 words</p>
+<p class='article__body__editor'>
+Edited by
+<a href="https://aeon.co/users/nigel-warburton">Nigel Warburton</a>
+</p>
+<a class='republish-button' href='#' onclick='document.body.classList.add(&#39;show-republish-modal&#39;); return false;'>
+<div class='republish-button__icons'>
+<div class='republish-button__icons__icon'>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><circle cx="32.3" cy="32" r="28.8" fill="#fff"></circle><path d="M31.9,0A31.088,31.088,0,0,1,54.8,9.4a31.1,31.1,0,0,1,6.9,10.3A32.012,32.012,0,0,1,64,32a33.221,33.221,0,0,1-2.3,12.3,28.615,28.615,0,0,1-6.8,10.1,34.034,34.034,0,0,1-10.6,7.1A32.962,32.962,0,0,1,32,64a31.1,31.1,0,0,1-12.1-2.4,32.876,32.876,0,0,1-10.4-7A31.591,31.591,0,0,1,2.4,44.2,31.233,31.233,0,0,1,0,32,31.571,31.571,0,0,1,9.5,9.3,30.268,30.268,0,0,1,31.9,0Zm0.2,5.8a24.982,24.982,0,0,0-18.5,7.7A27.329,27.329,0,0,0,7.8,22a24.483,24.483,0,0,0-2,10,26.126,26.126,0,0,0,2,9.9,27.329,27.329,0,0,0,5.8,8.5,26.48,26.48,0,0,0,8.5,5.7,26.126,26.126,0,0,0,9.9,2,26.629,26.629,0,0,0,10-2,27.62,27.62,0,0,0,8.7-5.8A24.583,24.583,0,0,0,58.2,32a26.66,26.66,0,0,0-1.9-10.1,25.44,25.44,0,0,0-5.7-8.5A25.209,25.209,0,0,0,32.1,5.8ZM31.7,26.7l-4.3,2.2a4.311,4.311,0,0,0-1.7-2,3.809,3.809,0,0,0-1.9-.6c-2.9,0-4.3,1.9-4.3,5.7a7.115,7.115,0,0,0,1.1,4.1,3.682,3.682,0,0,0,3.2,1.5,3.873,3.873,0,0,0,3.9-2.7l3.9,2a8.923,8.923,0,0,1-3.5,3.7,9.225,9.225,0,0,1-4.9,1.3,9.353,9.353,0,0,1-6.9-2.6c-1.8-1.8-2.6-4.2-2.6-7.3a9.969,9.969,0,0,1,2.7-7.3A9.045,9.045,0,0,1,23.1,22C27.1,22.1,29.9,23.6,31.7,26.7Zm18.4,0-4.2,2.2a4.311,4.311,0,0,0-1.7-2,3.809,3.809,0,0,0-1.9-.6c-2.9,0-4.3,1.9-4.3,5.7a7.115,7.115,0,0,0,1.1,4.1,3.682,3.682,0,0,0,3.2,1.5,3.873,3.873,0,0,0,3.9-2.7l4,2a10.394,10.394,0,0,1-3.5,3.7,9.225,9.225,0,0,1-4.9,1.3,9.353,9.353,0,0,1-6.9-2.6A10.169,10.169,0,0,1,32.3,32,9.969,9.969,0,0,1,35,24.7,9.045,9.045,0,0,1,41.7,22C45.6,22.1,48.4,23.6,50.1,26.7Z"></path></svg>
+
+</div>
+<div class='republish-button__icons__icon'>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><circle cx="32.1" cy="32.3" r="28.3" fill="#fff"></circle><path d="M31.9,0A30.62,30.62,0,0,1,54.6,9.3,30.487,30.487,0,0,1,64,32c0,9-3,16.5-9.1,22.5a32.059,32.059,0,0,1-23,9.5A30.838,30.838,0,0,1,9.4,54.6,30.739,30.739,0,0,1,0,32,31.122,31.122,0,0,1,9.4,9.3,30.649,30.649,0,0,1,31.9,0Zm0.2,5.8a25.141,25.141,0,0,0-18.5,7.7A25.661,25.661,0,0,0,5.8,32a25.113,25.113,0,0,0,7.8,18.4,25.333,25.333,0,0,0,18.5,7.8,25.718,25.718,0,0,0,18.6-7.8,24.428,24.428,0,0,0,7.5-18.3,25.364,25.364,0,0,0-7.7-18.6A24.546,24.546,0,0,0,32.1,5.8Zm8.5,18.3V37.2H37V52.7H27V37.1H23.3v-13A2.051,2.051,0,0,1,25.4,22H38.5a1.974,1.974,0,0,1,1.4.6A1.8,1.8,0,0,1,40.6,24.1ZM27.5,15.8q0-4.5,4.5-4.5t4.5,4.5q0,4.5-4.5,4.5T27.5,15.8Z"></path></svg>
+
+</div>
+<div class='republish-button__icons__icon'>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><circle cx="32.1" cy="31.8" r="29" fill="#fff"></circle><path d="M31.9,0A30.778,30.778,0,0,1,54.6,9.3,30.487,30.487,0,0,1,64,32c0,9-3,16.5-9.1,22.5a31.893,31.893,0,0,1-23,9.5A30.838,30.838,0,0,1,9.4,54.6,30.739,30.739,0,0,1,0,32,31.284,31.284,0,0,1,9.4,9.3,30.649,30.649,0,0,1,31.9,0Zm0.2,5.8a25.141,25.141,0,0,0-18.5,7.7A25.661,25.661,0,0,0,5.8,32a24.953,24.953,0,0,0,7.8,18.4,25.333,25.333,0,0,0,18.5,7.8,25.718,25.718,0,0,0,18.6-7.8,24.583,24.583,0,0,0,7.5-18.3,24.982,24.982,0,0,0-7.7-18.5A24.277,24.277,0,0,0,32.1,5.8Zm12,18.7V30H20.9V24.5H44.1Zm0,10.2v5.5H20.9V34.7H44.1Z"></path></svg>
+
+</div>
+</div>
+<div class='republish-button__text'>
+<span>Republish</span>
+</div>
+</a>
+
+<div class='republish-modal'>
+<div class="js-react-on-rails-component" style="display:none" data-component-name="RepublishModal" data-props="{&quot;metrics_url&quot;:&quot;https://metrics.aeon.co&quot;,&quot;title&quot;:&quot;If work dominated your every moment would life be worth living?&quot;,&quot;authors&quot;:&quot;Andrew Taggart&quot;,&quot;republish_token&quot;:&quot;798f066c-81fb-4cfd-939b-e80707003780&quot;,&quot;content&quot;:&quot;\u003cp\u003eImagine that work had taken over the world. It would be the centre around which the rest of life turned. Then all else would come to be subservient to work. Then slowly, almost imperceptibly, anything else – the games once played, the songs hitherto sung, the loves fulfilled, the festivals celebrated – would come to resemble, and ultimately become, work. And then there would come a time, itself largely unobserved, when the many worlds that had once existed before work took over the world would vanish completely from the cultural record, having fallen into oblivion.\u003c/p\u003e\u003cp\u003eAnd how, in this world of total work, would people think and sound and act? Everywhere they looked, they would see the pre-employed, employed, post-employed, underemployed and unemployed, and there would be no one uncounted in this census. Everywhere they would laud and love work, wishing each other the very best for a productive day, opening their eyes to tasks and closing them only to sleep. Everywhere an ethos of hard work would be championed as the means by which success is to be achieved, laziness being deemed the gravest sin. Everywhere among content-providers, knowledge-brokers, collaboration architects and heads of new divisions would be heard ceaseless chatter about workflows and deltas, about plans and benchmarks, about scaling up, monetisation and growth.\u003c/p\u003e\u003cp\u003eIn this world, eating, excreting, resting, having sex, exercising, meditating and commuting – closely monitored and ever-optimised – would all be conducive to good health, which would, in turn, be put in the service of being more and more productive. No one would drink too much, some would microdose on psychedelics to enhance their work performance, and everyone would live indefinitely long. Off in corners, rumours would occasionally circulate about death or suicide from overwork, but such faintly sweet susurrus would rightly be regarded as no more than local manifestations of the spirit of total work, for some even as a praiseworthy way of taking work to its logical limit in ultimate sacrifice. In all corners of the world, therefore, people would act in order to complete total work’s deepest longing: to see itself fully manifest.\u003c/p\u003e\u003cp\u003eThis world, it turns out, is not a work of science fiction; it is unmistakably close to our own.\u003c/p\u003e\u003cp\u003e‘Total work’, a term coined by the German philosopher Josef Pieper just after the Second World War in his book \u003cem\u003eLeisure: The Basis of Culture\u003c/em\u003e (1948), is the process by which human beings are transformed into workers and nothing else. By this means, work will ultimately become \u003cem\u003etotal,\u003c/em\u003e I argue, when it is the centre around which all of human life turns; when everything else is put in its service; when leisure, festivity and play come to resemble and then become work; when there remains no further dimension to life beyond work; when humans fully believe that we were \u003ca href=\&quot;https://www.linkedin.com/pulse/kindergartener-borntowork-hegemony-total-work-andrew-taggart\&quot; target=\&quot;_blank\&quot;\u003eborn only to work\u003c/a\u003e; and when other ways of life, existing before total work won out, disappear completely from cultural memory.\u003c/p\u003e\u003cp\u003eWe are on the verge of total work’s realisation. Each day I speak with people for whom work has come to control their lives, making their world into \u003cem\u003ea task\u003c/em\u003e, their thoughts an unspoken \u003cem\u003eburden\u003c/em\u003e.\u003c/p\u003e\u003cp\u003eFor unlike someone devoted to the life of contemplation, a total worker takes herself to be \u003cem\u003eprimordially\u003c/em\u003e an agent standing before the world, which is construed as an endless set of tasks extending into the indeterminate future. Following this taskification of the world, she sees time as a scarce resource to be used prudently, is always concerned with what is to be done, and is often anxious both about whether this is the right thing to do now and about there always being more to do. Crucially, the attitude of the total worker is not grasped best in cases of overwork, but rather in the everyday way in which he is single-mindedly focused on tasks to be completed, with productivity, effectiveness and efficiency to be enhanced. How? Through the modes of effective planning, skilful prioritising and timely delegation. The total worker, in brief, is a figure of ceaseless, tensed, busied activity: a figure, whose main affliction is a deep existential restlessness fixated on producing the \u003cem\u003euseful\u003c/em\u003e.\u003c/p\u003e\u003cp\u003e\u003cspan class=\&quot;ld-dropcap\&quot;\u003eW\u003c/span\u003ehat is so disturbing about total work is not just that it causes needless human suffering but also that it eradicates the forms of playful contemplation concerned with our asking, pondering and answering the most basic questions of existence. To see how it causes needless human suffering, consider the illuminating phenomenology of total work as it shows up in the daily awareness of two imaginary conversation partners. There is, to begin with, \u003cem\u003econstant tension\u003c/em\u003e, an \u003cem\u003eoverarching sense of pressure\u003c/em\u003e associated with the thought that \u003cem\u003ethere’s something that needs to be done\u003c/em\u003e, always \u003cem\u003esomething I’m supposed to be doing\u003c/em\u003e right now. As the second conversation partner puts it, there is concomitantly the looming question: \u003cem\u003eIs this the best use of my time?\u003c/em\u003e Time, an enemy, a scarcity, reveals the agent’s limited powers of action, the pain of harrying, unanswerable opportunity costs.\u003c/p\u003e\u003cp\u003eTogether, thoughts of the \u003cem\u003enot yet but supposed to be done\u003c/em\u003e, the \u003cem\u003eshould have been done already\u003c/em\u003e, the \u003cem\u003ecould be something more productive I should be doing\u003c/em\u003e, and the \u003cem\u003eever-awaiting next thing to do\u003c/em\u003e conspire as enemies to harass the agent who is, by default, always behind in the incomplete \u003cem\u003enow\u003c/em\u003e. Secondly, one feels guilt whenever he is \u003cem\u003enot as productive as possible\u003c/em\u003e. Guilt, in this case, is an expression of a failure to \u003cem\u003ekeep up\u003c/em\u003e or \u003cem\u003ekeep on top\u003c/em\u003e of things, with tasks overflowing \u003cem\u003ebecause of\u003c/em\u003e presumed neglect or relative idleness. Finally, the constant, haranguing impulse to get things done implies that it’s empirically impossible, from within this mode of being, to \u003cem\u003eexperience things completely\u003c/em\u003e. ‘My being,’ the first man concludes, ‘is an onus,’ which is to say an endless cycle of unsatisfactoriness.\u003c/p\u003e\u003cp\u003eThe burden character of total work, then, is defined by ceaseless, restless, agitated activity, anxiety about the future, a sense of life being overwhelming, nagging thoughts about missed opportunities, and guilt connected to the possibility of laziness. Hence, the taskification of the world is correlated with the burden character of total work. In short, total work \u003cem\u003enecessarily\u003c/em\u003e causes \u003cem\u003edukkha\u003c/em\u003e, a Buddhist term referring to the unsatisfactory nature of a life filled with suffering.\u003c/p\u003e\u003cp\u003eIn addition to causing \u003cem\u003edukkha\u003c/em\u003e, total work bars access to higher levels of reality. For what is lost in the world of total work is art’s revelation of the beautiful, religion’s glimpse of eternity, love’s unalloyed joy, and philosophy’s sense of wonderment. All of these require silence, stillness, a wholehearted willingness to simply apprehend. If meaning, understood as the ludic interaction of finitude and infinity, is precisely what transcends, here and now, the ken of our preoccupations and mundane tasks, enabling us to have a direct experience with what is greater than ourselves, then what is lost in a world of total work is the very possibility of our experiencing meaning. What is lost is seeking why we’re here.\u003c/p\u003e&quot;,&quot;licence&quot;:{&quot;id&quot;:4,&quot;name&quot;:&quot;Creative Commons Attribution-No Derivatives&quot;,&quot;short&quot;:&quot;CC BY-ND&quot;,&quot;url&quot;:&quot;http://creativecommons.org/licenses/by-nd/4.0/&quot;,&quot;attribution_required&quot;:true,&quot;name_of_license_required&quot;:true,&quot;link_to_license_required&quot;:true,&quot;commercial_use_allowed&quot;:true,&quot;republication_allowed&quot;:true,&quot;derivative_works_allowed&quot;:false,&quot;created_at&quot;:&quot;2016-05-27T05:50:10.780Z&quot;,&quot;updated_at&quot;:&quot;2016-05-27T05:50:10.780Z&quot;},&quot;type&quot;:&quot;Idea&quot;,&quot;creative_commons&quot;:true}" data-trace="false" data-dom-id="RepublishModal-react-component-f8ef76b4-e023-4733-886e-38e62ce4578d"></div>
+    <div id="RepublishModal-react-component-f8ef76b4-e023-4733-886e-38e62ce4578d"></div>
+    
+
+</div>
+
+
+<div class='sticky-wrapper'>
+<div class='article__actions'>
+<div class='container'>
+<div class='article__inline-sidebar'>
+<div class='gutter'>
+<div class='article__actions__buttons'>
+<div class="js-react-on-rails-component" style="display:none" data-component-name="Save" data-props="{&quot;id&quot;:2306,&quot;className&quot;:&quot;save save--button&quot;,&quot;article&quot;:&quot;Idea#2306&quot;,&quot;url&quot;:&quot;https://aeon.co/ideas/if-work-dominated-your-every-moment-would-life-be-worth-living/save&quot;}" data-trace="false" data-dom-id="Save-react-component-0b28e72d-f1ca-47b6-be9c-dea02d20a3d9"></div>
+    <div class="inline-component article__actions__buttons__save" id="Save-react-component-0b28e72d-f1ca-47b6-be9c-dea02d20a3d9"></div>
+    
+
+<div class="js-react-on-rails-component" style="display:none" data-component-name="QuestionButton" data-props="{&quot;question_id&quot;:3429,&quot;count&quot;:35}" data-trace="false" data-dom-id="QuestionButton-react-component-f9a51687-1279-43d1-bea1-027d1cb107aa"></div>
+    <div class="inline-component article__actions__buttons__conversations" id="QuestionButton-react-component-f9a51687-1279-43d1-bea1-027d1cb107aa"></div>
+    
+
+<div class="js-react-on-rails-component" style="display:none" data-component-name="SocialShareButtons" data-props="{&quot;pageUrl&quot;:&quot;https://aeon.co/ideas/if-work-dominated-your-every-moment-would-life-be-worth-living&quot;,&quot;facebookCount&quot;:3996,&quot;pageTitle&quot;:&quot;If work dominated your every moment would life be worth living?&quot;,&quot;additionalClasses&quot;:&quot;social-sharing--buttons&quot;}" data-trace="false" data-dom-id="SocialShareButtons-react-component-d3f8e355-61da-4a57-a825-a0e4bf6d0af5"></div>
+    <div class="inline-component article__actions__buttons__social" id="SocialShareButtons-react-component-d3f8e355-61da-4a57-a825-a0e4bf6d0af5"></div>
+    
+
+</div>
+<div class='article__questions'>
+<a class='donate__card donate__card--philosophy donate__card__actions' href='https://aeon.co/donate/one-off?utm_campaign=donation-drive-end-of-year-2017&amp;utm_medium=web&amp;utm_source=one-off-donation-card'>
+Support Aeon: make a one-off donation
+</a>
+
+<div class="js-react-on-rails-component" style="display:none" data-component-name="QuestionCard" data-props="{&quot;url&quot;:&quot;https://aeon.co/conversations/is-time-for-playful-contemplation-an-essential-ingredient-in-a-good-life&quot;,&quot;question_id&quot;:3429,&quot;title&quot;:&quot;Is time for playful contemplation an essential ingredient in a good life?&quot;,&quot;section_slug&quot;:&quot;philosophy&quot;,&quot;responses_count&quot;:35}" data-trace="false" data-dom-id="QuestionCard-react-component-49ca27b0-6bdc-43ed-8324-ff0dd0e5bc35"></div>
+    <div class="inline-component" id="QuestionCard-react-component-49ca27b0-6bdc-43ed-8324-ff0dd0e5bc35"></div>
+    
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='article__body__content'>
+<div class='annotations__container'>
+<div class="js-react-on-rails-component" style="display:none" data-component-name="HighlightToolbar" data-props="{&quot;pageUrl&quot;:&quot;https://aeon.co/ideas/if-work-dominated-your-every-moment-would-life-be-worth-living&quot;}" data-trace="false" data-dom-id="HighlightToolbar-react-component-6d5289a3-0c37-4d97-9f93-7fe43331efc0"></div>
+    <div id="HighlightToolbar-react-component-6d5289a3-0c37-4d97-9f93-7fe43331efc0"></div>
+    
+
+<div class="js-react-on-rails-component" style="display:none" data-component-name="AnnotationsEditor" data-props="{&quot;pageUrl&quot;:&quot;https://aeon.co/ideas/if-work-dominated-your-every-moment-would-life-be-worth-living&quot;,&quot;article_id&quot;:2306}" data-trace="false" data-dom-id="AnnotationsEditor-react-component-6af7bde0-1e50-450e-92c3-6f5732e76531"></div>
+    <div id="AnnotationsEditor-react-component-6af7bde0-1e50-450e-92c3-6f5732e76531"></div>
+    
+
+</div>
+<div class='gutter'>
+<div class='article__image article__image--inline'>
+<div class='article__image__wrapper'>
+<img alt="<em>Workers Leaving the Factory</em> Lithograph, 1903 by Théophile Alexandre Steinlen. <em>Image courtesy www.famsf.org </em>" src="https://epsilon.aeon.co/images/c1620b95-b107-485b-b934-91a5cbf5a63e/idea_sized-steinlen-2319102115580098.jpg" />
+</div>
+</div>
+<div class='article__image__caption article__image__caption--inline'>
+<em>Workers Leaving the Factory</em> Lithograph, 1903 by Théophile Alexandre Steinlen. <em>Image courtesy www.famsf.org </em>
+</div>
+<div class='article__inline-sidebar article__body__meta article__inline-sidebar__mobile'>
+<div class='article__body__author-details'>
+<p class='article__body__author-name vcard'>
+<a href='https://aeon.co/users/andrew-taggart'>Andrew Taggart</a>
+</p>
+<p>is a practical philosopher and entrepreneur. He is a faculty member at the Banff Centre in Canada, where he trains creative leaders, and at Kaospilot in Denmark, where he trains social entrepreneurs. His latest book is <em>The Good Life and Sustaining Life </em>(2014). He lives in Santa Fe, New Mexico.</p>
+</div>
+<div class='article__body__partner-bio audio-player__wrapper'>
+<a class='audio-player__avatar'>
+<figure class='responsive-image' style='background-image: url(&#39;https://alpha.aeon.co/partneravatars/fadd3546-0b3f-466b-b9aa-21bf283c20f7/curio_io.jpg&#39;)'>
+<div class='sizer__wrapper'>
+<div class='sizer'></div>
+</div>
+</figure>
+
+</a>
+<div class='audio audio-player__main' data-playing='false'>
+<span class='audio-corner audio-corner__bottom audio-corner--hidden'>
+<div class='audio-corner__button audio-corner__button--audio'>
+<div class='audio-corner__icon'><svg fill="#000000" height="24" viewBox="0 0 24 24" width="24">
+  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path>
+  <path d="M0 0h24v24H0z" fill="none"></path>
+</svg>
+</div>
+</div>
+<div class='audio-corner__button audio-corner__button--play'>
+<div class='audio-corner__icon'><svg fill="currentColor" height="24" viewBox="0 0 24 24" width="24">
+  <path d="M8 5v14l11-7z"></path>
+  <path d="M0 0h24v24H0z" fill="none"></path>
+</svg>
+</div>
+</div>
+<div class='audio-corner__button audio-corner__button--pause'>
+<div class='audio-corner__icon'><svg fill="currentColor" height="24" viewBox="0 0 24 24" width="24">
+  <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+  <path d="M0 0h24v24H0z" fill="none"></path>
+</svg>
+</div>
+</div>
+</span>
+
+<div class="js-react-on-rails-component" style="display:none" data-component-name="AudioEmbedPlayer" data-props="{&quot;soundcloud_id&quot;:&quot;371742476&quot;,&quot;soundcloud_secret_token&quot;:&quot;s-LoYkG&quot;,&quot;soundcloud_client_id&quot;:&quot;fba382dd16fff276623c38d3e3b0a709&quot;,&quot;title&quot;:&quot;If work dominated your every moment would life be worth living?&quot;,&quot;background_image&quot;:false}" data-trace="false" data-dom-id="AudioEmbedPlayer-react-component-a4151107-b7b3-4a4d-85fd-93be8a484c52"></div>
+    <div id="AudioEmbedPlayer-react-component-a4151107-b7b3-4a4d-85fd-93be8a484c52"></div>
+    
+
+<p class='audio-player__partner'>
+Brought to you by <a href="https://www.curio.io/">curio.io</a>, an <a href="/partners/curio-io">Aeon partner</a>
+</p>
+<iframe data-src='https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/371742476%3Fsecret_token%3Ds-LoYkG&amp;amp;auto_play=false&amp;amp;hide_related=true&amp;amp;show_comments=false&amp;amp;show_user=false&amp;amp;show_reposts=false&amp;amp;visual=false&amp;amp;default_width=0&amp;amp;default_height=0&amp;amp;show_artwork=false&amp;amp;show_playcount=false' id='sc-widget' src=''></iframe>
+</div>
+</div>
+
+<p class='article__word-count'>1,200 words</p>
+<p class='article__body__editor'>
+Edited by
+<a href="https://aeon.co/users/nigel-warburton">Nigel Warburton</a>
+</p>
+<a class='republish-button' href='#' onclick='document.body.classList.add(&#39;show-republish-modal&#39;); return false;'>
+<div class='republish-button__icons'>
+<div class='republish-button__icons__icon'>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><circle cx="32.3" cy="32" r="28.8" fill="#fff"></circle><path d="M31.9,0A31.088,31.088,0,0,1,54.8,9.4a31.1,31.1,0,0,1,6.9,10.3A32.012,32.012,0,0,1,64,32a33.221,33.221,0,0,1-2.3,12.3,28.615,28.615,0,0,1-6.8,10.1,34.034,34.034,0,0,1-10.6,7.1A32.962,32.962,0,0,1,32,64a31.1,31.1,0,0,1-12.1-2.4,32.876,32.876,0,0,1-10.4-7A31.591,31.591,0,0,1,2.4,44.2,31.233,31.233,0,0,1,0,32,31.571,31.571,0,0,1,9.5,9.3,30.268,30.268,0,0,1,31.9,0Zm0.2,5.8a24.982,24.982,0,0,0-18.5,7.7A27.329,27.329,0,0,0,7.8,22a24.483,24.483,0,0,0-2,10,26.126,26.126,0,0,0,2,9.9,27.329,27.329,0,0,0,5.8,8.5,26.48,26.48,0,0,0,8.5,5.7,26.126,26.126,0,0,0,9.9,2,26.629,26.629,0,0,0,10-2,27.62,27.62,0,0,0,8.7-5.8A24.583,24.583,0,0,0,58.2,32a26.66,26.66,0,0,0-1.9-10.1,25.44,25.44,0,0,0-5.7-8.5A25.209,25.209,0,0,0,32.1,5.8ZM31.7,26.7l-4.3,2.2a4.311,4.311,0,0,0-1.7-2,3.809,3.809,0,0,0-1.9-.6c-2.9,0-4.3,1.9-4.3,5.7a7.115,7.115,0,0,0,1.1,4.1,3.682,3.682,0,0,0,3.2,1.5,3.873,3.873,0,0,0,3.9-2.7l3.9,2a8.923,8.923,0,0,1-3.5,3.7,9.225,9.225,0,0,1-4.9,1.3,9.353,9.353,0,0,1-6.9-2.6c-1.8-1.8-2.6-4.2-2.6-7.3a9.969,9.969,0,0,1,2.7-7.3A9.045,9.045,0,0,1,23.1,22C27.1,22.1,29.9,23.6,31.7,26.7Zm18.4,0-4.2,2.2a4.311,4.311,0,0,0-1.7-2,3.809,3.809,0,0,0-1.9-.6c-2.9,0-4.3,1.9-4.3,5.7a7.115,7.115,0,0,0,1.1,4.1,3.682,3.682,0,0,0,3.2,1.5,3.873,3.873,0,0,0,3.9-2.7l4,2a10.394,10.394,0,0,1-3.5,3.7,9.225,9.225,0,0,1-4.9,1.3,9.353,9.353,0,0,1-6.9-2.6A10.169,10.169,0,0,1,32.3,32,9.969,9.969,0,0,1,35,24.7,9.045,9.045,0,0,1,41.7,22C45.6,22.1,48.4,23.6,50.1,26.7Z"></path></svg>
+
+</div>
+<div class='republish-button__icons__icon'>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><circle cx="32.1" cy="32.3" r="28.3" fill="#fff"></circle><path d="M31.9,0A30.62,30.62,0,0,1,54.6,9.3,30.487,30.487,0,0,1,64,32c0,9-3,16.5-9.1,22.5a32.059,32.059,0,0,1-23,9.5A30.838,30.838,0,0,1,9.4,54.6,30.739,30.739,0,0,1,0,32,31.122,31.122,0,0,1,9.4,9.3,30.649,30.649,0,0,1,31.9,0Zm0.2,5.8a25.141,25.141,0,0,0-18.5,7.7A25.661,25.661,0,0,0,5.8,32a25.113,25.113,0,0,0,7.8,18.4,25.333,25.333,0,0,0,18.5,7.8,25.718,25.718,0,0,0,18.6-7.8,24.428,24.428,0,0,0,7.5-18.3,25.364,25.364,0,0,0-7.7-18.6A24.546,24.546,0,0,0,32.1,5.8Zm8.5,18.3V37.2H37V52.7H27V37.1H23.3v-13A2.051,2.051,0,0,1,25.4,22H38.5a1.974,1.974,0,0,1,1.4.6A1.8,1.8,0,0,1,40.6,24.1ZM27.5,15.8q0-4.5,4.5-4.5t4.5,4.5q0,4.5-4.5,4.5T27.5,15.8Z"></path></svg>
+
+</div>
+<div class='republish-button__icons__icon'>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><circle cx="32.1" cy="31.8" r="29" fill="#fff"></circle><path d="M31.9,0A30.778,30.778,0,0,1,54.6,9.3,30.487,30.487,0,0,1,64,32c0,9-3,16.5-9.1,22.5a31.893,31.893,0,0,1-23,9.5A30.838,30.838,0,0,1,9.4,54.6,30.739,30.739,0,0,1,0,32,31.284,31.284,0,0,1,9.4,9.3,30.649,30.649,0,0,1,31.9,0Zm0.2,5.8a25.141,25.141,0,0,0-18.5,7.7A25.661,25.661,0,0,0,5.8,32a24.953,24.953,0,0,0,7.8,18.4,25.333,25.333,0,0,0,18.5,7.8,25.718,25.718,0,0,0,18.6-7.8,24.583,24.583,0,0,0,7.5-18.3,24.982,24.982,0,0,0-7.7-18.5A24.277,24.277,0,0,0,32.1,5.8Zm12,18.7V30H20.9V24.5H44.1Zm0,10.2v5.5H20.9V34.7H44.1Z"></path></svg>
+
+</div>
+</div>
+<div class='republish-button__text'>
+<span>Republish</span>
+</div>
+</a>
+
+<div class='republish-modal'>
+<div class="js-react-on-rails-component" style="display:none" data-component-name="RepublishModal" data-props="{&quot;metrics_url&quot;:&quot;https://metrics.aeon.co&quot;,&quot;title&quot;:&quot;If work dominated your every moment would life be worth living?&quot;,&quot;authors&quot;:&quot;Andrew Taggart&quot;,&quot;republish_token&quot;:&quot;798f066c-81fb-4cfd-939b-e80707003780&quot;,&quot;content&quot;:&quot;\u003cp\u003eImagine that work had taken over the world. It would be the centre around which the rest of life turned. Then all else would come to be subservient to work. Then slowly, almost imperceptibly, anything else – the games once played, the songs hitherto sung, the loves fulfilled, the festivals celebrated – would come to resemble, and ultimately become, work. And then there would come a time, itself largely unobserved, when the many worlds that had once existed before work took over the world would vanish completely from the cultural record, having fallen into oblivion.\u003c/p\u003e\u003cp\u003eAnd how, in this world of total work, would people think and sound and act? Everywhere they looked, they would see the pre-employed, employed, post-employed, underemployed and unemployed, and there would be no one uncounted in this census. Everywhere they would laud and love work, wishing each other the very best for a productive day, opening their eyes to tasks and closing them only to sleep. Everywhere an ethos of hard work would be championed as the means by which success is to be achieved, laziness being deemed the gravest sin. Everywhere among content-providers, knowledge-brokers, collaboration architects and heads of new divisions would be heard ceaseless chatter about workflows and deltas, about plans and benchmarks, about scaling up, monetisation and growth.\u003c/p\u003e\u003cp\u003eIn this world, eating, excreting, resting, having sex, exercising, meditating and commuting – closely monitored and ever-optimised – would all be conducive to good health, which would, in turn, be put in the service of being more and more productive. No one would drink too much, some would microdose on psychedelics to enhance their work performance, and everyone would live indefinitely long. Off in corners, rumours would occasionally circulate about death or suicide from overwork, but such faintly sweet susurrus would rightly be regarded as no more than local manifestations of the spirit of total work, for some even as a praiseworthy way of taking work to its logical limit in ultimate sacrifice. In all corners of the world, therefore, people would act in order to complete total work’s deepest longing: to see itself fully manifest.\u003c/p\u003e\u003cp\u003eThis world, it turns out, is not a work of science fiction; it is unmistakably close to our own.\u003c/p\u003e\u003cp\u003e‘Total work’, a term coined by the German philosopher Josef Pieper just after the Second World War in his book \u003cem\u003eLeisure: The Basis of Culture\u003c/em\u003e (1948), is the process by which human beings are transformed into workers and nothing else. By this means, work will ultimately become \u003cem\u003etotal,\u003c/em\u003e I argue, when it is the centre around which all of human life turns; when everything else is put in its service; when leisure, festivity and play come to resemble and then become work; when there remains no further dimension to life beyond work; when humans fully believe that we were \u003ca href=\&quot;https://www.linkedin.com/pulse/kindergartener-borntowork-hegemony-total-work-andrew-taggart\&quot; target=\&quot;_blank\&quot;\u003eborn only to work\u003c/a\u003e; and when other ways of life, existing before total work won out, disappear completely from cultural memory.\u003c/p\u003e\u003cp\u003eWe are on the verge of total work’s realisation. Each day I speak with people for whom work has come to control their lives, making their world into \u003cem\u003ea task\u003c/em\u003e, their thoughts an unspoken \u003cem\u003eburden\u003c/em\u003e.\u003c/p\u003e\u003cp\u003eFor unlike someone devoted to the life of contemplation, a total worker takes herself to be \u003cem\u003eprimordially\u003c/em\u003e an agent standing before the world, which is construed as an endless set of tasks extending into the indeterminate future. Following this taskification of the world, she sees time as a scarce resource to be used prudently, is always concerned with what is to be done, and is often anxious both about whether this is the right thing to do now and about there always being more to do. Crucially, the attitude of the total worker is not grasped best in cases of overwork, but rather in the everyday way in which he is single-mindedly focused on tasks to be completed, with productivity, effectiveness and efficiency to be enhanced. How? Through the modes of effective planning, skilful prioritising and timely delegation. The total worker, in brief, is a figure of ceaseless, tensed, busied activity: a figure, whose main affliction is a deep existential restlessness fixated on producing the \u003cem\u003euseful\u003c/em\u003e.\u003c/p\u003e\u003cp\u003e\u003cspan class=\&quot;ld-dropcap\&quot;\u003eW\u003c/span\u003ehat is so disturbing about total work is not just that it causes needless human suffering but also that it eradicates the forms of playful contemplation concerned with our asking, pondering and answering the most basic questions of existence. To see how it causes needless human suffering, consider the illuminating phenomenology of total work as it shows up in the daily awareness of two imaginary conversation partners. There is, to begin with, \u003cem\u003econstant tension\u003c/em\u003e, an \u003cem\u003eoverarching sense of pressure\u003c/em\u003e associated with the thought that \u003cem\u003ethere’s something that needs to be done\u003c/em\u003e, always \u003cem\u003esomething I’m supposed to be doing\u003c/em\u003e right now. As the second conversation partner puts it, there is concomitantly the looming question: \u003cem\u003eIs this the best use of my time?\u003c/em\u003e Time, an enemy, a scarcity, reveals the agent’s limited powers of action, the pain of harrying, unanswerable opportunity costs.\u003c/p\u003e\u003cp\u003eTogether, thoughts of the \u003cem\u003enot yet but supposed to be done\u003c/em\u003e, the \u003cem\u003eshould have been done already\u003c/em\u003e, the \u003cem\u003ecould be something more productive I should be doing\u003c/em\u003e, and the \u003cem\u003eever-awaiting next thing to do\u003c/em\u003e conspire as enemies to harass the agent who is, by default, always behind in the incomplete \u003cem\u003enow\u003c/em\u003e. Secondly, one feels guilt whenever he is \u003cem\u003enot as productive as possible\u003c/em\u003e. Guilt, in this case, is an expression of a failure to \u003cem\u003ekeep up\u003c/em\u003e or \u003cem\u003ekeep on top\u003c/em\u003e of things, with tasks overflowing \u003cem\u003ebecause of\u003c/em\u003e presumed neglect or relative idleness. Finally, the constant, haranguing impulse to get things done implies that it’s empirically impossible, from within this mode of being, to \u003cem\u003eexperience things completely\u003c/em\u003e. ‘My being,’ the first man concludes, ‘is an onus,’ which is to say an endless cycle of unsatisfactoriness.\u003c/p\u003e\u003cp\u003eThe burden character of total work, then, is defined by ceaseless, restless, agitated activity, anxiety about the future, a sense of life being overwhelming, nagging thoughts about missed opportunities, and guilt connected to the possibility of laziness. Hence, the taskification of the world is correlated with the burden character of total work. In short, total work \u003cem\u003enecessarily\u003c/em\u003e causes \u003cem\u003edukkha\u003c/em\u003e, a Buddhist term referring to the unsatisfactory nature of a life filled with suffering.\u003c/p\u003e\u003cp\u003eIn addition to causing \u003cem\u003edukkha\u003c/em\u003e, total work bars access to higher levels of reality. For what is lost in the world of total work is art’s revelation of the beautiful, religion’s glimpse of eternity, love’s unalloyed joy, and philosophy’s sense of wonderment. All of these require silence, stillness, a wholehearted willingness to simply apprehend. If meaning, understood as the ludic interaction of finitude and infinity, is precisely what transcends, here and now, the ken of our preoccupations and mundane tasks, enabling us to have a direct experience with what is greater than ourselves, then what is lost in a world of total work is the very possibility of our experiencing meaning. What is lost is seeking why we’re here.\u003c/p\u003e&quot;,&quot;licence&quot;:{&quot;id&quot;:4,&quot;name&quot;:&quot;Creative Commons Attribution-No Derivatives&quot;,&quot;short&quot;:&quot;CC BY-ND&quot;,&quot;url&quot;:&quot;http://creativecommons.org/licenses/by-nd/4.0/&quot;,&quot;attribution_required&quot;:true,&quot;name_of_license_required&quot;:true,&quot;link_to_license_required&quot;:true,&quot;commercial_use_allowed&quot;:true,&quot;republication_allowed&quot;:true,&quot;derivative_works_allowed&quot;:false,&quot;created_at&quot;:&quot;2016-05-27T05:50:10.780Z&quot;,&quot;updated_at&quot;:&quot;2016-05-27T05:50:10.780Z&quot;},&quot;type&quot;:&quot;Idea&quot;,&quot;creative_commons&quot;:true}" data-trace="false" data-dom-id="RepublishModal-react-component-3fbb0f59-9192-4dbb-aaaa-510cf9f13468"></div>
+    <div id="RepublishModal-react-component-3fbb0f59-9192-4dbb-aaaa-510cf9f13468"></div>
+    
+
+</div>
+
+
+</div>
+</div>
+<div class='gutter'>
+<div class='has-dropcap' data-selectable>
+<p>Imagine that work had taken over the world. It would be the centre around which the rest of life turned. Then all else would come to be subservient to work. Then slowly, almost imperceptibly, anything else – the games once played, the songs hitherto sung, the loves fulfilled, the festivals celebrated – would come to resemble, and ultimately become, work. And then there would come a time, itself largely unobserved, when the many worlds that had once existed before work took over the world would vanish completely from the cultural record, having fallen into oblivion.</p><p>And how, in this world of total work, would people think and sound and act? Everywhere they looked, they would see the pre-employed, employed, post-employed, underemployed and unemployed, and there would be no one uncounted in this census. Everywhere they would laud and love work, wishing each other the very best for a productive day, opening their eyes to tasks and closing them only to sleep. Everywhere an ethos of hard work would be championed as the means by which success is to be achieved, laziness being deemed the gravest sin. Everywhere among content-providers, knowledge-brokers, collaboration architects and heads of new divisions would be heard ceaseless chatter about workflows and deltas, about plans and benchmarks, about scaling up, monetisation and growth.</p><p>In this world, eating, excreting, resting, having sex, exercising, meditating and commuting – closely monitored and ever-optimised – would all be conducive to good health, which would, in turn, be put in the service of being more and more productive. No one would drink too much, some would microdose on psychedelics to enhance their work performance, and everyone would live indefinitely long. Off in corners, rumours would occasionally circulate about death or suicide from overwork, but such faintly sweet susurrus would rightly be regarded as no more than local manifestations of the spirit of total work, for some even as a praiseworthy way of taking work to its logical limit in ultimate sacrifice. In all corners of the world, therefore, people would act in order to complete total work&#8217;s deepest longing: to see itself fully manifest.</p><p>This world, it turns out, is not a work of science fiction; it is unmistakably close to our own.</p><p><div class='shortcode-inline-newsletter'><div class='shortcode-inline-newsletter__title'>Subscribe to Aeon’s Newsletter</div><form action='https://aeonmagazine.us5.list-manage.com/subscribe/post?u=89c6e02ebaf75bbc918731474&amp;id=411a82e59d' method='post' name='mc-embedded-subscribe-form' target='_blank'><div class='fieldset email'><input name='EMAIL' placeholder='Email address' type='email'></div><div class='fieldset frequency'><label><input checked='checked' name='group[10469][1]' type='checkbox' value='1'>Daily</label><label><input name='group[10469][2]' type='checkbox' value='2'>Weekly</label></div><div class='fieldset submit'><input class='button' type='submit' value='Subscribe'></div></form></div></p><p>&#8216;Total work&#8217;, a term coined by the German philosopher Josef Pieper just after the Second World War in his book <em>Leisure: The Basis of Culture</em> (1948), is the process by which human beings are transformed into workers and nothing else. By this means, work will ultimately become <em>total,</em> I argue, when it is the centre around which all of human life turns; when everything else is put in its service; when leisure, festivity and play come to resemble and then become work; when there remains no further dimension to life beyond work; when humans fully believe that we were <a href="https://www.linkedin.com/pulse/kindergartener-borntowork-hegemony-total-work-andrew-taggart" target="_blank">born only to work</a>; and when other ways of life, existing before total work won out, disappear completely from cultural memory.</p><p>We are on the verge of total work’s realisation. Each day I speak with people for whom work has come to control their lives, making their world into <em>a task</em>, their thoughts an unspoken <em>burden</em>.</p><p>For unlike someone devoted to the life of contemplation, a total worker takes herself to be <em>primordially</em> an agent standing before the world, which is construed as an endless set of tasks extending into the indeterminate future. Following this taskification of the world, she sees time as a scarce resource to be used prudently, is always concerned with what is to be done, and is often anxious both about whether this is the right thing to do now and about there always being more to do. Crucially, the attitude of the total worker is not grasped best in cases of overwork, but rather in the everyday way in which he is single-mindedly focused on tasks to be completed, with productivity, effectiveness and efficiency to be enhanced. How? Through the modes of effective planning, skilful prioritising and timely delegation. The total worker, in brief, is a figure of ceaseless, tensed, busied activity: a figure, whose main affliction is a deep existential restlessness fixated on producing the <em>useful</em>.</p><p><span class="ld-dropcap">W</span>hat is so disturbing about total work is not just that it causes needless human suffering but also that it eradicates the forms of playful contemplation concerned with our asking, pondering and answering the most basic questions of existence. To see how it causes needless human suffering, consider the illuminating phenomenology of total work as it shows up in the daily awareness of two imaginary conversation partners. There is, to begin with, <em>constant tension</em>, an <em>overarching sense of pressure</em> associated with the thought that <em>there&#8217;s something that needs to be done</em>, always <em>something I&#8217;m supposed to be doing</em> right now. As the second conversation partner puts it, there is concomitantly the looming question: <em>Is this the best use of my time?</em> Time, an enemy, a scarcity, reveals the agent&#8217;s limited powers of action, the pain of harrying, unanswerable opportunity costs.</p><p>Together, thoughts of the <em>not yet but supposed to be done</em>, the <em>should have been done already</em>, the <em>could be something more productive I should be doing</em>, and the <em>ever-awaiting next thing to do</em> conspire as enemies to harass the agent who is, by default, always behind in the incomplete <em>now</em>. Secondly, one feels guilt whenever he is <em>not as productive as possible</em>. Guilt, in this case, is an expression of a failure to <em>keep up</em> or <em>keep on top</em> of things, with tasks overflowing <em>because of</em> presumed neglect or relative idleness. Finally, the constant, haranguing impulse to get things done implies that it&#8217;s empirically impossible, from within this mode of being, to <em>experience things completely</em>. ‘My being,’ the first man concludes, ‘is an onus,’ which is to say an endless cycle of unsatisfactoriness.</p><p>The burden character of total work, then, is defined by ceaseless, restless, agitated activity, anxiety about the future, a sense of life being overwhelming, nagging thoughts about missed opportunities, and guilt connected to the possibility of laziness. Hence, the taskification of the world is correlated with the burden character of total work. In short, total work <em>necessarily</em> causes <em>dukkha</em>, a Buddhist term referring to the unsatisfactory nature of a life filled with suffering.</p><p>In addition to causing <em>dukkha</em>, total work bars access to higher levels of reality. For what is lost in the world of total work is art’s revelation of the beautiful, religion’s glimpse of eternity, love’s unalloyed joy, and philosophy’s sense of wonderment. All of these require silence, stillness, a wholehearted willingness to simply apprehend. If meaning, understood as the ludic interaction of finitude and infinity, is precisely what transcends, here and now, the ken of our preoccupations and mundane tasks, enabling us to have a direct experience with what is greater than ourselves, then what is lost in a world of total work is the very possibility of our experiencing meaning. What is lost is seeking why we’re here.</p>
+<a class='republish-button' href='#' onclick='document.body.classList.add(&#39;show-republish-modal&#39;); return false;'>
+<div class='republish-button__icons'>
+<div class='republish-button__icons__icon'>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><circle cx="32.3" cy="32" r="28.8" fill="#fff"></circle><path d="M31.9,0A31.088,31.088,0,0,1,54.8,9.4a31.1,31.1,0,0,1,6.9,10.3A32.012,32.012,0,0,1,64,32a33.221,33.221,0,0,1-2.3,12.3,28.615,28.615,0,0,1-6.8,10.1,34.034,34.034,0,0,1-10.6,7.1A32.962,32.962,0,0,1,32,64a31.1,31.1,0,0,1-12.1-2.4,32.876,32.876,0,0,1-10.4-7A31.591,31.591,0,0,1,2.4,44.2,31.233,31.233,0,0,1,0,32,31.571,31.571,0,0,1,9.5,9.3,30.268,30.268,0,0,1,31.9,0Zm0.2,5.8a24.982,24.982,0,0,0-18.5,7.7A27.329,27.329,0,0,0,7.8,22a24.483,24.483,0,0,0-2,10,26.126,26.126,0,0,0,2,9.9,27.329,27.329,0,0,0,5.8,8.5,26.48,26.48,0,0,0,8.5,5.7,26.126,26.126,0,0,0,9.9,2,26.629,26.629,0,0,0,10-2,27.62,27.62,0,0,0,8.7-5.8A24.583,24.583,0,0,0,58.2,32a26.66,26.66,0,0,0-1.9-10.1,25.44,25.44,0,0,0-5.7-8.5A25.209,25.209,0,0,0,32.1,5.8ZM31.7,26.7l-4.3,2.2a4.311,4.311,0,0,0-1.7-2,3.809,3.809,0,0,0-1.9-.6c-2.9,0-4.3,1.9-4.3,5.7a7.115,7.115,0,0,0,1.1,4.1,3.682,3.682,0,0,0,3.2,1.5,3.873,3.873,0,0,0,3.9-2.7l3.9,2a8.923,8.923,0,0,1-3.5,3.7,9.225,9.225,0,0,1-4.9,1.3,9.353,9.353,0,0,1-6.9-2.6c-1.8-1.8-2.6-4.2-2.6-7.3a9.969,9.969,0,0,1,2.7-7.3A9.045,9.045,0,0,1,23.1,22C27.1,22.1,29.9,23.6,31.7,26.7Zm18.4,0-4.2,2.2a4.311,4.311,0,0,0-1.7-2,3.809,3.809,0,0,0-1.9-.6c-2.9,0-4.3,1.9-4.3,5.7a7.115,7.115,0,0,0,1.1,4.1,3.682,3.682,0,0,0,3.2,1.5,3.873,3.873,0,0,0,3.9-2.7l4,2a10.394,10.394,0,0,1-3.5,3.7,9.225,9.225,0,0,1-4.9,1.3,9.353,9.353,0,0,1-6.9-2.6A10.169,10.169,0,0,1,32.3,32,9.969,9.969,0,0,1,35,24.7,9.045,9.045,0,0,1,41.7,22C45.6,22.1,48.4,23.6,50.1,26.7Z"></path></svg>
+
+</div>
+<div class='republish-button__icons__icon'>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><circle cx="32.1" cy="32.3" r="28.3" fill="#fff"></circle><path d="M31.9,0A30.62,30.62,0,0,1,54.6,9.3,30.487,30.487,0,0,1,64,32c0,9-3,16.5-9.1,22.5a32.059,32.059,0,0,1-23,9.5A30.838,30.838,0,0,1,9.4,54.6,30.739,30.739,0,0,1,0,32,31.122,31.122,0,0,1,9.4,9.3,30.649,30.649,0,0,1,31.9,0Zm0.2,5.8a25.141,25.141,0,0,0-18.5,7.7A25.661,25.661,0,0,0,5.8,32a25.113,25.113,0,0,0,7.8,18.4,25.333,25.333,0,0,0,18.5,7.8,25.718,25.718,0,0,0,18.6-7.8,24.428,24.428,0,0,0,7.5-18.3,25.364,25.364,0,0,0-7.7-18.6A24.546,24.546,0,0,0,32.1,5.8Zm8.5,18.3V37.2H37V52.7H27V37.1H23.3v-13A2.051,2.051,0,0,1,25.4,22H38.5a1.974,1.974,0,0,1,1.4.6A1.8,1.8,0,0,1,40.6,24.1ZM27.5,15.8q0-4.5,4.5-4.5t4.5,4.5q0,4.5-4.5,4.5T27.5,15.8Z"></path></svg>
+
+</div>
+<div class='republish-button__icons__icon'>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><circle cx="32.1" cy="31.8" r="29" fill="#fff"></circle><path d="M31.9,0A30.778,30.778,0,0,1,54.6,9.3,30.487,30.487,0,0,1,64,32c0,9-3,16.5-9.1,22.5a31.893,31.893,0,0,1-23,9.5A30.838,30.838,0,0,1,9.4,54.6,30.739,30.739,0,0,1,0,32,31.284,31.284,0,0,1,9.4,9.3,30.649,30.649,0,0,1,31.9,0Zm0.2,5.8a25.141,25.141,0,0,0-18.5,7.7A25.661,25.661,0,0,0,5.8,32a24.953,24.953,0,0,0,7.8,18.4,25.333,25.333,0,0,0,18.5,7.8,25.718,25.718,0,0,0,18.6-7.8,24.583,24.583,0,0,0,7.5-18.3,24.982,24.982,0,0,0-7.7-18.5A24.277,24.277,0,0,0,32.1,5.8Zm12,18.7V30H20.9V24.5H44.1Zm0,10.2v5.5H20.9V34.7H44.1Z"></path></svg>
+
+</div>
+</div>
+<div class='republish-button__text'>
+<span>Republish</span>
+</div>
+</a>
+
+<div class='topics-banner'>
+<span class='topics-banner__topic section--philosophy'>
+<a href='https://aeon.co/philosophy/meaning-the-good-life'>Meaning &amp; the Good Life</a>
+</span>
+<span class='topics-banner__topic section--society'>
+<a href='https://aeon.co/society/work'>Work</a>
+</span>
+<span class='topics-banner__topic section--philosophy'>
+<a href='https://aeon.co/philosophy/values-beliefs'>Values &amp; Beliefs</a>
+</span>
+<a class="topics-banner__all-topics" href="https://aeon.co/sections">All topics &rarr;
+</a></div>
+
+</div>
+<div class='article__site'>
+aeon.co
+</div>
+<time class='article__date published' datetime='2017-12-20 11:00:48 UTC'>20 December, 2017</time>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='friends-article-banner'>
+<div class='container'>
+<div class='friends-article-banner__left'>
+<h2>Support Aeon</h2>
+<h3>Ideas can change the world</h3>
+</div>
+<div class='friends-article-banner__right'>
+<div class='friends-article-banner__right--mobile'>
+<p>Aeon is a registered charity committed to the spread of knowledge and a cosmopolitan worldview.<br><br> <strong>But we can’t do it without you.</strong><br><br></p>
+</div>
+<p>Aeon is a registered charity committed to the spread of knowledge and a cosmopolitan worldview. Our mission is to create a sanctuary online for serious thinking.</p>
+<p>No ads, no paywall, no clickbait – just thought-provoking ideas from the world’s leading thinkers, free to all. <strong>But we can’t do it without you.</strong></p>
+<p class='friends-article-banner__actions'>
+<a class='friends-article-banner__big-button' href='https://aeon.co/donate?utm_campaign=donation-drive-end-of-year-2017&amp;utm_medium=web&amp;utm_source=article-banner'>Become a Friend for $5 a month</a>
+<span class='friends-article-banner__button-divider'>or</span>
+<a class='friends-article-banner__big-button' href='https://aeon.co/donate/one-off?utm_campaign=donation-drive-end-of-year-2017&amp;utm_medium=web&amp;utm_source=article-banner'>Make a one-off donation</a>
+</p>
+</div>
+</div>
+</div>
+
+<div class='article__related'>
+<div class='article-list--col-3 article-list--list article-list__wrapper'>
+<div class='article-list container'>
+<article class='article-card article-card--col-3 article-card--section-philosophy audio' data-align-x='center' data-align-y='center' data-backdrop-strength='3' data-badge-color='white' data-id='2357' data-playing='false'>
+<div class='gutter gutter--outer'>
+<div class='article-card__inner'>
+<div class='article-card__image-wrap' data-image-loaded='false'>
+<figure class='responsive-image' style='background-image: url(&#39;https://nu.aeon.co/images/3d00529f-62ad-4dc7-8c37-d11468528cfd/card_feminine-beauty.jpg&#39;)'>
+<div class='sizer__wrapper'>
+<div class='sizer'></div>
+</div>
+</figure>
+
+<div class='article-card__overlay'>
+<div class='article-card__overlay__video-icon'>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 1194.8 1194.8" xml:space="preserve">
+<polygon fill="none" stroke="#FFF" stroke-width="20" stroke-miterlimit="10" points="457.2,844.9 457.2,349.9 839.6,599.6 "></polygon>
+<circle fill="none" stroke="#FFF" stroke-width="20" stroke-miterlimit="10" cx="597.4" cy="597.4" r="587.4"></circle>
+</svg>
+
+</div>
+</div>
+</div>
+<div class='article-card__contents'>
+<div class='article-card__contents__wrap container'>
+<div class='gutter gutter--inner'>
+<div class='article-card__meta'>
+<div class='article-card__save'><div class="js-react-on-rails-component" style="display:none" data-component-name="Save" data-props="{&quot;id&quot;:2357,&quot;url&quot;:&quot;https://aeon.co/videos/2357/save&quot;}" data-trace="false" data-dom-id="Save-react-component-630ba970-9758-439d-b0f8-781cf90a5691"></div>
+    <div id="Save-react-component-630ba970-9758-439d-b0f8-781cf90a5691"></div>
+    
+</div>
+<span class='article-card__class'>
+Video<span class='article-card__separator separator'>/</span></span><span class='article-card__topic'>History of Ideas</span></div>
+<a class="article-card__title" href="/videos/simone-de-beauvoir-on-why-women-must-reject-the-feminine-to-become-free-and-equal">Simone de Beauvoir on why women must reject the &#8216;feminine&#8217; to become free and equal</a>
+<h2 class='article-card__standfirst'>
+2 minutes
+</h2>
+</div>
+</div>
+</div>
+<a class="article-card__link" href="/videos/simone-de-beauvoir-on-why-women-must-reject-the-feminine-to-become-free-and-equal"></a>
+</div>
+</div>
+</article>
+<article class='article-card article-card--col-3 article-card--section-philosophy audio' data-align-x='center' data-align-y='center' data-backdrop-strength='3' data-badge-color='white' data-id='2340' data-playing='false'>
+<div class='gutter gutter--outer'>
+<div class='article-card__inner'>
+<div class='article-card__image-wrap' data-image-loaded='false'>
+<figure class='responsive-image' style='background-image: url(&#39;https://nu.aeon.co/images/bd7b184d-6b87-4fca-8509-6041977fbf4b/card_sized-atlas_frontview_2013.jpg&#39;)'>
+<div class='sizer__wrapper'>
+<div class='sizer'></div>
+</div>
+</figure>
+
+<div class='article-card__overlay'>
+</div>
+</div>
+<div class='article-card__contents'>
+<div class='article-card__contents__wrap container'>
+<div class='gutter gutter--inner'>
+<div class='article-card__meta'>
+<div class='article-card__save'><div class="js-react-on-rails-component" style="display:none" data-component-name="Save" data-props="{&quot;id&quot;:2340,&quot;url&quot;:&quot;https://aeon.co/ideas/2340/save&quot;}" data-trace="false" data-dom-id="Save-react-component-3ab93e3f-a1c0-4580-b1df-4ef91b94812f"></div>
+    <div id="Save-react-component-3ab93e3f-a1c0-4580-b1df-4ef91b94812f"></div>
+    
+</div>
+<span class='article-card__class'>
+Idea<span class='article-card__separator separator'>/</span></span><span class='article-card__topic'>Ethics</span></div>
+<a class="article-card__title" href="/ideas/why-banning-autonomous-killer-robots-wouldnt-solve-anything">Why banning autonomous killer robots wouldn&#8217;t solve anything</a>
+<p class='article-card__authors'>
+<span class='article-card__authors__inner'>Susanne Burri & Michael Robillard</span>
+</p>
+</div>
+</div>
+</div>
+<a class="article-card__link" href="/ideas/why-banning-autonomous-killer-robots-wouldnt-solve-anything"></a>
+</div>
+</div>
+</article>
+<article class='article-card article-card--col-3 article-card--section-philosophy audio' data-align-x='center' data-align-y='center' data-backdrop-strength='3' data-badge-color='white' data-id='2327' data-playing='false'>
+<div class='gutter gutter--outer'>
+<div class='article-card__inner'>
+<div class='article-card__image-wrap' data-image-loaded='false'>
+<figure class='responsive-image' style='background-image: url(&#39;https://nu.aeon.co/images/38603069-71ed-4a67-9008-fd9c9d5e2866/card_essay-nyc132951.jpg&#39;)'>
+<div class='sizer__wrapper'>
+<div class='sizer'></div>
+</div>
+</figure>
+
+<div class='article-card__overlay'>
+</div>
+</div>
+<div class='article-card__contents'>
+<div class='article-card__contents__wrap container'>
+<div class='gutter gutter--inner'>
+<div class='article-card__meta'>
+<div class='article-card__save'><div class="js-react-on-rails-component" style="display:none" data-component-name="Save" data-props="{&quot;id&quot;:2327,&quot;url&quot;:&quot;https://aeon.co/essays/2327/save&quot;}" data-trace="false" data-dom-id="Save-react-component-df874f4e-fa0d-4f33-a23e-e9e25a120974"></div>
+    <div id="Save-react-component-df874f4e-fa0d-4f33-a23e-e9e25a120974"></div>
+    
+</div>
+<span class='article-card__class'>
+Essay<span class='article-card__separator separator'>/</span></span><span class='article-card__topic'>Meaning &amp; the Good Life</span></div>
+<a class="article-card__title" href="/essays/how-evolutionary-biology-makes-everyone-an-existentialist">Natural-born existentialists</a>
+<h2 class='article-card__standfirst'>
+Ethics cannot be based on human nature because, as evolutionary biology tells us, there is no such thing
+</h2>
+<p class='article-card__authors'>
+<span class='article-card__authors__inner'>Ronnie de Sousa</span>
+</p>
+</div>
+</div>
+</div>
+<a class="article-card__link" href="/essays/how-evolutionary-biology-makes-everyone-an-existentialist"></a>
+</div>
+</div>
+</article>
+
+<article class='article-card article-card--col-3 article-card--section-philosophy audio' data-align-x='center' data-align-y='center' data-backdrop-strength='3' data-badge-color='white' data-id='2353' data-playing='false'>
+<div class='gutter gutter--outer'>
+<div class='article-card__inner'>
+<div class='article-card__image-wrap' data-image-loaded='false'>
+<figure class='responsive-image' style='background-image: url(&#39;https://alpha.aeon.co/images/ade4501d-3991-4159-9443-55b941fc354a/card_essay-par141388.jpg&#39;)'>
+<div class='sizer__wrapper'>
+<div class='sizer'></div>
+</div>
+</figure>
+
+<div class='article-card__overlay'>
+</div>
+</div>
+<div class='article-card__contents'>
+<div class='article-card__contents__wrap container'>
+<div class='gutter gutter--inner'>
+<div class='article-card__meta'>
+<div class='article-card__save'><div class="js-react-on-rails-component" style="display:none" data-component-name="Save" data-props="{&quot;id&quot;:2353,&quot;url&quot;:&quot;https://aeon.co/essays/2353/save&quot;}" data-trace="false" data-dom-id="Save-react-component-3c9d57dc-1fbc-41ed-ba88-a713bb0a25bc"></div>
+    <div id="Save-react-component-3c9d57dc-1fbc-41ed-ba88-a713bb0a25bc"></div>
+    
+</div>
+<span class='article-card__class'>
+Essay<span class='article-card__separator separator'>/</span></span><span class='article-card__topic'>History of Ideas</span></div>
+<a class="article-card__title" href="/essays/yacob-and-amo-africas-precursors-to-locke-hume-and-kant">The African Enlightenment</a>
+<h2 class='article-card__standfirst'>
+The highest ideals of Locke, Hume and Kant were first proposed more than a century earlier by an Ethiopian in a cave
+</h2>
+<p class='article-card__authors'>
+<span class='article-card__authors__inner'>Dag Herbjørnsrud</span>
+</p>
+</div>
+</div>
+</div>
+<a class="article-card__link" href="/essays/yacob-and-amo-africas-precursors-to-locke-hume-and-kant"></a>
+</div>
+</div>
+</article>
+<article class='article-card article-card--col-3 article-card--section-philosophy audio' data-align-x='center' data-align-y='center' data-backdrop-strength='3' data-badge-color='white' data-id='2211' data-playing='false'>
+<div class='gutter gutter--outer'>
+<div class='article-card__inner'>
+<div class='article-card__image-wrap' data-image-loaded='false'>
+<span class='audio-corner audio-corner__top '>
+<div class='audio-corner__button audio-corner__button--audio'>
+<div class='audio-corner__icon'><svg fill="#000000" height="24" viewBox="0 0 24 24" width="24">
+  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path>
+  <path d="M0 0h24v24H0z" fill="none"></path>
+</svg>
+</div>
+</div>
+<div class='audio-corner__button audio-corner__button--play'>
+<div class='audio-corner__icon'><svg fill="currentColor" height="24" viewBox="0 0 24 24" width="24">
+  <path d="M8 5v14l11-7z"></path>
+  <path d="M0 0h24v24H0z" fill="none"></path>
+</svg>
+</div>
+</div>
+<div class='audio-corner__button audio-corner__button--pause'>
+<div class='audio-corner__icon'><svg fill="currentColor" height="24" viewBox="0 0 24 24" width="24">
+  <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+  <path d="M0 0h24v24H0z" fill="none"></path>
+</svg>
+</div>
+</div>
+</span>
+
+<figure class='responsive-image' style='background-image: url(&#39;https://omicron.aeon.co/images/2713140c-1218-44be-8f70-6ea503d04717/card_sized-keys-2251770_1920.jpg&#39;)'>
+<div class='sizer__wrapper'>
+<div class='sizer'></div>
+</div>
+</figure>
+
+<div class='article-card__overlay'>
+</div>
+</div>
+<div class='article-card__contents'>
+<div class='article-card__contents__wrap container'>
+<div class='gutter gutter--inner'>
+<div class='article-card__meta'>
+<div class='article-card__save'><div class="js-react-on-rails-component" style="display:none" data-component-name="Save" data-props="{&quot;id&quot;:2211,&quot;url&quot;:&quot;https://aeon.co/ideas/2211/save&quot;}" data-trace="false" data-dom-id="Save-react-component-0050c157-31b3-4f43-8f34-acd73540707f"></div>
+    <div id="Save-react-component-0050c157-31b3-4f43-8f34-acd73540707f"></div>
+    
+</div>
+<span class='article-card__class'>
+Idea<span class='article-card__separator separator'>/</span></span><span class='article-card__topic'>Metaphysics</span></div>
+<a class="article-card__title" href="/ideas/why-you-need-to-touch-your-keys-to-believe-theyre-in-your-bag">Why you need to touch your keys to believe they’re in your bag</a>
+<p class='article-card__authors'>
+<span class='article-card__authors__inner'>Ophelia Deroy</span>
+</p>
+</div>
+</div>
+</div>
+<a class="article-card__link" href="/ideas/why-you-need-to-touch-your-keys-to-believe-theyre-in-your-bag"></a>
+</div>
+</div>
+</article>
+<article class='article-card article-card--col-3 article-card--section-philosophy audio' data-align-x='center' data-align-y='center' data-backdrop-strength='3' data-badge-color='white' data-id='2285' data-playing='false'>
+<div class='gutter gutter--outer'>
+<div class='article-card__inner'>
+<div class='article-card__image-wrap' data-image-loaded='false'>
+<figure class='responsive-image' style='background-image: url(&#39;https://alpha.aeon.co/images/99187760-56d7-4524-8a4e-1a9699f75b2e/card_max-weber.jpg&#39;)'>
+<div class='sizer__wrapper'>
+<div class='sizer'></div>
+</div>
+</figure>
+
+<div class='article-card__overlay'>
+<div class='article-card__overlay__video-icon'>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 1194.8 1194.8" xml:space="preserve">
+<polygon fill="none" stroke="#FFF" stroke-width="20" stroke-miterlimit="10" points="457.2,844.9 457.2,349.9 839.6,599.6 "></polygon>
+<circle fill="none" stroke="#FFF" stroke-width="20" stroke-miterlimit="10" cx="597.4" cy="597.4" r="587.4"></circle>
+</svg>
+
+</div>
+</div>
+</div>
+<div class='article-card__contents'>
+<div class='article-card__contents__wrap container'>
+<div class='gutter gutter--inner'>
+<div class='article-card__meta'>
+<div class='article-card__save'><div class="js-react-on-rails-component" style="display:none" data-component-name="Save" data-props="{&quot;id&quot;:2285,&quot;url&quot;:&quot;https://aeon.co/videos/2285/save&quot;}" data-trace="false" data-dom-id="Save-react-component-27419b30-458d-456d-8f1a-01173b2b68c5"></div>
+    <div id="Save-react-component-27419b30-458d-456d-8f1a-01173b2b68c5"></div>
+    
+</div>
+<span class='article-card__class'>
+Video<span class='article-card__separator separator'>/</span></span><span class='article-card__topic'>History of Ideas</span></div>
+<a class="article-card__title" href="/videos/the-deeply-held-religious-convictions-that-kickstarted-capitalism">The deeply held religious convictions that kickstarted capitalism</a>
+<h2 class='article-card__standfirst'>
+2 minutes
+</h2>
+</div>
+</div>
+</div>
+<a class="article-card__link" href="/videos/the-deeply-held-religious-convictions-that-kickstarted-capitalism"></a>
+</div>
+</div>
+</article>
+
+</div>
+</div>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://aeon.co/ideas/if-work-dominated-your-every-moment-would-life-be-worth-living"
+  },
+  "headline": "If work dominated your every moment would life be worth living?",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://epsilon.aeon.co/images/c1620b95-b107-485b-b934-91a5cbf5a63e/idea_sized-steinlen-2319102115580098.jpg",
+    "width": 1400,
+    "height": 840
+  },
+  "datePublished": "2017-12-20T11:00:48Z",
+  "dateModified": "2017-12-27T21:20:53Z",
+  "author": {
+    "@type": "Person",
+    "name": "Andrew Taggart"
+  },
+   "publisher": {
+    "@type": "Organization",
+    "name": "Aeon",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aeon.co/logo.png",
+      "width": 168,
+      "height": 60
+    }
+  },
+  "description": "A life of total work, in which every moment is gainfully employed and there is no time to think, is hardly worth living"
+}
+</script>
+
+<div class="js-react-on-rails-component" style="display:none" data-component-name="Question" data-props="{&quot;question&quot;:{&quot;type&quot;:&quot;Question&quot;,&quot;id&quot;:3429,&quot;title&quot;:&quot;Is time for playful contemplation an essential ingredient in a good life?&quot;,&quot;url&quot;:&quot;https://aeon.co/conversations/is-time-for-playful-contemplation-an-essential-ingredient-in-a-good-life&quot;,&quot;state&quot;:&quot;published&quot;,&quot;published_at&quot;:&quot;2017-12-20T11:00:48.594Z&quot;,&quot;scheduled_at&quot;:null,&quot;responses_url&quot;:&quot;https://aeon.co/conversations/is-time-for-playful-contemplation-an-essential-ingredient-in-a-good-life/responses&quot;,&quot;responses_count&quot;:21,&quot;descendant_count&quot;:35,&quot;edit_url&quot;:&quot;https://aeon.co/editorial/questions/is-time-for-playful-contemplation-an-essential-ingredient-in-a-good-life/edit&quot;,&quot;destroy_url&quot;:&quot;https://aeon.co/editorial/questions/is-time-for-playful-contemplation-an-essential-ingredient-in-a-good-life&quot;,&quot;latest_response_at&quot;:&quot;2017-12-27T15:59:06.834Z&quot;,&quot;latest_reply_at&quot;:&quot;2017-12-27T16:52:55.402Z&quot;,&quot;updated_at&quot;:&quot;2017-12-27T18:06:55.923Z&quot;,&quot;closed&quot;:false},&quot;url&quot;:&quot;https://aeon.co/conversations/is-time-for-playful-contemplation-an-essential-ingredient-in-a-good-life&quot;,&quot;sign_in_url&quot;:&quot;https://aeon.co/sign-in&quot;,&quot;type&quot;:&quot;QuestionInline&quot;,&quot;linked_articles&quot;:[{&quot;type&quot;:&quot;Idea&quot;,&quot;id&quot;:2306,&quot;title&quot;:&quot;If work dominated your every moment would life be worth living?&quot;,&quot;state&quot;:&quot;published&quot;,&quot;published_at&quot;:&quot;2017-12-20T11:00:48.575Z&quot;,&quot;scheduled_at&quot;:null,&quot;created_at&quot;:&quot;2017-11-06T12:43:16.266Z&quot;,&quot;updated_at&quot;:&quot;2017-12-27T18:06:56.372Z&quot;,&quot;url&quot;:&quot;https://aeon.co/ideas/if-work-dominated-your-every-moment-would-life-be-worth-living&quot;,&quot;edit_url&quot;:&quot;https://aeon.co/editorial/ideas/if-work-dominated-your-every-moment-would-life-be-worth-living/edit&quot;,&quot;standfirst_short&quot;:&quot;If work dominated your every moment would life be worth living?&quot;,&quot;standfirst_long&quot;:&quot;A life of total work, in which every moment is gainfully employed and there is no time to think, is hardly worth living&quot;,&quot;views&quot;:24570,&quot;facebook&quot;:3996,&quot;section&quot;:{&quot;id&quot;:3,&quot;title&quot;:&quot;Philosophy&quot;,&quot;slug&quot;:&quot;philosophy&quot;,&quot;topics&quot;:[{&quot;id&quot;:95,&quot;title&quot;:&quot;Political Philosophy&quot;,&quot;slug&quot;:&quot;political-philosophy&quot;,&quot;section_slug&quot;:&quot;philosophy&quot;},{&quot;id&quot;:119,&quot;title&quot;:&quot;Values \u0026 Beliefs&quot;,&quot;slug&quot;:&quot;values-beliefs&quot;,&quot;section_slug&quot;:&quot;philosophy&quot;},{&quot;id&quot;:58,&quot;title&quot;:&quot;History of Ideas&quot;,&quot;slug&quot;:&quot;history-of-ideas&quot;,&quot;section_slug&quot;:&quot;philosophy&quot;},{&quot;id&quot;:66,&quot;title&quot;:&quot;Knowledge&quot;,&quot;slug&quot;:&quot;knowledge&quot;,&quot;section_slug&quot;:&quot;philosophy&quot;},{&quot;id&quot;:92,&quot;title&quot;:&quot;Philosophy of Religion&quot;,&quot;slug&quot;:&quot;philosophy-of-religion&quot;,&quot;section_slug&quot;:&quot;philosophy&quot;},{&quot;id&quot;:93,&quot;title&quot;:&quot;Philosophy of Science&quot;,&quot;slug&quot;:&quot;philosophy-of-science&quot;,&quot;section_slug&quot;:&quot;philosophy&quot;},{&quot;id&quot;:43,&quot;title&quot;:&quot;Free Will&quot;,&quot;slug&quot;:&quot;free-will&quot;,&quot;section_slug&quot;:&quot;philosophy&quot;},{&quot;id&quot;:35,&quot;title&quot;:&quot;Ethics&quot;,&quot;slug&quot;:&quot;ethics&quot;,&quot;section_slug&quot;:&quot;philosophy&quot;},{&quot;id&quot;:8,&quot;title&quot;:&quot;Beauty \u0026 Aesthetics&quot;,&quot;slug&quot;:&quot;beauty-aesthetics&quot;,&quot;section_slug&quot;:&quot;philosophy&quot;},{&quot;id&quot;:23,&quot;title&quot;:&quot;Death&quot;,&quot;slug&quot;:&quot;death&quot;,&quot;section_slug&quot;:&quot;philosophy&quot;},{&quot;id&quot;:9,&quot;title&quot;:&quot;Bioethics&quot;,&quot;slug&quot;:&quot;bioethics&quot;,&quot;section_slug&quot;:&quot;philosophy&quot;},{&quot;id&quot;:73,&quot;title&quot;:&quot;Meaning \u0026 the Good Life&quot;,&quot;slug&quot;:&quot;meaning-the-good-life&quot;,&quot;section_slug&quot;:&quot;philosophy&quot;},{&quot;id&quot;:69,&quot;title&quot;:&quot;Logic&quot;,&quot;slug&quot;:&quot;logic&quot;,&quot;section_slug&quot;:&quot;philosophy&quot;},{&quot;id&quot;:36,&quot;title&quot;:&quot;Evil&quot;,&quot;slug&quot;:&quot;evil&quot;,&quot;section_slug&quot;:&quot;philosophy&quot;},{&quot;id&quot;:19,&quot;title&quot;:&quot;Cosmopolitanism&quot;,&quot;slug&quot;:&quot;cosmopolitanism&quot;,&quot;section_slug&quot;:&quot;philosophy&quot;},{&quot;id&quot;:79,&quot;title&quot;:&quot;Metaphysics&quot;,&quot;slug&quot;:&quot;metaphysics&quot;,&quot;section_slug&quot;:&quot;philosophy&quot;},{&quot;id&quot;:90,&quot;title&quot;:&quot;Philosophy of Language&quot;,&quot;slug&quot;:&quot;philosophy-of-language&quot;,&quot;section_slug&quot;:&quot;philosophy&quot;},{&quot;id&quot;:91,&quot;title&quot;:&quot;Philosophy of Mind&quot;,&quot;slug&quot;:&quot;philosophy-of-mind&quot;,&quot;section_slug&quot;:&quot;philosophy&quot;}]},&quot;topics&quot;:[{&quot;id&quot;:73,&quot;title&quot;:&quot;Meaning \u0026 the Good Life&quot;,&quot;slug&quot;:&quot;meaning-the-good-life&quot;,&quot;section_slug&quot;:&quot;philosophy&quot;},{&quot;id&quot;:123,&quot;title&quot;:&quot;Work&quot;,&quot;slug&quot;:&quot;work&quot;,&quot;section_slug&quot;:&quot;society&quot;},{&quot;id&quot;:119,&quot;title&quot;:&quot;Values \u0026 Beliefs&quot;,&quot;slug&quot;:&quot;values-beliefs&quot;,&quot;section_slug&quot;:&quot;philosophy&quot;}],&quot;primary_topic&quot;:{&quot;id&quot;:73,&quot;title&quot;:&quot;Meaning \u0026 the Good Life&quot;,&quot;slug&quot;:&quot;meaning-the-good-life&quot;,&quot;section_slug&quot;:&quot;philosophy&quot;},&quot;editor&quot;:{&quot;type&quot;:&quot;User&quot;,&quot;id&quot;:4631,&quot;first_name&quot;:&quot;Nigel&quot;,&quot;last_name&quot;:&quot;Warburton&quot;,&quot;name&quot;:&quot;Nigel Warburton&quot;,&quot;slug&quot;:&quot;nigel-warburton&quot;,&quot;role&quot;:&quot;admin&quot;,&quot;responses_count&quot;:81,&quot;replies_count&quot;:147,&quot;avatar_url&quot;:&quot;https://epsilon.aeon.co/avatars/cd151661-da77-4bcf-8ac1-0bc038c5d823/thumb_nigelwarburton.jpeg&quot;,&quot;profile_url&quot;:&quot;https://aeon.co/users/nigel-warburton&quot;,&quot;job&quot;:&quot;Consultant Editor and Interviewer, Aeon&quot;},&quot;authors&quot;:[{&quot;type&quot;:&quot;User&quot;,&quot;id&quot;:55430,&quot;first_name&quot;:&quot;Andrew&quot;,&quot;last_name&quot;:&quot;Taggart&quot;,&quot;name&quot;:&quot;Andrew Taggart&quot;,&quot;slug&quot;:&quot;andrew-taggart&quot;,&quot;role&quot;:&quot;contributor&quot;,&quot;responses_count&quot;:0,&quot;replies_count&quot;:0,&quot;avatar_url&quot;:null,&quot;profile_url&quot;:&quot;https://aeon.co/users/andrew-taggart&quot;,&quot;job&quot;:&quot;Practical philosopher, Freelance&quot;}],&quot;save_url&quot;:&quot;https://aeon.co/ideas/if-work-dominated-your-every-moment-would-life-be-worth-living/save&quot;,&quot;thumb_url&quot;:&quot;https://nu.aeon.co/images/c1620b95-b107-485b-b934-91a5cbf5a63e/card_sized-steinlen-2319102115580098.jpg&quot;}]}" data-trace="false" data-dom-id="Question-react-component-514a4d02-d4e1-4bd3-bb4f-2e97b1a71e65"></div>
+    <div id="Question-react-component-514a4d02-d4e1-4bd3-bb4f-2e97b1a71e65"></div>
+    
+
+
+
+<footer class='footer'>
+<div class='container footer__main'>
+<div class='column footer__links'>
+<div class='column'>
+<div class='gutter'>
+<nav class='footer__nav'>
+<a href="https://aeon.co/essays">Essays</a>
+<a href="https://aeon.co/ideas">Ideas</a>
+<a href="https://aeon.co/videos">Videos</a>
+</nav>
+</div>
+</div>
+<div class='column'>
+<div class='gutter'>
+<nav class='footer__nav'>
+<a href="https://aeon.co/about">About</a>
+<a href="https://aeon.co/contact">Contact</a>
+<a href="https://aeon.co/partners">Partners</a>
+</nav>
+</div>
+</div>
+<div class='column'>
+<div class='gutter'>
+<nav class='footer__nav'>
+<a href="https://aeon.co/feed.rss">RSS Feed</a>
+<a href="https://aeon.co/donate?utm_campaign=donation-drive-end-of-year-2017&amp;utm_medium=web&amp;utm_source=footer">Donate</a>
+<a href="https://aeon.co/community-guidelines">Community Guidelines</a>
+</nav>
+</div>
+</div>
+</div>
+<div class='column footer__social'>
+<div class='gutter'>
+<p>Follow Aeon</p>
+<div>
+<p>
+<div class="fb-like" data-href="https://www.facebook.com/AeonMagazine/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+</p>
+<p>
+<a href="https://twitter.com/aeonmag" class="twitter-follow-button" data-show-count="false" data-size="default">Follow @aeonmag</a>
+</p>
+</div>
+</div>
+</div>
+<div class='column footer__newsletter'>
+<div class='gutter'>
+<div class='shortcode-inline-newsletter'>
+<div class='shortcode-inline-newsletter__title'>Subscribe to Aeon’s Newsletter</div>
+<form action='https://aeonmagazine.us5.list-manage.com/subscribe/post?u=89c6e02ebaf75bbc918731474&amp;id=411a82e59d' method='post' name='mc-embedded-subscribe-form' target='_blank'>
+<div class='fieldset email'>
+<input name='EMAIL' placeholder='Email address' type='email'>
+</div>
+<div class='fieldset frequency'>
+<label>
+<input checked='checked' name='group[10469][1]' type='checkbox' value='1'>
+Daily
+</label>
+<label>
+<input name='group[10469][2]' type='checkbox' value='2'>
+Weekly
+</label>
+</div>
+<div class='fieldset submit'>
+<input class='button' type='submit' value='Subscribe'>
+</div>
+</form>
+</div>
+
+</div>
+</div>
+</div>
+<div class='container footer__copyright'>
+<div class='gutter'>
+&copy; Aeon Media Group Ltd. 2012-2017.
+<a href="https://aeon.co/privacy">Privacy Policy.</a>
+</div>
+</div>
+</footer>
+
+
+<div id='modal'></div>
+<script src="https://alpha.aeon.co/assets/vendor-401fc582dde88827e9fd5c195ee546937278ede674daeff03a04c2c3bdbbf1bc.js"></script>
+<script src="https://alpha.aeon.co/assets/application-72a4d95a1a06dd6da3a95d634f0ba586e99c1b669318a5a9e09bfe3c428a0ade.js"></script>
+<script src="https://alpha.aeon.co/assets/users-fc354e1edfd7905d3b54068f217b3114f2df4a08a7e37856e83d3e5a41ee54a7.js"></script>
+<script src="https://alpha.aeon.co/assets/friends-ed7ec12cc8809764532d34b5a48d8013287483eaf36c78dac0226f9afd2032ba.js"></script>
+<div class="js-react-on-rails-component" style="display:none" data-component-name="Sidebar" data-props="{&quot;user&quot;:{&quot;type&quot;:&quot;User&quot;,&quot;id&quot;:49556,&quot;first_name&quot;:&quot;Martin&quot;,&quot;last_name&quot;:&quot;Tournoij&quot;,&quot;name&quot;:&quot;Martin Tournoij&quot;,&quot;saves_count&quot;:0,&quot;profile_url&quot;:&quot;https://aeon.co/users/martin-tournoij&quot;,&quot;avatar_url&quot;:&quot;https://nu.aeon.co/avatars/45514141-b955-47ba-ba49-d76bf897e75c/thumb_1f16de410ea6f3c12b2896f02157161d.jpeg&quot;,&quot;unviewed_saves&quot;:[]},&quot;avatar&quot;:{&quot;type&quot;:&quot;User&quot;,&quot;id&quot;:49556,&quot;avatar_id&quot;:5368,&quot;avatar_url&quot;:&quot;https://nu.aeon.co/avatars/45514141-b955-47ba-ba49-d76bf897e75c/thumb_1f16de410ea6f3c12b2896f02157161d.jpeg&quot;,&quot;name&quot;:&quot;Martin Tournoij&quot;,&quot;friend&quot;:true},&quot;discover&quot;:[{&quot;id&quot;:119,&quot;title&quot;:&quot;Values \u0026 Beliefs&quot;,&quot;slug&quot;:&quot;values-beliefs&quot;,&quot;section_slug&quot;:&quot;philosophy&quot;,&quot;featured_image&quot;:&quot;https://omicron.aeon.co/images/322e3a0c-2eae-4585-b880-476f0b124a16/alanwatts_final.jpg&quot;},{&quot;id&quot;:4,&quot;title&quot;:&quot;Architecture \u0026 Landscape&quot;,&quot;slug&quot;:&quot;architecture-landscape&quot;,&quot;section_slug&quot;:&quot;culture&quot;,&quot;featured_image&quot;:&quot;https://epsilon.aeon.co/images/1dc63341-5439-455d-ae2e-e0b1de2ec022/Pont-de-Normandie-bridge.jpg&quot;},{&quot;id&quot;:2,&quot;title&quot;:&quot;Agriculture&quot;,&quot;slug&quot;:&quot;agriculture&quot;,&quot;section_slug&quot;:&quot;technology&quot;,&quot;featured_image&quot;:&quot;https://epsilon.aeon.co/images/c5d262ed-2437-479d-bc24-7c883a0b6539/Farmer-and-son-and-cows.jpg&quot;},{&quot;id&quot;:65,&quot;title&quot;:&quot;Internet \u0026 Communication&quot;,&quot;slug&quot;:&quot;internet-communication&quot;,&quot;section_slug&quot;:&quot;technology&quot;,&quot;featured_image&quot;:&quot;https://omicron.aeon.co/images/ea957bbf-b50d-4dea-8752-5730ed198c78/google-datacenter-tech-01.jpg&quot;}]}" data-trace="false" data-dom-id="Sidebar-react-component-039e681a-6933-49c6-866e-7166d7e8d23c"></div>
+    <div id="Sidebar-react-component-039e681a-6933-49c6-866e-7166d7e8d23c"></div>
+    
+
+<div class="js-react-on-rails-component" style="display:none" data-component-name="SidebarTab" data-props="{&quot;unviewed_saved_items&quot;:false,&quot;library_viewed_url&quot;:&quot;https://aeon.co/library/viewed&quot;}" data-trace="false" data-dom-id="SidebarTab-react-component-d833398b-b298-4344-b73a-791c1de92061"></div>
+    <div id="SidebarTab-react-component-d833398b-b298-4344-b73a-791c1de92061"></div>
+    
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-45522988-1', 'auto');
+
+  ga('require', 'ecommerce');
+  ga('send', 'pageview');
+</script>
+
+
+<div id='fb-root'></div>
+<script>
+  // facebook like button
+  (function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=430086400490662"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));
+  // twitter follow button
+  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+</script>
+</body>
+</html>

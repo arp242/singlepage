@@ -107,9 +107,14 @@ func TestReplaceCSSURLs(t *testing.T) {
 		{`@import './bundle_test/a.css';`, "div {\n\tdisplay: none;\n}\n"},
 		{`@import url("./bundle_test/a.css");`, "div {\n\tdisplay: none;\n}\n"},
 		{`@import url("./bundle_test/a.css") print;`, "div {\n\tdisplay: none;\n}\n"},
-
-		{`span { background-image: url('bundle_test/a.png'); }`,
-			`span { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4QsYBTofXds9gQAAAAZiS0dEAP8A/wD/oL2nkwAAAAxJREFUCB1jkPvPAAACXAEebXgQcwAAAABJRU5ErkJggg==); }`},
+		{
+			`span { background-image: url('bundle_test/a.png'); }`,
+			`span { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4QsYBTofXds9gQAAAAZiS0dEAP8A/wD/oL2nkwAAAAxJREFUCB1jkPvPAAACXAEebXgQcwAAAABJRU5ErkJggg==); }`,
+		},
+		{
+			`span { background-image: url(data:image/png;base64,iVBORw0KGgoAAA==); }`,
+			`span { background-image: url(data:image/png;base64,iVBORw0KGgoAAA==); }`,
+		},
 	}
 
 	for i, tc := range cases {

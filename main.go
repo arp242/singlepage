@@ -36,6 +36,16 @@ Flags:
 `
 
 func main() {
+	html, err := start()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%v", err)
+		os.Exit(1)
+	}
+
+	fmt.Println(html)
+}
+
+func start() (string, error) {
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "usage: singlepage [flags] file.html\n")
 		fmt.Fprintf(os.Stderr, help)
@@ -44,7 +54,7 @@ func main() {
 	}
 
 	var root, local, remote, minify string
-	flag.StringVar(&root, "root", "./", "")
+	flag.StringVar(&root, "root", "", "")
 	flag.StringVar(&local, "local", "css,js,img", "")
 	flag.StringVar(&remote, "remote", "css,js,img", "")
 	flag.StringVar(&minify, "minify", "css,js,html", "")
@@ -64,14 +74,12 @@ func main() {
 
 	b, err := ioutil.ReadFile(paths[0])
 	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		return "", err
 	}
-	h, err := singlepage.Bundle(b, opts)
+	html, err := singlepage.Bundle(b, opts)
 	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		return "", err
 	}
 
-	fmt.Println(h)
+	return html, nil
 }

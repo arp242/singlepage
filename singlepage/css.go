@@ -43,12 +43,14 @@ func replaceCSSLinks(doc *goquery.Document, opts Options) (err error) {
 		var out string
 		out, err = replaceCSSURLs(string(f))
 		if err != nil {
+			err = fmt.Errorf("could not parse %v: %v", path, err)
 			return false
 		}
 
 		if opts.MinifyCSS {
 			out, err = minifier.String("css", out)
 			if err != nil {
+				err = fmt.Errorf("could not minify %v: %v", path, err)
 				return false
 			}
 		}
@@ -70,6 +72,7 @@ func replaceCSSImports(doc *goquery.Document, opts Options) (err error) {
 		var n string
 		n, err = replaceCSSURLs(s.Text())
 		if err != nil {
+			err = fmt.Errorf("could not parse inline style block %v: %v", i, err)
 			return false
 		}
 		s.SetText(n)
@@ -121,7 +124,7 @@ func replaceCSSURLs(s string) (string, error) {
 
 					nest, err := replaceCSSURLs(string(b))
 					if err != nil {
-						return "", err
+						return "", fmt.Errorf("could not load nested CSS file %v: %v", path, err)
 					}
 					out = append(out, []byte(nest)...)
 				}
@@ -131,6 +134,10 @@ func replaceCSSURLs(s string) (string, error) {
 		case tt == css.URLToken:
 			path := string(text)
 			path = path[strings.Index(path, "(")+1 : strings.Index(path, ")")]
+			if strings.HasPrefix(path, "data:") {
+				out = append(out, text...)
+				continue
+			}
 			path = strings.Trim(path, `'"`)
 
 			f, err := readPath(path)
