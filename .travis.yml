@@ -1,6 +1,5 @@
 language: go
 go:
-  - 1.10.x
   - 1.11.x
 go_import_path: arp242.net/singlepage
 notifications:
@@ -11,7 +10,8 @@ cache:
 install:
   - ./bin/setup-travis
 script:
-  - cd $HOME/gopath/src/github.com/teamwork/singlepage
+  - cd $HOME/gopath/src/arp242.net/singlepage
+  - "[ -f go.sum ] && export GO111MODULE=on"
   - ./bin/test -race ./...
   - ./bin/coverage ./...
   - ./bin/lint ./...
