@@ -2,6 +2,8 @@ github.com/PuerkitoBio/goquery v1.4.1 h1:smcIRGdYm/w7JSbcdeLHEMzxmsBQvl8lhf0dSw2
 github.com/PuerkitoBio/goquery v1.4.1/go.mod h1:T9ezsOHcCrDCgA8aF1Cqr3sSYbO/xgdy8/R/XiIMAhA=
 github.com/andybalholm/cascadia v1.0.0 h1:hOCXnnZ5A+3eVDX8pvgl4kofXv2ELss0bKcqRySc45o=
 github.com/andybalholm/cascadia v1.0.0/go.mod h1:GsXiBklL0woXo1j/WYWtSYYC4ouU9PqHO0sqidkEA4Y=
+github.com/google/go-cmp v0.3.1/go.mod h1:8QqcDgzrUqlUb/G2PQTWiueGozuR1884gddMywk6iLU=
+github.com/pkg/errors v0.8.0/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/tdewolff/minify v2.3.5+incompatible h1:oFxBKxTIY1F/1DEJhLeh/T507W56JqZtWVrawFcdadI=
 github.com/tdewolff/minify v2.3.5+incompatible/go.mod h1:9Ov578KJUmAWpS6NeZwRZyT56Uf6o3Mcz9CEsg8USYs=
 github.com/tdewolff/parse v2.3.3+incompatible h1:q6OSjvHtvBucLb34z24OH1xl5wGdw1mI9Vd38Qj9evs=
@@ -13,3 +15,8 @@ github.com/teamwork/utils v0.0.0-20180828160709-681764439846/go.mod h1:rmPaJUVv4
 golang.org/x/net v0.0.0-20180218175443-cbe0f9307d01/go.mod h1:mL1N/T3taQHkDXs73rZJwtUhF3w3ftmwwsq0BUmARs4=
 golang.org/x/net v0.0.0-20180826012351-8a410e7b638d h1:g9qWBGx4puODJTMVyoPrpoxPFgVGd+z1DZwjfRu4d0I=
 golang.org/x/net v0.0.0-20180826012351-8a410e7b638d/go.mod h1:mL1N/T3taQHkDXs73rZJwtUhF3w3ftmwwsq0BUmARs4=
+zgo.at/utils v0.0.0-20191105050800-0bd55a7ff246 h1:YVWoMsMiwQ61gDv1T1LTpcbxZTQPRSfz3GfKu09ytOA=
+zgo.at/utils v0.0.0-20191105050800-0bd55a7ff246/go.mod h1:PET0dez1GVYYmyI5x/+eJGbyOOF9s2YW8U+gRv7Looo=
+zgo.at/ztest v0.0.0-20191016022435-f3e360521191/go.mod h1:iTxcAVkHLq73Qnd+a8rlwc6Ayrk8sbnJPsGeapG/y0Q=
+zgo.at/ztest v0.0.0-20191108073241-44bac275c1ec h1:3H3+2zlDQ+dnlD6I9Tdmqds/HfnsHzlNAZiPiXNXS4c=
+zgo.at/ztest v0.0.0-20191108073241-44bac275c1ec/go.mod h1:iTxcAVkHLq73Qnd+a8rlwc6Ayrk8sbnJPsGeapG/y0Q=

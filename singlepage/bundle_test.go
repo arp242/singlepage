@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	"github.com/PuerkitoBio/goquery"
-	"github.com/teamwork/test"
+	"zgo.at/ztest"
 )
 
 func TestNewOptions(t *testing.T) {
@@ -112,7 +112,7 @@ func TestReplaceJS(t *testing.T) {
 
 			strictMode = tt.opts.Strict
 			err = replaceJS(doc, tt.opts)
-			if !test.ErrorContains(err, tt.wantErr) {
+			if !ztest.ErrorContains(err, tt.wantErr) {
 				t.Fatalf("wrong error\nout:  %v\nwant: %v\n", err, tt.wantErr)
 			}
 
@@ -162,7 +162,7 @@ func TestReplaceImg(t *testing.T) {
 
 			strictMode = tt.opts.Strict
 			err = replaceImg(doc, tt.opts)
-			if !test.ErrorContains(err, tt.wantErr) {
+			if !ztest.ErrorContains(err, tt.wantErr) {
 				t.Fatalf("wrong error\nout:  %v\nwant: %v\n", err, tt.wantErr)
 			}
 
@@ -186,14 +186,14 @@ func TestBundle(t *testing.T) {
 		wantErr  string
 	}{
 		{
-			test.Read(t, "./testdata/a.html"),
-			test.Read(t, "./testdata/a.min.html"),
+			ztest.Read(t, "./testdata/a.html"),
+			ztest.Read(t, "./testdata/a.min.html"),
 			Options{MinifyHTML: true},
 			"",
 		},
 		//{
-		//	test.Read(t, "./testdata/a.html"),
-		//	test.Read(t, "./testdata/a.html"),
+		//	ztest.Read(t, "./testdata/a.html"),
+		//	ztest.Read(t, "./testdata/a.html"),
 		//	Options{},
 		//},
 	}
@@ -202,7 +202,7 @@ func TestBundle(t *testing.T) {
 		t.Run(fmt.Sprintf("%v", i), func(t *testing.T) {
 			strictMode = tt.opts.Strict
 			o, err := Bundle(tt.in, tt.opts)
-			if !test.ErrorContains(err, tt.wantErr) {
+			if !ztest.ErrorContains(err, tt.wantErr) {
 				t.Fatalf("wrong error\nout:  %v\nwant: %v\n", err, tt.wantErr)
 			}
 

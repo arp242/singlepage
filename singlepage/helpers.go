@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/teamwork/utils/stringutil"
+	"zgo.at/utils/stringutil"
 )
 
 // LookupError is used when we can't look up a resource. This may be a non-fatal
