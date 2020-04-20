@@ -112,17 +112,20 @@ func Bundle(html []byte, opts Options) (string, error) {
 		return "", err
 	}
 
+	if err := minifyStyleTags(doc, opts); err != nil {
+		return "", fmt.Errorf("minifyStyleTags: %w", err)
+	}
 	if err := replaceCSSLinks(doc, opts); err != nil {
-		return "", err
+		return "", fmt.Errorf("replaceCSSLinks: %w", err)
 	}
 	if err := replaceCSSImports(doc, opts); err != nil {
-		return "", err
+		return "", fmt.Errorf("replaceCSSImports: %w", err)
 	}
 	if err := replaceJS(doc, opts); err != nil {
-		return "", err
+		return "", fmt.Errorf("replaceJS", err)
 	}
 	if err := replaceImg(doc, opts); err != nil {
-		return "", err
+		return "", fmt.Errorf("replaceImg: %w", err)
 	}
 
 	h, err := doc.Html()
@@ -135,6 +138,24 @@ func Bundle(html []byte, opts Options) (string, error) {
 	return h, nil
 }
 
+func minifyStyleTags(doc *goquery.Document, opts Options) (err error) {
+	if !opts.MinifyCSS {
+		return nil
+	}
+
+	doc.Find(`style`).EachWithBreak(func(i int, s *goquery.Selection) bool {
+		var f string
+		f, err = minifier.String("css", s.Text())
+		if err != nil {
+			return false
+		}
+		s.SetText(f)
+		return true
+	})
+
+	return err
+}
+
 func replaceJS(doc *goquery.Document, opts Options) (err error) {
 	if !opts.LocalJS && !opts.RemoteJS {
 		return nil
@@ -144,6 +165,16 @@ func replaceJS(doc *goquery.Document, opts Options) (err error) {
 	doc.Find(`script`).EachWithBreak(func(i int, s *goquery.Selection) bool {
 		path, ok := s.Attr("src")
 		if !ok {
+			if !opts.MinifyJS {
+				return true
+			}
+
+			var f string
+			f, err = minifier.String("js", s.Text())
+			if err != nil {
+				return false
+			}
+			s.SetText(f)
 			return true
 		}
 		path = opts.Root + path
