@@ -1,6 +1,6 @@
 [![GoDoc](https://godoc.org/arp242.net/singlepage?status.svg)](https://pkg.go.dev/arp242.net/singlepage)
-[![Build Status](https://travis-ci.org/Carpetsmoker/singlepage.svg?branch=master)](https://travis-ci.org/Carpetsmoker/singlepage)
-[![codecov](https://codecov.io/gh/Carpetsmoker/singlepage/branch/master/graph/badge.svg)](https://codecov.io/gh/Carpetsmoker/singlepage)
+[![Build Status](https://travis-ci.com/arp242/singlepage.svg?branch=master)](https://travis-ci.com/arp242/singlepage)
+[![codecov](https://codecov.io/gh/arp242/singlepage/branch/master/graph/badge.svg)](https://codecov.io/gh/arp242/singlepage)
 
 Inline CSS, JavaScript, and images in a HTML file to distribute a stand-alone
 HTML document without external dependencies.
