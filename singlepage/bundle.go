@@ -122,7 +122,7 @@ func Bundle(html []byte, opts Options) (string, error) {
 		return "", fmt.Errorf("replaceCSSImports: %w", err)
 	}
 	if err := replaceJS(doc, opts); err != nil {
-		return "", fmt.Errorf("replaceJS", err)
+		return "", fmt.Errorf("replaceJS: %w", err)
 	}
 	if err := replaceImg(doc, opts); err != nil {
 		return "", fmt.Errorf("replaceImg: %w", err)
