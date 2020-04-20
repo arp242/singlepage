@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"mime"
+	"os"
 	"path/filepath"
 	"strings"
 
@@ -149,6 +150,11 @@ func replaceCSSURLs(s string) (string, error) {
 				continue
 			}
 			path = strings.Trim(path, `'"`)
+			m := mime.TypeByExtension(filepath.Ext(path))
+			if m == "" {
+				fmt.Fprintf(os.Stderr, "singlepage: warning: unknown MIME type for %q; skipping\n", path)
+				continue
+			}
 
 			f, err := readPath(path)
 			cont, err = warn(err)
@@ -159,7 +165,6 @@ func replaceCSSURLs(s string) (string, error) {
 				continue
 			}
 
-			m := mime.TypeByExtension(filepath.Ext(path))
 			out = append(out, []byte(fmt.Sprintf("url(data:%v;base64,%v)",
 				m, base64.StdEncoding.EncodeToString(f)))...)
 
