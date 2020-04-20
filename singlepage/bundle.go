@@ -193,6 +193,10 @@ func replaceImg(doc *goquery.Document, opts Options) (err error) {
 		}
 		path = opts.Root + path
 
+		if strings.HasPrefix(path, "data:") {
+			return true
+		}
+
 		if isRemote(path) && !opts.RemoteImg {
 			return true
 		}

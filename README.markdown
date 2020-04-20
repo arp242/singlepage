@@ -1,4 +1,4 @@
-[![GoDoc](https://godoc.org/arp242.net/singlepage?status.svg)](https://godoc.org/arp242.net/singlepage)
+[![GoDoc](https://godoc.org/arp242.net/singlepage?status.svg)](https://pkg.go.dev/arp242.net/singlepage)
 [![Build Status](https://travis-ci.org/Carpetsmoker/singlepage.svg?branch=master)](https://travis-ci.org/Carpetsmoker/singlepage)
 [![codecov](https://codecov.io/gh/Carpetsmoker/singlepage/branch/master/graph/badge.svg)](https://codecov.io/gh/Carpetsmoker/singlepage)
 
