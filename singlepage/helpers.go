@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"zgo.at/utils/stringutil"
+	"zgo.at/zstd/zstring"
 )
 
 // LookupError is used when we can't look up a resource. This may be a non-fatal
@@ -100,7 +100,7 @@ func readPath(path string) ([]byte, error) {
 		return nil, &LookupError{
 			Path: path,
 			Err: fmt.Errorf("%d %s: %s", resp.StatusCode, resp.Status,
-				stringutil.Left(string(d), 100)),
+				zstring.ElideLeft(string(d), 100)),
 		}
 	}
 

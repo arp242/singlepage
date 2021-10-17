@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	"github.com/PuerkitoBio/goquery"
-	"zgo.at/ztest"
+	"zgo.at/zstd/ztest"
 )
 
 func TestNewOptions(t *testing.T) {

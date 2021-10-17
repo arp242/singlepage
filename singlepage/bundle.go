@@ -1,4 +1,4 @@
-package singlepage // import "arp242.net/singlepage/singlepage"
+package singlepage
 
 import (
 	"bytes"

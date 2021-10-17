@@ -1,4 +1,4 @@
-package main // import "arp242.net/singlepage"
+package main
 
 import (
 	"flag"
@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"arp242.net/singlepage/singlepage"
+	"zgo.at/singlepage/singlepage"
 )
 
 const help = `
