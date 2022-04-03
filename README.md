@@ -1,18 +1,23 @@
 Inline CSS, JavaScript, and images in a HTML file to distribute a stand-alone
 HTML document without external dependencies.
 
-This program is written in Go. To install it, you'll need to have Go installed;
-you can then install it to `~/go/bin/singlepage` with `go install
-zgo.at/singlepage/cmd/singlepage`.
+You can download binaries from the [releases] page, or compile from source with
+`go install zgo.at/singlepage/cmd/singlepage@latest`, which will put a binary in
+`~/go/bin/`.
 
-Running it is as easy as `singlepage file.html > bundled.html`. There are a
-bunch of options; use `singlepage -help` to see the full documentation.
+Run it with as `singlepage file.html > bundled.html` or `cat file.html |
+singlepage > bundled.html`. There are a bunch of options; use `singlepage -help`
+to see the full documentation.
 
 Use the `zgo.at/singlepage` package if you want to integrate this in a Go
 program. Also see the API docs: https://godocs.io/zgo.at/singlepage
 
-It uses [tdewolff/minify](https://github.com/tdewolff/minify) for minification,
-so please report bugs or other questions there.
+It uses [tdewolff/minify] for minification, so please report bugs or other
+questions there.
+
+[tdewolff/minify]: https://github.com/tdewolff/minify
+[releases]: https://github.com/arp242/singlepage/releases
+
 
 Why would I want to use this?
 -----------------------------

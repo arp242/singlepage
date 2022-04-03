@@ -2,7 +2,7 @@ package singlepage
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 	"strings"
@@ -36,20 +36,20 @@ func isRemote(path string) bool {
 		strings.HasPrefix(path, "//")
 }
 
-var strictMode = false
-
 // warn about an error.
-func warn(err error) (bool, error) {
+func warn(opts Options, err error) (bool, error) {
 	switch err.(type) {
 
 	case nil:
 		return true, nil
 
 	case *LookupError, *ParseError:
-		if strictMode {
+		if opts.Strict {
 			return false, err
 		}
-		_, _ = fmt.Fprintf(os.Stderr, "singlepage: warning: %s\n", err)
+		if !opts.Quiet {
+			_, _ = fmt.Fprintf(os.Stderr, "singlepage: warning: %s\n", err)
+		}
 		return false, nil
 
 	default:
@@ -64,7 +64,7 @@ func readPath(path string) ([]byte, error) {
 		if strings.HasPrefix(path, "/") {
 			path = "." + path
 		}
-		d, err := ioutil.ReadFile(path)
+		d, err := os.ReadFile(path)
 		if err != nil {
 			return nil, &LookupError{
 				Path: path,
@@ -88,7 +88,7 @@ func readPath(path string) ([]byte, error) {
 	}
 	defer resp.Body.Close()
 
-	d, err := ioutil.ReadAll(resp.Body)
+	d, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, &LookupError{
 			Path: path,

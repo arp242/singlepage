@@ -14,88 +14,96 @@ import (
 	"github.com/tdewolff/minify/v2/css"
 	"github.com/tdewolff/minify/v2/html"
 	"github.com/tdewolff/minify/v2/js"
+	"zgo.at/zstd/zint"
+)
+
+const (
+	_    zint.Bitflag16 = 0
+	HTML zint.Bitflag16 = 1 << (iota - 1)
+	CSS
+	JS
+	Image
+	Font
 )
 
 // Options for Bundle().
 type Options struct {
-	Root                            string
-	Strict                          bool
-	LocalCSS, LocalJS, LocalImg     bool
-	RemoteCSS, RemoteJS, RemoteImg  bool
-	MinifyCSS, MinifyJS, MinifyHTML bool
+	Root   string
+	Strict bool
+	Quiet  bool
+	Local  zint.Bitflag16
+	Remote zint.Bitflag16
+	Minify zint.Bitflag16
 }
 
 // Everything is an Options struct with everything enabled.
 var Everything = Options{
-	LocalCSS: true, LocalImg: true, LocalJS: true, MinifyCSS: true,
-	MinifyHTML: true, MinifyJS: true, RemoteCSS: true, RemoteImg: true,
-	RemoteJS: true}
+	Local:  CSS | JS | Image,
+	Remote: CSS | JS | Image,
+	Minify: CSS | JS | Image,
+}
 
 var minifier *minify.M
 
-const (
-	optHTML = "html"
-	optCSS  = "css"
-	optJS   = "js"
-	optImg  = "img"
-)
-
 func init() {
 	minifier = minify.New()
-	minifier.AddFunc(optCSS, css.Minify)
+	minifier.AddFunc("css", css.Minify)
 	minifier.AddFunc("html", html.Minify)
 	minifier.AddFunc("js", js.Minify)
 }
 
 // NewOptions creates a new Options instance.
-func NewOptions(root string, strict bool) Options {
-	strictMode = strict
-	return Options{Root: root, Strict: strict}
+func NewOptions(root string, strict, quiet bool) Options {
+	return Options{Root: root, Strict: strict, Quiet: quiet}
 }
 
 // Commandline modifies the Options from the format accepted in the commandline
 // tool's flags.
-func (opts *Options) Commandline(local, remote, minify string) error {
-	for _, v := range strings.Split(strings.ToLower(local), ",") {
-		switch strings.TrimSpace(v) {
+func (opts *Options) Commandline(local, remote, minify []string) error {
+	for _, v := range local {
+		switch strings.TrimSpace(strings.ToLower(v)) {
 		case "":
 			continue
-		case optCSS:
-			opts.LocalCSS = true
-		case optJS:
-			opts.LocalJS = true
-		case optImg:
-			opts.LocalImg = true
+		case "css":
+			opts.Local |= CSS
+		case "js", "javascript":
+			opts.Local |= JS
+		case "img", "image", "images":
+			opts.Local |= Image
+		case "font", "fonts":
+			opts.Local |= Font
 		default:
-			return fmt.Errorf("unknown value for -local: %#v", v)
+			return fmt.Errorf("unknown value for -local: %q", v)
 		}
 	}
-	for _, v := range strings.Split(strings.ToLower(remote), ",") {
-		switch strings.TrimSpace(v) {
+	for _, v := range remote {
+		switch strings.TrimSpace(strings.ToLower(v)) {
 		case "":
 			continue
-		case optCSS:
-			opts.RemoteCSS = true
-		case optJS:
-			opts.RemoteJS = true
-		case optImg:
-			opts.RemoteImg = true
+		case "css":
+			opts.Remote |= CSS
+		case "js", "javascript":
+			opts.Remote |= JS
+		case "img", "image", "images":
+			opts.Remote |= Image
+		case "font", "fonts":
+			opts.Remote |= Font
 		default:
-			return fmt.Errorf("unknown value for -remote: %#v", v)
+			return fmt.Errorf("unknown value for -remote: %q", v)
 		}
 	}
-	for _, v := range strings.Split(strings.ToLower(minify), ",") {
-		switch strings.TrimSpace(v) {
+	for _, v := range minify {
+		switch strings.TrimSpace(strings.ToLower(v)) {
 		case "":
 			continue
-		case optCSS:
-			opts.MinifyCSS = true
-		case optJS:
-			opts.MinifyJS = true
-		case optHTML:
-			opts.MinifyHTML = true
+		case "css":
+			opts.Minify |= CSS
+		case "js", "javascript":
+			opts.Minify |= JS
+		case "html":
+			opts.Minify |= HTML
 		default:
-			return fmt.Errorf("unknown value for -minify: %#v", v)
+			return fmt.Errorf("unknown value for -minify: %q", v)
 		}
 	}
 	return nil
@@ -132,14 +140,14 @@ func Bundle(html []byte, opts Options) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if opts.MinifyHTML {
+	if opts.Minify.Has(HTML) {
 		return minifier.String("html", h)
 	}
 	return h, nil
 }
 
 func minifyStyleTags(doc *goquery.Document, opts Options) (err error) {
-	if !opts.MinifyCSS {
+	if !opts.Minify.Has(CSS) {
 		return nil
 	}
 
@@ -157,7 +165,7 @@ func minifyStyleTags(doc *goquery.Document, opts Options) (err error) {
 }
 
 func replaceJS(doc *goquery.Document, opts Options) (err error) {
-	if !opts.LocalJS && !opts.RemoteJS {
+	if !opts.Local.Has(JS) && !opts.Remote.Has(JS) {
 		return nil
 	}
 
@@ -165,7 +173,7 @@ func replaceJS(doc *goquery.Document, opts Options) (err error) {
 	doc.Find(`script`).EachWithBreak(func(i int, s *goquery.Selection) bool {
 		path, ok := s.Attr("src")
 		if !ok {
-			if !opts.MinifyJS {
+			if !opts.Minify.Has(JS) {
 				return true
 			}
 
@@ -179,16 +187,16 @@ func replaceJS(doc *goquery.Document, opts Options) (err error) {
 		}
 		path = opts.Root + path
 
-		if isRemote(path) && !opts.RemoteJS {
+		if isRemote(path) && !opts.Remote.Has(JS) {
 			return true
 		}
-		if !isRemote(path) && !opts.LocalJS {
+		if !isRemote(path) && !opts.Local.Has(JS) {
 			return true
 		}
 
 		var f []byte
 		f, err = readPath(path)
-		cont, err = warn(err)
+		cont, err = warn(opts, err)
 		if err != nil {
 			return false
 		}
@@ -196,7 +204,7 @@ func replaceJS(doc *goquery.Document, opts Options) (err error) {
 			return true
 		}
 
-		if opts.MinifyJS {
+		if opts.Minify.Has(JS) {
 			f, err = minifier.Bytes("js", f)
 			if err != nil {
 				return false
@@ -212,7 +220,7 @@ func replaceJS(doc *goquery.Document, opts Options) (err error) {
 }
 
 func replaceImg(doc *goquery.Document, opts Options) (err error) {
-	if !opts.LocalImg && !opts.RemoteImg {
+	if !opts.Local.Has(Image) && !opts.Remote.Has(Image) {
 		return nil
 	}
 
@@ -228,16 +236,16 @@ func replaceImg(doc *goquery.Document, opts Options) (err error) {
 			return true
 		}
 
-		if isRemote(path) && !opts.RemoteImg {
+		if isRemote(path) && !opts.Remote.Has(Image) {
 			return true
 		}
-		if !isRemote(path) && !opts.LocalImg {
+		if !isRemote(path) && !opts.Local.Has(Image) {
 			return true
 		}
 
 		var f []byte
 		f, err = readPath(path)
-		cont, err = warn(err)
+		cont, err = warn(opts, err)
 		if err != nil {
 			return false
 		}
@@ -247,7 +255,7 @@ func replaceImg(doc *goquery.Document, opts Options) (err error) {
 
 		m := mime.TypeByExtension(filepath.Ext(path))
 		if m == "" {
-			cont, err = warn(&ParseError{Path: path, Err: errors.New("could not find MIME type")})
+			cont, err = warn(opts, &ParseError{Path: path, Err: errors.New("could not find MIME type")})
 			if err != nil {
 				return false
 			}

@@ -1,87 +1,120 @@
 package main
 
 import (
-	"flag"
+	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
+	"runtime/debug"
 
 	"zgo.at/singlepage"
+	"zgo.at/zli"
 )
 
-const help = `
-Bundle local and remote assets in a HTML file.
+const usage = `usage: singlepage [flags] file.html
 
-The -local, -remote, and -minify accept a comma-separated list of asset types;
-the default is to include all the supported types. Pass an empty string to
-disable the feature (e.g. -remote '').
+Bundle external assets in a HTML file to distribute a stand-alone HTML document.
+https://github.com/arp242/singlepage
 
-Assets are looked up relative to the path in -root which may be a remote path
-(e.g. http://example.com), in which case all resources are fetched relative to
-that domain (and are treated as external).
-
-For remote assets only "http://", "https://", and "//" are supported; // is
-treated as https://.
-
-Limitations:
-
-- Fonts are not bundled.
-- We should support 'minification' of images (e.g. optipng).
-- Everything is read in memory; you probably don't want to create very large
-  documents with this (practically, this shouldn't be an issue for most sane
-  documents, since browsers will start having problems after a few MB).
+The -local, -remote, and -minify can be given more than once and/or accept a
+comma-separated list of asset types; the default is to include all the supported
+types. Pass an empty string to disable the feature (e.g. -remote '').
 
 Flags:
 
+    -h, -help      Show this help.
+
+    -v, -version   Show version; add twice for detailed build info.
+
+    -q, -quiet     Don't print warnings to stderr.
+
+    -S, -strict    Fail on lookup or parse errors instead of leaving the content alone.
+
+    -w, -write     Write the result to the input file instead of printing it.
+
+    -r, -root      Assets are looked up relative to the path in -root, which may
+                   be a remote path (e.g. http://example.com), in which case all
+                   "//resources" are fetched relative to that domain (and are
+                   treated as external).
+
+    -l, -local     Filetypes to include from the local filesystem. Supports css,
+                   js, img, and font.
+
+    -r, -remote    Filetypes to include from remote sources. Only only
+                   "http://", "https://", and "//" are supported; "//" is
+                   treated as "https://". Suports css, js, img, and font.
+
+    -m, -minify    Filetypes to minify. Support js, css, and html.
 `
 
-func main() {
-	html, err := start()
-	if err != nil {
-		_, _ = fmt.Fprintf(os.Stderr, "singlepage: error: "+err.Error()+"\n")
-		os.Exit(1)
+var version = "git"
+
+func fatal(err error) {
+	if err == nil {
+		return
 	}
 
-	fmt.Println(html)
+	zli.Errorf(err)
+	fmt.Print("\n", usage)
+	zli.Exit(1)
 }
 
-func start() (string, error) {
-	flag.Usage = func() {
-		_, _ = fmt.Fprintf(os.Stderr, "usage: singlepage [flags] file.html\n")
-		_, _ = fmt.Fprint(os.Stderr, help)
-		flag.PrintDefaults()
-		_, _ = fmt.Fprintf(os.Stderr, "\n")
+func main() {
+	f := zli.NewFlags(os.Args)
+	var (
+		help     = f.Bool(false, "h", "help")
+		versionF = f.IntCounter(0, "v", "version")
+		quiet    = f.Bool(false, "q", "quiet")
+		strict   = f.Bool(false, "S", "strict")
+		write    = f.Bool(false, "w", "write")
+		root     = f.String("", "r", "root", "")
+		local    = f.StringList([]string{"css,js,img"}, "l", "local")
+		remote   = f.StringList([]string{"css,js,img"}, "r", "remote")
+		minify   = f.StringList([]string{"css,js,html"}, "m", "minify")
+	)
+	fatal(f.Parse())
+
+	if help.Bool() {
+		fmt.Print(usage)
+		return
 	}
 
-	root := flag.String("root", "", "look up assets relative to this path")
-	local := flag.String("local", "css,js,img", "")
-	remote := flag.String("remote", "css,js,img", "")
-	minify := flag.String("minify", "css,js,html", "")
-	strict := flag.Bool("strict", false,
-		"fail on lookup or parse errors instead of leaving the content alone")
-	flag.Parse()
+	if versionF.Int() > 0 {
+		fmt.Println("singlepage", version)
 
-	opts := singlepage.NewOptions(*root, *strict)
-	err := opts.Commandline(*local, *remote, *minify)
-	if err != nil {
-		flag.Usage()
-		return "", err
+		if versionF.Int() > 1 {
+			if b, ok := debug.ReadBuildInfo(); !ok {
+				fmt.Println("failed reading detailed build info")
+			} else {
+				fmt.Print("\n", b)
+			}
+		}
+		return
 	}
 
-	paths := flag.Args()
-	if len(paths) != 1 {
-		flag.Usage()
-		return "", fmt.Errorf("must specify the path to exactly one HTML file")
+	opts := singlepage.NewOptions(root.String(), strict.Bool(), quiet.Bool())
+	err := opts.Commandline(local.StringsSplit(","), remote.StringsSplit(","), minify.StringsSplit(","))
+	fatal(err)
+
+	path := f.Shift()
+	if path == "" && write.Bool() {
+		fatal(errors.New("cannot use -write when reading from stdin"))
 	}
 
-	b, err := ioutil.ReadFile(paths[0])
-	if err != nil {
-		return "", err
-	}
+	fp, err := zli.InputOrFile(path, quiet.Bool())
+	fatal(err)
+	defer fp.Close()
+
+	b, err := io.ReadAll(fp)
+	fatal(err)
+
 	html, err := singlepage.Bundle(b, opts)
-	if err != nil {
-		return "", err
-	}
+	fatal(err)
 
-	return html, nil
+	if write.Bool() {
+		fp.Close()
+		fatal(os.WriteFile(path, []byte(html), 0644))
+	} else {
+		fmt.Println(html)
+	}
 }

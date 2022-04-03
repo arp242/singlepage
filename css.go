@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"mime"
-	"os"
 	"path/filepath"
 	"strings"
 
@@ -17,7 +16,7 @@ import (
 // Replace <link rel="stylesheet" href="/_static/style.css"> with
 // <style>..</style>
 func replaceCSSLinks(doc *goquery.Document, opts Options) (err error) {
-	if !opts.LocalCSS && !opts.RemoteCSS {
+	if !opts.Local.Has(CSS) && !opts.Remote.Has(CSS) {
 		return nil
 	}
 
@@ -29,16 +28,16 @@ func replaceCSSLinks(doc *goquery.Document, opts Options) (err error) {
 		}
 		path = opts.Root + path
 
-		if isRemote(path) && !opts.RemoteCSS {
+		if isRemote(path) && !opts.Remote.Has(CSS) {
 			return true
 		}
-		if !isRemote(path) && !opts.LocalCSS {
+		if !isRemote(path) && !opts.Local.Has(CSS) {
 			return true
 		}
 
 		var f []byte
 		f, err = readPath(path)
-		cont, err = warn(err)
+		cont, err = warn(opts, err)
 		if err != nil {
 			return false
 		}
@@ -48,13 +47,13 @@ func replaceCSSLinks(doc *goquery.Document, opts Options) (err error) {
 
 		// Replace @imports
 		var out string
-		out, err = replaceCSSURLs(string(f))
+		out, err = replaceCSSURLs(opts, string(f))
 		if err != nil {
 			err = fmt.Errorf("could not parse %v: %v", path, err)
 			return false
 		}
 
-		if opts.MinifyCSS {
+		if opts.Minify.Has(CSS) {
 			out, err = minifier.String("css", out)
 			if err != nil {
 				err = fmt.Errorf("could not minify %v: %v", path, err)
@@ -71,13 +70,13 @@ func replaceCSSLinks(doc *goquery.Document, opts Options) (err error) {
 
 // Replace @import "path"; and url("..")
 func replaceCSSImports(doc *goquery.Document, opts Options) (err error) {
-	if !opts.LocalCSS && !opts.RemoteCSS {
+	if !opts.Local.Has(CSS) && !opts.Remote.Has(CSS) {
 		return nil
 	}
 
 	doc.Find("style").EachWithBreak(func(i int, s *goquery.Selection) bool {
 		var n string
-		n, err = replaceCSSURLs(s.Text())
+		n, err = replaceCSSURLs(opts, s.Text())
 		if err != nil {
 			err = fmt.Errorf("could not parse inline style block %v: %v", i, err)
 			return false
@@ -88,7 +87,7 @@ func replaceCSSImports(doc *goquery.Document, opts Options) (err error) {
 	return err
 }
 
-func replaceCSSURLs(s string) (string, error) {
+func replaceCSSURLs(opts Options, s string) (string, error) {
 	l := css.NewLexer(parse.NewInputString(s))
 	var out []byte
 	var cont bool
@@ -126,7 +125,7 @@ func replaceCSSURLs(s string) (string, error) {
 
 				if path != "" {
 					b, err := readPath(path)
-					cont, err = warn(err)
+					cont, err = warn(opts, err)
 					if err != nil {
 						return "", err
 					}
@@ -134,7 +133,7 @@ func replaceCSSURLs(s string) (string, error) {
 						continue
 					}
 
-					nest, err := replaceCSSURLs(string(b))
+					nest, err := replaceCSSURLs(opts, string(b))
 					if err != nil {
 						return "", fmt.Errorf("could not load nested CSS file %v: %v", path, err)
 					}
@@ -142,7 +141,7 @@ func replaceCSSURLs(s string) (string, error) {
 				}
 			}
 
-		// Images
+		// Images and fonts
 		case tt == css.URLToken:
 			path := string(text)
 			path = path[strings.Index(path, "(")+1 : strings.Index(path, ")")]
@@ -150,15 +149,28 @@ func replaceCSSURLs(s string) (string, error) {
 				out = append(out, text...)
 				continue
 			}
+
 			path = strings.Trim(path, `'"`)
 			m := mime.TypeByExtension(filepath.Ext(path))
 			if m == "" {
-				fmt.Fprintf(os.Stderr, "singlepage: warning: unknown MIME type for %q; skipping\n", path)
+				warn(opts, fmt.Errorf("unknown MIME type for %q; skipping", path))
+				out = append(out, text...)
+				continue
+			}
+
+			remote := isRemote(path)
+			if strings.HasPrefix(m, "image/") &&
+				((remote && !opts.Remote.Has(Image)) || (!remote && !opts.Local.Has(Image))) {
+				out = append(out, text...)
+				continue
+			} else if strings.HasPrefix(m, "font/") &&
+				((remote && !opts.Remote.Has(Font)) || (!remote && !opts.Local.Has(Font))) {
+				out = append(out, text...)
 				continue
 			}
 
 			f, err := readPath(path)
-			cont, err = warn(err)
+			cont, err = warn(opts, err)
 			if err != nil {
 				return "", err
 			}

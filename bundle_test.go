@@ -13,20 +13,20 @@ import (
 
 func TestNewOptions(t *testing.T) {
 	tests := []struct {
-		root, local, remote, minify string
-		want                        Options
+		root                  string
+		local, remote, minify []string
+		want                  Options
 	}{
-		{"./", "css,", "", "CSS,jS", Options{
-			Root:      "./",
-			LocalCSS:  true,
-			MinifyCSS: true,
-			MinifyJS:  true,
+		{"./", []string{"css"}, []string{""}, []string{"CSS", "jS"}, Options{
+			Root:   "./",
+			Local:  CSS,
+			Minify: CSS | JS,
 		}},
 	}
 
 	for i, tt := range tests {
 		t.Run(fmt.Sprintf("%v", i), func(t *testing.T) {
-			out := NewOptions(tt.root, false)
+			out := NewOptions(tt.root, false, false)
 			err := out.Commandline(tt.local, tt.remote, tt.minify)
 			if err != nil {
 				t.Fatal(err)
@@ -71,13 +71,13 @@ func TestReplaceJS(t *testing.T) {
 		{
 			`<script src="./testdata/a.js"></script>`,
 			`<script>var foo={t:!0}</script>`,
-			Options{LocalJS: true, MinifyJS: true},
+			Options{Local: JS, Minify: JS},
 			"",
 		},
 		{
 			`<script src="./testdata/a.js"></script>`,
 			"<script>var foo = {\n\tt: true,\n};\n</script>",
-			Options{LocalJS: true},
+			Options{Local: JS},
 			"",
 		},
 		{
@@ -89,13 +89,13 @@ func TestReplaceJS(t *testing.T) {
 		{
 			`<script src="./testdata/nonexist.js"></script>`,
 			`<script src="./testdata/nonexist.js"></script>`,
-			Options{LocalJS: true},
+			Options{Local: JS},
 			"",
 		},
 		{
 			`<script src="./testdata/nonexist.js"></script>`,
 			`<script src="./testdata/nonexist.js"></script>`,
-			Options{LocalJS: true, Strict: true},
+			Options{Local: JS, Strict: true},
 			"no such file or directory",
 		},
 	}
@@ -110,7 +110,6 @@ func TestReplaceJS(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			strictMode = tt.opts.Strict
 			err = replaceJS(doc, tt.opts)
 			if !ztest.ErrorContains(err, tt.wantErr) {
 				t.Fatalf("wrong error\nout:  %v\nwant: %v\n", err, tt.wantErr)
@@ -138,7 +137,7 @@ func TestReplaceImg(t *testing.T) {
 		{
 			`<img src="./testdata/a.png"/>`,
 			`<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4QsYBTofXds9gQAAAAZiS0dEAP8A/wD/oL2nkwAAAAxJREFUCB1jkPvPAAACXAEebXgQcwAAAABJRU5ErkJggg=="/>`,
-			Options{LocalImg: true},
+			Options{Local: Image},
 			"",
 		},
 		{
@@ -159,7 +158,6 @@ func TestReplaceImg(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			strictMode = tt.opts.Strict
 			err = replaceImg(doc, tt.opts)
 			if !ztest.ErrorContains(err, tt.wantErr) {
 				t.Fatalf("wrong error\nout:  %v\nwant: %v\n", err, tt.wantErr)
@@ -187,7 +185,7 @@ func TestBundle(t *testing.T) {
 		{
 			ztest.Read(t, "./testdata/a.html"),
 			ztest.Read(t, "./testdata/a.min.html"),
-			Options{MinifyHTML: true},
+			Options{Minify: HTML},
 			"",
 		},
 		//{
@@ -199,7 +197,6 @@ func TestBundle(t *testing.T) {
 
 	for i, tt := range tests {
 		t.Run(fmt.Sprintf("%v", i), func(t *testing.T) {
-			strictMode = tt.opts.Strict
 			o, err := Bundle(tt.in, tt.opts)
 			if !ztest.ErrorContains(err, tt.wantErr) {
 				t.Fatalf("wrong error\nout:  %v\nwant: %v\n", err, tt.wantErr)

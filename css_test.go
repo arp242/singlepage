@@ -16,12 +16,12 @@ func TestReplaceCSSLinks(t *testing.T) {
 		{
 			`<link rel="stylesheet" href="./testdata/a.css">`,
 			`<style>div{display:none}</style>`,
-			Options{LocalCSS: true, MinifyCSS: true},
+			Options{Local: CSS, Minify: CSS},
 		},
 		{
 			`<link rel="stylesheet" href="./testdata/a.css">`,
 			"<style>div {\n\tdisplay: none;\n}\n</style>",
-			Options{LocalCSS: true},
+			Options{Local: CSS},
 		},
 		{
 			`<link rel="stylesheet" href="./testdata/a.css">`,
@@ -81,7 +81,7 @@ func TestReplaceCSSImports(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			err = replaceCSSImports(doc, Options{LocalCSS: true})
+			err = replaceCSSImports(doc, Options{Local: CSS})
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -118,7 +118,7 @@ func TestReplaceCSSURLs(t *testing.T) {
 
 	for i, tt := range tests {
 		t.Run(fmt.Sprintf("%v", i), func(t *testing.T) {
-			out, err := replaceCSSURLs(tt.in)
+			out, err := replaceCSSURLs(Options{Local: CSS | Image}, tt.in)
 			if err != nil {
 				t.Fatal(err)
 			}
