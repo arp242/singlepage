@@ -98,7 +98,6 @@ func TestReplaceCSSImports(t *testing.T) {
 	}
 }
 
-// nolint: lll
 func TestReplaceCSSURLs(t *testing.T) {
 	tests := []struct {
 		in, want string

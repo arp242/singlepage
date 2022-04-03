@@ -48,7 +48,7 @@ func main() {
 func start() (string, error) {
 	flag.Usage = func() {
 		_, _ = fmt.Fprintf(os.Stderr, "usage: singlepage [flags] file.html\n")
-		_, _ = fmt.Fprintf(os.Stderr, help)
+		_, _ = fmt.Fprint(os.Stderr, help)
 		flag.PrintDefaults()
 		_, _ = fmt.Fprintf(os.Stderr, "\n")
 	}

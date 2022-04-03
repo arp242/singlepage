@@ -10,7 +10,8 @@ import (
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
-	"github.com/tdewolff/parse/css"
+	"github.com/tdewolff/parse/v2"
+	"github.com/tdewolff/parse/v2/css"
 )
 
 // Replace <link rel="stylesheet" href="/_static/style.css"> with
@@ -88,7 +89,7 @@ func replaceCSSImports(doc *goquery.Document, opts Options) (err error) {
 }
 
 func replaceCSSURLs(s string) (string, error) {
-	l := css.NewLexer(strings.NewReader(s))
+	l := css.NewLexer(parse.NewInputString(s))
 	var out []byte
 	var cont bool
 	for {

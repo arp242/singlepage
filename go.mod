@@ -3,9 +3,8 @@ module zgo.at/singlepage
 go 1.13
 
 require (
-	github.com/PuerkitoBio/goquery v1.5.1
-	github.com/tdewolff/minify v2.3.6+incompatible
-	github.com/tdewolff/parse v2.3.4+incompatible
-	github.com/tdewolff/test v1.0.6 // indirect
-	zgo.at/zstd v0.0.0-20211017205211-017273d7d29c
+	github.com/PuerkitoBio/goquery v1.8.0
+	github.com/tdewolff/minify/v2 v2.10.0
+	github.com/tdewolff/parse/v2 v2.5.27
+	zgo.at/zstd v0.0.0-20220306174247-aa79e904bd64
 )

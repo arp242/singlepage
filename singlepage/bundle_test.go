@@ -70,7 +70,7 @@ func TestReplaceJS(t *testing.T) {
 	}{
 		{
 			`<script src="./testdata/a.js"></script>`,
-			`<script>var foo={t:true,};</script>`,
+			`<script>var foo={t:!0}</script>`,
 			Options{LocalJS: true, MinifyJS: true},
 			"",
 		},
@@ -129,7 +129,6 @@ func TestReplaceJS(t *testing.T) {
 	}
 }
 
-// nolint: lll
 func TestReplaceImg(t *testing.T) {
 	tests := []struct {
 		in, want string

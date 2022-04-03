@@ -86,7 +86,7 @@ func readPath(path string) ([]byte, error) {
 			Err:  err,
 		}
 	}
-	defer resp.Body.Close() // nolint: errcheck
+	defer resp.Body.Close()
 
 	d, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
