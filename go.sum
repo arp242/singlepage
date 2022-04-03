@@ -28,7 +28,7 @@ golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1/go.mod h1:bj7SfCRtBDWHUb9sn
 golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
 golang.org/x/text v0.3.6/go.mod h1:5Zoc/QRtKVWzQhOtBMvqHzDpF6irO9z98xDceosuGiQ=
 golang.org/x/tools v0.0.0-20180917221912-90fa682c2a6e/go.mod h1:n7NCudcB/nEzxVGmLbDWY5pfWTLqBcC2KZ6jyYvM4mQ=
-zgo.at/zli v0.0.0-20211217060124-0859994468a9 h1:Q1djnaehG2DaHeZLqoyXhIPz5teYeg+pB3Zs7u5L6mA=
-zgo.at/zli v0.0.0-20211217060124-0859994468a9/go.mod h1:HLAc12TjNGT+VRXr76JnsNE3pbooQtwKWhX+RlDjQ2Y=
+zgo.at/zli v0.0.0-20220403205301-99207e5ec503 h1:KOxWPVKaXms8wK1s3ik00Sbk0GiIFwvTtz9DJSe5rLM=
+zgo.at/zli v0.0.0-20220403205301-99207e5ec503/go.mod h1:HLAc12TjNGT+VRXr76JnsNE3pbooQtwKWhX+RlDjQ2Y=
 zgo.at/zstd v0.0.0-20220306174247-aa79e904bd64 h1:HAVMPWihLj5efVqidp9roItAE1qLKKlJeyQA7OLMheY=
 zgo.at/zstd v0.0.0-20220306174247-aa79e904bd64/go.mod h1:sQqrTxBwKW0nlwcOg9RxXB8ikY+NBciJnJRPOq/gEuY=

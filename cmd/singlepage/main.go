@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"runtime/debug"
 
 	"zgo.at/singlepage"
 	"zgo.at/zli"
@@ -47,8 +46,6 @@ Flags:
     -m, -minify    Filetypes to minify. Support js, css, and html.
 `
 
-var version = "git"
-
 func fatal(err error) {
 	if err == nil {
 		return
@@ -80,15 +77,7 @@ func main() {
 	}
 
 	if versionF.Int() > 0 {
-		fmt.Println("singlepage", version)
-
-		if versionF.Int() > 1 {
-			if b, ok := debug.ReadBuildInfo(); !ok {
-				fmt.Println("failed reading detailed build info")
-			} else {
-				fmt.Print("\n", b)
-			}
-		}
+		zli.PrintVersion(versionF.Int() > 1)
 		return
 	}
 
