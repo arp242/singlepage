@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"zgo.at/singlepage/singlepage"
+	"zgo.at/singlepage"
 )
 
 const help = `
