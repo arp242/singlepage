@@ -235,8 +235,13 @@ func replaceImg(doc *goquery.Document, opts Options) (err error) {
 	}
 
 	var cont bool
-	doc.Find(`img`).EachWithBreak(func(i int, s *goquery.Selection) bool {
-		path, ok := s.Attr("src")
+	doc.Find(`img, link[rel="icon"]`).EachWithBreak(func(i int, s *goquery.Selection) bool {
+		attr := "src"
+		if s.Is("link") {
+			attr = "href"
+		}
+
+		path, ok := s.Attr(attr)
 		if !ok {
 			return true
 		}
@@ -245,7 +250,6 @@ func replaceImg(doc *goquery.Document, opts Options) (err error) {
 		if strings.HasPrefix(path, "data:") {
 			return true
 		}
-
 		if isRemote(path) && !opts.Remote.Has(Image) {
 			return true
 		}
@@ -274,7 +278,7 @@ func replaceImg(doc *goquery.Document, opts Options) (err error) {
 			}
 		}
 
-		s.SetAttr("src", fmt.Sprintf("data:%v;base64,%v",
+		s.SetAttr(attr, fmt.Sprintf("data:%v;base64,%v",
 			m, base64.StdEncoding.EncodeToString(f)))
 		return true
 	})
