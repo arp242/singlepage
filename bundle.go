@@ -211,7 +211,17 @@ func replaceJS(doc *goquery.Document, opts Options) (err error) {
 			}
 		}
 
-		s.AfterHtml("<script>" + string(f) + "</script>")
+		var attr []string
+		for _, a := range s.Nodes[0].Attr {
+			if strings.HasPrefix(a.Key, "data-") {
+				attr = append(attr, fmt.Sprintf(`%s="%s"`, a.Key, strings.ReplaceAll(a.Val, `"`, `&quot;`)))
+			}
+		}
+		tag := "<script>"
+		if len(attr) > 0 {
+			tag = "<script " + strings.Join(attr, " ") + ">"
+		}
+		s.AfterHtml(tag + string(f) + "</script>")
 		s.Remove()
 		return true
 	})
