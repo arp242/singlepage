@@ -81,7 +81,7 @@ func replaceCSSImports(doc *goquery.Document, opts Options) (err error) {
 			err = fmt.Errorf("could not parse inline style block %v: %v", i, err)
 			return false
 		}
-		s.SetText(n)
+		s.SetHtml(n)
 		return true
 	})
 	return err

@@ -157,7 +157,7 @@ func minifyStyleTags(doc *goquery.Document, opts Options) (err error) {
 		if err != nil {
 			return false
 		}
-		s.SetText(f)
+		s.SetHtml(f)
 		return true
 	})
 
@@ -182,7 +182,7 @@ func replaceJS(doc *goquery.Document, opts Options) (err error) {
 			if err != nil {
 				return false
 			}
-			s.SetText(f)
+			s.SetHtml(f)
 			return true
 		}
 		path = opts.Root + path
