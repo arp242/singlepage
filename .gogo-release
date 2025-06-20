@@ -1,1 +1,1 @@
-build_flags="$build_flags -ldflags '-X \"zgo.at/zli.version=$tag$commit_info\" -X \"zgo.at/zli.progname=singlepage\"'"
+build_flags="-ldflags '-X \"zgo.at/zli.version=$tag$commit_info\" -X \"zgo.at/zli.progname=singlepage\"' $build_flags"
